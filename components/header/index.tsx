@@ -1,0 +1,179 @@
+"use client";
+
+import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+
+import { blogsConfig } from "@/config/blogs";
+import { chatbotConfig } from "@/config/chatbot";
+import { newsConfig } from "@/config/news";
+import { auth } from "@/firebase/firebaseApp";
+import { light, dark } from "@/styles/chakra/colors";
+import { HamburgerIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  Grid,
+  Heading,
+  Icon,
+  IconButton,
+  Show,
+  useColorModeValue,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
+import React from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { useSetRecoilState } from "recoil";
+import UserAvatar from "../auth/avatar/UserAvatar";
+import SignoutButton from "../auth/modal/SignoutButton";
+import DarkModeSwitch from "./DarkModeSwitch";
+import HeaderMenu from "./HeaderMenu";
+import MobileDrawer from "./MobileDrawer";
+import { animeConfig } from "@/config/anime";
+
+type HeaderProps = {};
+
+const Header: React.FC<HeaderProps> = () => {
+  const color = useColorModeValue(light, dark);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const router = useRouter();
+
+  const toggleDrawer = () => {
+    if (isOpen) {
+      onClose();
+    } else {
+      onOpen();
+    }
+  };
+
+  const [user, loading, error] = useAuthState(auth);
+  const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
+
+  return (
+    <Box as="header">
+      <Flex
+        w="full"
+        h="4rem"
+        maxH="4rem"
+        borderBottom="1px solid"
+        borderColor={color.outline}
+        bg={color.semiPrimaryContainer}
+        color={color.onPrimaryContainer}
+        backdropBlur="16px"
+        backdropFilter="blur(16px)"
+      >
+        <Container
+          maxW="container.xl"
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <Show below="md">
+            <DarkModeSwitch />
+          </Show>
+
+          <Heading
+            flexShrink={0}
+            onClick={() => router.push("/")}
+            cursor="pointer"
+          >
+            TFIX
+          </Heading>
+          {/* pc */}
+          <Show above="md">
+            <Grid
+              w="full"
+              gridTemplateColumns="1fr auto auto auto"
+              alignItems="center"
+              gap="4"
+              ml="8"
+            >
+              {/* menu */}
+              <Flex gap="2">
+                <HeaderMenu
+                  color={color}
+                  buttonText="News"
+                  menuGroupTitle="Category"
+                  navItems={newsConfig.mainNav}
+                />
+                <HeaderMenu
+                  color={color}
+                  buttonText="Anime"
+                  menuGroupTitle="Discover"
+                  navItems={animeConfig.mainNav}
+                />
+                <HeaderMenu
+                  color={color}
+                  buttonText="Blogs"
+                  menuGroupTitle="Connect"
+                  navItems={blogsConfig.mainNav}
+                />
+                <HeaderMenu
+                  color={color}
+                  buttonText="Chatbot"
+                  menuGroupTitle="ChatGPT"
+                  navItems={chatbotConfig.mainNav}
+                />
+              </Flex>
+              {/* menu */}
+              <DarkModeSwitch />
+              {!user && (
+                <Button
+                  variant="custom_outline"
+                  isLoading={loading}
+                  onClick={() =>
+                    setAuthModalState({ open: true, view: "login" })
+                  }
+                >
+                  Log in
+                </Button>
+              )}
+              {!user && (
+                <Button
+                  variant="custom_solid"
+                  isLoading={loading}
+                  onClick={() =>
+                    setAuthModalState({ open: true, view: "signup" })
+                  }
+                >
+                  Sign up
+                </Button>
+              )}
+              {user && <UserAvatar user={user} />}
+              {user && <SignoutButton variant="solid" />}
+            </Grid>
+          </Show>
+          {/* pc */}
+          {/* mobile */}
+          <Show below="md">
+            <IconButton
+              variant="ghost"
+              aria-label="Open mobile menu"
+              icon={
+                <Icon
+                  as={isOpen ? SmallCloseIcon : HamburgerIcon}
+                  boxSize={6}
+                />
+              }
+              onClick={toggleDrawer}
+            />
+          </Show>
+          {/* mobile */}
+
+          {/* mobile menu */}
+          <Show below="md">
+            <MobileDrawer
+              isOpen={isOpen}
+              onClose={onClose}
+              color={color}
+              user={user}
+            />
+          </Show>
+          {/* mobile menu */}
+        </Container>
+      </Flex>
+    </Box>
+  );
+};
+export default Header;

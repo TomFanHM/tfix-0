@@ -1,102 +1,115 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import SimpleStack from "@/components/action/SimpleStack";
+import LargeCard from "@/components/card/LargeCard";
+import NormalCard from "@/components/card/NormalCard";
+import GridLine from "@/components/container/GridLine";
+import GridWrapper from "@/components/container/GridWrapper";
+import MotionContainer from "@/components/container/MotionContainer";
+import BannerText from "@/components/hero/BannerText";
+import HeroBanner from "@/components/hero/HeroBanner";
+import GridSpacer from "@/components/others/GridSpacer";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <GridLine>
+      <HeroBanner
+        title="Your Gateway to Discovery"
+        message="Unlock endless possibilities, fuel your curiosity, and let your imagination soar in this world of discovery!"
+      />
+      <MotionContainer>
+        <GridWrapper>
+          {/* news */}
+          <BannerText
+            topText="News"
+            middleText="Stay informed, stay connected"
+            bottomText="Unravel diverse perspectives and explore the world through journalism"
+          />
+          <NormalCard
+            title="Breaking News"
+            message="Get the latest headlines and updates in real-time"
+            prompt="Catch up now"
+            backgroundImage="/images/news.PNG"
+            customColor={{ light: "#000", dark: "#000" }}
+            url="/news"
+          />
+          <NormalCard
+            title="Editor's Picks"
+            message="Discover handpicked news stories by our editors"
+            prompt="Explore picks"
+            backgroundImage="/images/news_like.PNG"
+            customColor={{ light: "#000", dark: "#000" }}
+            url="/news/like"
+          />
+          {/* anime */}
+          <GridSpacer />
+          <BannerText
+            topText="Anime"
+            middleText="Join us in our vibrant anime universe"
+            bottomText="Delve into captivating stories with our extensive anime collection. Ignite your imagination today"
+          />
+          <LargeCard
+            title="Featured Anime"
+            message="Immerse yourself in our curated anime selection, handpicked by our staff for your enjoyment"
+            prompt="Watch now"
+            url="/anime"
+          />
+          <NormalCard
+            title="Popular Anime"
+            message="Explore top-rated animes loved by our community"
+            prompt="See popular"
+            url="/anime/popular"
+          />
+          <NormalCard
+            title="New Releases"
+            message="Stay updated with the latest anime titles"
+            prompt="Discover new"
+            url="/anime/new_releases"
+          />
+          {/* blog */}
+          <GridSpacer />
+          <BannerText
+            topText="Blog"
+            middleText="Share your thoughts, create connections"
+            bottomText="Voice your opinions and interact with like-minded individuals. Experience the power of collective wisdom"
+          />
+          <NormalCard
+            title="Featured Posts"
+            message="Read insightful articles by our talented contributors"
+            prompt="Read more"
+            backgroundImage="/images/blog.PNG"
+            customColor={{ light: "#000", dark: "#000" }}
+            url="/blog"
+          />
+          <NormalCard
+            title="Write a Post"
+            message="Share your ideas and engage with our growing community"
+            prompt="Start writing"
+            backgroundImage="/images/blog_write.PNG"
+            customColor={{ light: "#000", dark: "#000" }}
+            url="/blog/create"
+          />
+          {/* chatbot */}
+          <GridSpacer />
+          <BannerText
+            topText="Chatbot"
+            middleText="Embrace engaging interactions"
+            bottomText="Personalized assistance at your fingertips"
+          />
+          <LargeCard
+            title="Powered by OpenAI"
+            message="Experience a cutting-edge chatbot backed by OpenAI's advanced language model, designed to understand and assist you better"
+            prompt="Chat with AI"
+            backgroundImage="/images/chatbot.PNG"
+            backgroundImageMobile="/images/chatbot_mobile.PNG"
+            customColor={{ light: "#fff", dark: "#fff" }}
+            url="/chatbot"
+          />
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+          <SimpleStack
+            weakText="Ready for a personalized experience?"
+            strongText="Sign up now and unlock all our features!"
+          />
+        </GridWrapper>
+      </MotionContainer>
+    </GridLine>
+  );
 }
