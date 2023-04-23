@@ -1,9 +1,7 @@
 import React from "react";
-import Chatroom from "./Chatroom";
-import { messages } from "./Dummy";
 
 const Chatbot: React.FC = () => {
-  return <Chatroom getMessages={messages} />;
+  return <></>;
 };
 
 export default Chatbot;

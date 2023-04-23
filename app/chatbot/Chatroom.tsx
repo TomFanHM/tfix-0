@@ -1,7 +1,6 @@
 "use client";
 
 import { light, dark } from "@/styles/chakra/colors";
-import { messageItem } from "@/types/types";
 import {
   Box,
   Container,
@@ -14,11 +13,11 @@ import React, { useEffect, useRef, useState } from "react";
 import MessageInput from "./MessageInput";
 
 type ChatroomProps = {
-  getMessages: messageItem[];
+  getMessages: [];
 };
 
 const Chatroom: React.FC<ChatroomProps> = ({ getMessages }) => {
-  const [messages, setMessages] = useState<messageItem[]>(getMessages);
+  const [messages, setMessages] = useState<[]>(getMessages);
 
   const [inputMessage, setInputMessage] = useState<string>("");
 

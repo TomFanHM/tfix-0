@@ -1,6 +1,4 @@
-import { messageItem } from "@/types/types";
-
-export const messages: messageItem[] = [
+export const messages = [
   {
     role: "system",
     content: "You are ChatGPT",
