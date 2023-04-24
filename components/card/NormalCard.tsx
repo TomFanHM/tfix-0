@@ -68,7 +68,8 @@ const NormalCard: React.FC<NormalCardProps> = ({
       />
       <Flex
         flexDirection="column"
-        p="8"
+        px="4"
+        py="8"
         transition="500ms ease-in-out"
         w="full"
         sx={{ aspectRatio: "3/4" }}

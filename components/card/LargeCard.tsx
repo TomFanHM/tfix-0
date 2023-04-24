@@ -72,7 +72,8 @@ const LargeCard: React.FC<LargeCardProps> = ({
       />
       <Flex
         flexDirection="column"
-        p="8"
+        px="4"
+        py="8"
         transition="500ms ease-in-out"
         w="full"
         sx={{ aspectRatio: { base: "3/4", md: "2/1" } }}

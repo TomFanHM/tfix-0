@@ -27,7 +27,7 @@ export default function Home() {
             title="Breaking News"
             message="Get the latest headlines and updates in real-time"
             prompt="Catch up now"
-            backgroundImage="/images/news.PNG"
+            backgroundImage="/images/earth.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/news"
           />
@@ -35,7 +35,7 @@ export default function Home() {
             title="Editor's Picks"
             message="Discover handpicked news stories by our editors"
             prompt="Explore picks"
-            backgroundImage="/images/news_like.PNG"
+            backgroundImage="/images/like.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/news/like"
           />
@@ -56,12 +56,16 @@ export default function Home() {
             title="Popular Anime"
             message="Explore top-rated animes loved by our community"
             prompt="See popular"
+            backgroundImage="/images/japan.png"
+            customColor={{ light: "#000", dark: "#000" }}
             url="/anime/popular"
           />
           <NormalCard
             title="New Releases"
             message="Stay updated with the latest anime titles"
             prompt="Discover new"
+            backgroundImage="/images/chicken.png"
+            customColor={{ light: "#000", dark: "#000" }}
             url="/anime/new_releases"
           />
           {/* blog */}
@@ -75,7 +79,7 @@ export default function Home() {
             title="Featured Posts"
             message="Read insightful articles by our talented contributors"
             prompt="Read more"
-            backgroundImage="/images/blog.PNG"
+            backgroundImage="/images/post.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/blog"
           />
@@ -83,7 +87,7 @@ export default function Home() {
             title="Write a Post"
             message="Share your ideas and engage with our growing community"
             prompt="Start writing"
-            backgroundImage="/images/blog_write.PNG"
+            backgroundImage="/images/write.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/blog/create"
           />
@@ -98,8 +102,8 @@ export default function Home() {
             title="Powered by OpenAI"
             message="Experience a cutting-edge chatbot backed by OpenAI's advanced language model, designed to understand and assist you better"
             prompt="Chat with AI"
-            backgroundImage="/images/chatbot.PNG"
-            backgroundImageMobile="/images/chatbot_mobile.PNG"
+            backgroundImage="/images/ai_large.png"
+            backgroundImageMobile="/images/ai.png"
             customColor={{ light: "#fff", dark: "#fff" }}
             url="/chatbot"
           />

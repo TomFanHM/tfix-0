@@ -2,6 +2,7 @@ import MainContainer from "@/components/container/MainContainer";
 import Analytics from "@/components/others/Analytics";
 import { siteConfig } from "@/config/site";
 import AppLayout from "./AppLayout";
+import { absoluteUrl } from "@/lib/utils";
 
 export const metadata = {
   title: {
@@ -36,9 +37,9 @@ export const metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: siteConfig.ogImage,
-        width: 1920,
-        height: 1080,
+        url: absoluteUrl("/og.jpg"),
+        width: 1200,
+        height: 630,
         alt: siteConfig.name,
       },
     ],
