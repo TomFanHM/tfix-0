@@ -2,7 +2,13 @@
 
 import { footerDisabledRoute, headerDisabledRoute } from "@/config/site";
 import { light, dark } from "@/styles/chakra/colors";
-import { Grid, GridItem, Heading, useColorModeValue } from "@chakra-ui/react";
+import {
+  Center,
+  Grid,
+  GridItem,
+  Spinner,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 import React, { Suspense } from "react";
 import Footer from "../footer";
@@ -44,7 +50,15 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
         <Header />
       </GridItem>
       <GridItem area="module" position="relative">
-        <Suspense fallback={null}>{children}</Suspense>
+        <Suspense
+          fallback={
+            <Center minH="calc(100vh - 4rem)">
+              <Spinner color={color.primary} />
+            </Center>
+          }
+        >
+          {children}
+        </Suspense>
       </GridItem>
       <GridItem area="footer" display={footerDisabled ? "none" : "unset"}>
         <Footer />

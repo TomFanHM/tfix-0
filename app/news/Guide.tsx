@@ -2,30 +2,10 @@
 
 import { newsConfig } from "@/config/news";
 import { Button, Flex, GridItem, Heading } from "@chakra-ui/react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import React from "react";
 
 const Guide: React.FC = () => {
-  const container = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        delayChildren: 0,
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-    },
-  };
-
   const router = useRouter();
 
   return (
@@ -34,11 +14,7 @@ const Guide: React.FC = () => {
         flexDirection="column"
         textAlign="start"
         wordBreak="break-word"
-        as={motion.div}
         className="container"
-        variants={container}
-        initial="hidden"
-        whileInView="visible"
         py={{ base: "10", md: "20" }}
       >
         <Heading layerStyle="Medium-emphasis" mt="4">
@@ -52,9 +28,7 @@ const Guide: React.FC = () => {
             newsConfig.mainNav.map((el, i) => (
               <Button
                 key={i}
-                as={motion.button}
                 className="item"
-                variants={item}
                 onClick={() => router.push(el.href)}
               >
                 {el.title}

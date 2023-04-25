@@ -51,6 +51,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
         onError={() => setImageUrl(fallbackImage)}
         fallback={<Skeleton />}
         onClick={handleOpenSource}
+        placeholder={imageUrl}
       />
 
       <Flex flexDirection="column" mt="4" gap="4">

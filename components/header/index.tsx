@@ -32,9 +32,7 @@ import HeaderMenu from "./HeaderMenu";
 import MobileDrawer from "./MobileDrawer";
 import { animeConfig } from "@/config/anime";
 
-type HeaderProps = {};
-
-const Header: React.FC<HeaderProps> = () => {
+const Header: React.FC = () => {
   const color = useColorModeValue(light, dark);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
