@@ -1,5 +1,4 @@
 import MainContainer from "@/components/container/MainContainer";
-import Analytics from "@/components/others/Analytics";
 import { siteConfig } from "@/config/site";
 import AppLayout from "./AppLayout";
 import { absoluteUrl } from "@/lib/utils";
@@ -61,7 +60,6 @@ export default function RootLayout({
     <html lang="en">
       <head />
       <body>
-        <Analytics />
         <AppLayout>
           <MainContainer>{children}</MainContainer>
         </AppLayout>
