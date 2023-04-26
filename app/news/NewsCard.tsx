@@ -1,20 +1,11 @@
 "use client";
 
-import { fallbackImage } from "@/config/site";
 import { fromNow } from "@/functions/dateUtils";
-import { capitalizeFirstLetter } from "@/functions/functions";
-import {
-  Flex,
-  GridItem,
-  Heading,
-  Text,
-  Image,
-  Link,
-  Skeleton,
-} from "@chakra-ui/react";
+import { Flex, GridItem, Heading, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
-import React, { useState } from "react";
+import React from "react";
 import { ArticleSchema } from "./getNews";
+import OptimizedImage from "@/components/image/OptimizedImage";
 
 type NewsCardProps = {
   id: number;
@@ -29,42 +20,35 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
     window.open(article.url, "_blank");
   };
 
-  const [imageUrl, setImageUrl] = useState<string>(
-    article.imageUrl || fallbackImage
-  );
-
   return (
     <GridItem colSpan={{ base: 3, md: large ? 2 : 1 }}>
-      <Image
+      <OptimizedImage
+        url={article.imageUrl}
+        alt={article.title || "news image"}
+        border_radius="20px"
         position="relative"
         w="full"
         maxW="full" //important
         h={{ md: banner ? "500px" : "unset" }}
         sx={{ aspectRatio: "16/9" }}
-        borderRadius="20px"
         color="transparent"
         objectFit="cover"
-        src={imageUrl}
-        alt="banner"
         loading="lazy"
-        fallbackSrc={fallbackImage}
-        onError={() => setImageUrl(fallbackImage)}
-        fallback={<Skeleton />}
         onClick={handleOpenSource}
-        placeholder={imageUrl}
+        cursor="pointer"
       />
-
       <Flex flexDirection="column" mt="4" gap="4">
         <Link
           as={NextLink}
-          href={`news/${article.category}`}
+          href={`news/${article.category.toLowerCase()}`}
           mt="4"
           textDecoration="underline"
+          w="min-content"
         >
-          {capitalizeFirstLetter(article.category)}
+          {article.category}
         </Link>
         <Heading size="lg">{article.title || "No title available"}</Heading>
-        <Text mt="4" onClick={handleOpenSource}>
+        <Text mt="4" onClick={handleOpenSource} cursor="pointer">
           {article.description || "No description available"}
         </Text>
         <Text layerStyle="Medium-emphasis">
