@@ -37,12 +37,19 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime }) => {
             allowFullScreen
           />
         </AspectRatio>
-        <HStack spacing="4" mt="6" align="start" position="relative">
+        <HStack
+          spacing="4"
+          mt="6"
+          align="start"
+          position="relative"
+          maxW="full"
+          overflow="hidden"
+        >
           <OptimizedImage
             url={anime.image}
             alt={anime.title_english || "anime image"}
             border_radius="20px"
-            maxW="15rem" //important
+            maxW={{ base: "10rem", md: "15rem" }} //important
             sx={{ aspectRatio: "2/3" }}
             objectFit="cover"
             cursor="pointer"
