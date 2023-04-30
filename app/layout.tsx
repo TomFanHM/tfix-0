@@ -7,7 +7,11 @@ export const metadata = {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
-  "google-site-verification": "G1fdKaWiLVjT0jg00pyrdcncs1OjOocbEussHVq-4Bk",
+  verification: {
+    google: "G1fdKaWiLVjT0jg00pyrdcncs1OjOocbEussHVq-4Bk",
+    yandex: "yandex",
+    yahoo: "yahoo",
+  },
   description: siteConfig.description,
   keywords: [
     "Next.js",
@@ -48,6 +52,10 @@ export const metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
   manifest: `${siteConfig.url}/site.webmanifest`,
   robots: {
     follow: true,
