@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { AnimeSchema } from "./getAnimes";
-import { GridItem, Text, Image, Skeleton, Flex, Tag } from "@chakra-ui/react";
-import { fallbackImage } from "@/config/site";
+import React from "react";
+import { AnimeData } from "./getAnimes";
+import { Text, Flex, Tag, Box } from "@chakra-ui/react";
+import OptimizedImage from "@/components/image/OptimizedImage";
+import { useRouter } from "next/navigation";
 
 const broadcastDayColors = {
   Mondays: "blue",
@@ -31,34 +32,29 @@ const getBroadcastDayColor = (broadcastDay: BroadcastDay | null): string => {
 };
 
 type AnimeCardProps = {
-  anime: AnimeSchema;
+  anime: AnimeData;
 };
 
 const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
-  const [imageUrl, setImageUrl] = useState<string>(
-    anime.image || fallbackImage
-  );
-
   const broadcastDayColor = getBroadcastDayColor(
     anime.broadcast_day as BroadcastDay | null
   );
 
+  const router = useRouter();
+
   return (
-    <GridItem colSpan={{ base: 4, md: 2, lg: 1 }}>
-      <Image
-        sx={{ aspectRatio: "2/3" }}
-        position="relative"
+    <Box onClick={() => router.push(`/anime/${anime.id}`)}>
+      <OptimizedImage
+        url={anime.image}
+        alt={anime.title_english || "anime image"}
+        border_radius="20px"
         w="full"
-        maxW="full"
-        color="transparent"
+        maxW="full" //important
+        sx={{ aspectRatio: "2/3" }}
         objectFit="cover"
-        src={imageUrl}
-        alt="anime image"
-        loading="lazy"
-        fallbackSrc={fallbackImage}
-        onError={() => setImageUrl(fallbackImage)}
-        fallback={<Skeleton />}
+        cursor="pointer"
       />
+
       <Flex flexDirection="column" mt="4">
         <Text as="b">
           {anime.title_english || anime.title_japanese || "Unknown"}
@@ -67,10 +63,10 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
           {anime.year || "--"} &#8226; {anime.type || "--"}
         </Text>
       </Flex>
-      <Tag size="md" colorScheme={broadcastDayColor} mt="2">
-        {anime.broadcast_day || "Not available"}
+      <Tag size="md" colorScheme={broadcastDayColor} mt="2" w="min-content">
+        {anime.broadcast_day || "Unknown"}
       </Tag>
-    </GridItem>
+    </Box>
   );
 };
 export default AnimeCard;

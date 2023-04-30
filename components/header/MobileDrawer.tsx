@@ -32,7 +32,7 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useSetRecoilState } from "recoil";
 import SignoutButton from "../auth/modal/SignoutButton";
-import { animeConfig } from "@/config/anime";
+import { mediaConfig } from "@/config/media";
 
 type MobileDrawerItemProps = {
   title: string;
@@ -121,8 +121,8 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
               onClose={onClose}
             />
             <MobileDrawerItem
-              title="Anime"
-              config={animeConfig.mainNav}
+              title="Media"
+              config={mediaConfig.mainNav}
               color={color}
               onClose={onClose}
             />

@@ -30,7 +30,7 @@ import SignoutButton from "../auth/modal/SignoutButton";
 import DarkModeSwitch from "./DarkModeSwitch";
 import HeaderMenu from "./HeaderMenu";
 import MobileDrawer from "./MobileDrawer";
-import { animeConfig } from "@/config/anime";
+import { mediaConfig } from "@/config/media";
 
 const Header: React.FC = () => {
   const color = useColorModeValue(light, dark);
@@ -97,9 +97,9 @@ const Header: React.FC = () => {
                 />
                 <HeaderMenu
                   color={color}
-                  buttonText="Anime"
+                  buttonText="Media"
                   menuGroupTitle="Discover"
-                  navItems={animeConfig.mainNav}
+                  navItems={mediaConfig.mainNav}
                 />
                 <HeaderMenu
                   color={color}

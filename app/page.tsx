@@ -23,50 +23,45 @@ export default function Home() {
             middleText="Stay informed, stay connected"
             bottomText="Unravel diverse perspectives and explore the world through journalism"
           />
-          <NormalCard
+          <LargeCard
             title="Breaking News"
             message="Get the latest headlines and updates in real-time"
             prompt="Catch up now"
-            backgroundImage="/images/earth.png"
+            backgroundImage="https://placehold.co/1600x900"
+            backgroundImageMobile="https://placehold.co/600x800"
             customColor={{ light: "#000", dark: "#000" }}
             url="/news"
           />
-          <NormalCard
-            title="Editor's Picks"
-            message="Discover handpicked news stories by our editors"
-            prompt="Explore picks"
-            backgroundImage="/images/like.png"
-            customColor={{ light: "#000", dark: "#000" }}
-            url="/news/like"
-          />
-          {/* anime */}
+          {/* media, including anime and movie */}
           <GridSpacer />
           <BannerText
-            topText="Anime"
-            middleText="Join us in our vibrant anime universe"
-            bottomText="Delve into captivating stories with our extensive anime collection. Ignite your imagination today"
+            topText="Media"
+            middleText="Experience the magic of storytelling"
+            bottomText="Discover a vast collection of movies and anime"
           />
           <LargeCard
             title="Featured Anime"
             message="Immerse yourself in our curated anime selection, handpicked by our staff for your enjoyment"
             prompt="Watch now"
+            backgroundImage="https://placehold.co/1600x900"
+            backgroundImageMobile="https://placehold.co/600x800"
             url="/anime"
-          />
-          <NormalCard
-            title="Popular Anime"
-            message="Explore top-rated animes loved by our community"
-            prompt="See popular"
-            backgroundImage="/images/japan.png"
-            customColor={{ light: "#000", dark: "#000" }}
-            url="/anime/popular"
           />
           <NormalCard
             title="New Releases"
             message="Stay updated with the latest anime titles"
             prompt="Discover new"
-            backgroundImage="/images/chicken.png"
+            backgroundImage="https://placehold.co/600x800"
             customColor={{ light: "#000", dark: "#000" }}
             url="/anime/new_releases"
+          />
+          <NormalCard
+            title="Popular Movie"
+            message="Explore the most popular movies loved by our community"
+            prompt="See popular"
+            backgroundImage="https://placehold.co/600x800"
+            customColor={{ light: "#000", dark: "#000" }}
+            url="/movie"
           />
           {/* blog */}
           <GridSpacer />
@@ -79,7 +74,7 @@ export default function Home() {
             title="Featured Posts"
             message="Read insightful articles by our talented contributors"
             prompt="Read more"
-            backgroundImage="/images/post.png"
+            backgroundImage="https://placehold.co/600x800"
             customColor={{ light: "#000", dark: "#000" }}
             url="/blog"
           />
@@ -87,7 +82,7 @@ export default function Home() {
             title="Write a Post"
             message="Share your ideas and engage with our growing community"
             prompt="Start writing"
-            backgroundImage="/images/write.png"
+            backgroundImage="https://placehold.co/600x800"
             customColor={{ light: "#000", dark: "#000" }}
             url="/blog/create"
           />
@@ -102,8 +97,8 @@ export default function Home() {
             title="Powered by OpenAI"
             message="Experience a cutting-edge chatbot backed by OpenAI's advanced language model, designed to understand and assist you better"
             prompt="Chat with AI"
-            backgroundImage="/images/ai_large.png"
-            backgroundImageMobile="/images/ai.png"
+            backgroundImage="https://placehold.co/1600x900"
+            backgroundImageMobile="https://placehold.co/600x800"
             customColor={{ light: "#fff", dark: "#fff" }}
             url="/chatbot"
           />
@@ -111,6 +106,12 @@ export default function Home() {
           <SimpleStack
             weakText="Ready for a personalized experience?"
             strongText="Sign up now and unlock all our features!"
+            imageUrls={[
+              "https://placehold.co/600x900",
+              "https://placehold.co/600x600",
+              "https://placehold.co/600x900",
+              "https://placehold.co/600x800",
+            ]}
           />
         </GridWrapper>
       </MotionContainer>

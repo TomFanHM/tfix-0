@@ -5,7 +5,7 @@ import { Skeleton, Image, ImageProps } from "@chakra-ui/react";
 import { fallbackImage } from "@/config/site";
 
 type OptimizedImageProps = {
-  url: string | null;
+  url: string | null; 
   border_radius: string;
   alt: string;
 } & ImageProps;

@@ -29,10 +29,6 @@ export type NewsConfig = {
   mainNav: MainNavItem[];
 };
 
-export type AminesConfig = {
-  mainNav: MainNavItem[];
-};
-
 export type BlogsConfig = {
   mainNav: MainNavItem[];
 };
@@ -40,4 +36,8 @@ export type BlogsConfig = {
 export type ChatbotConfig = {
   mainNav: MainNavItem[];
   sidebarNav: SidebarNavItem[];
+};
+
+export type MediaConfig = {
+  mainNav: MainNavItem[];
 };

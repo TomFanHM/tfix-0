@@ -14,7 +14,7 @@ import {
   getDocs,
   where,
 } from "firebase/firestore";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Guide from "./Guide";
 import Header from "./Header";
 import NewsCard from "./NewsCard";
@@ -37,7 +37,7 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
   );
   const [loading, setLoading] = useState<boolean>(false);
 
-  const fetchMoreNews = async (): Promise<void> => {
+  const fetchMoreNews = useCallback(async (): Promise<void> => {
     if (loading || !lastVisible) return;
     setLoading(true);
     const docRef = collection(firestore, "news");
@@ -80,7 +80,7 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
       console.log("fetchMoreNews error: ", error);
     }
     setLoading(false);
-  };
+  }, [loading, lastVisible, filter]);
 
   return (
     <MotionContainer maxW="container.xl">
