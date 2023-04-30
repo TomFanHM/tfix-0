@@ -77,7 +77,7 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime }) => {
               {anime.source || "Unknown"}
             </Text>
             <Text as="b">Genres :</Text>
-            <HStack>
+            <HStack wrap="wrap">
               {anime.genres.length
                 ? anime.genres.map((el, i) => (
                     <Text layerStyle="Medium-emphasis" key={i}>

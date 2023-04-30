@@ -53,6 +53,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
         sx={{ aspectRatio: "2/3" }}
         objectFit="cover"
         cursor="pointer"
+        loading="lazy"
       />
 
       <Flex flexDirection="column" mt="4">
