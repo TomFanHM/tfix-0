@@ -10,6 +10,7 @@ import {
   Heading,
   IconButton,
   Progress,
+  VStack,
 } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@chakra-ui/icons";
 import AnimeCard from "./AnimeCard";
@@ -54,23 +55,24 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ title, anime }) => {
     <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
       <Flex justify="space-between" py="4" align="center">
         <Heading>{title}</Heading>
-        <HStack spacing="4">
-          <Progress colorScheme="green" w="5rem" size="sm" value={progress} />
-          <IconButton
-            aria-label="prev"
-            variant="custom_solid"
-            icon={<ChevronLeftIcon />}
-            onClick={() => scrollBy(-500)}
-          />
-          <IconButton
-            aria-label="next"
-            variant="custom_solid"
-            icon={<ChevronRightIcon />}
-            onClick={() => scrollBy(500)}
-          />
-        </HStack>
+        <VStack>
+          <HStack spacing="4">
+            <IconButton
+              aria-label="prev"
+              variant="custom_solid"
+              icon={<ChevronLeftIcon />}
+              onClick={() => scrollBy(-500)}
+            />
+            <IconButton
+              aria-label="next"
+              variant="custom_solid"
+              icon={<ChevronRightIcon />}
+              onClick={() => scrollBy(500)}
+            />
+          </HStack>
+          <Progress colorScheme="green" w="full" size="sm" value={progress} />
+        </VStack>
       </Flex>
-
       <Grid
         ref={scrollRef}
         gap="4"

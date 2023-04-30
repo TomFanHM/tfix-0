@@ -55,7 +55,7 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime }) => {
             cursor="pointer"
             loading="lazy"
           />
-          <VStack align="start">
+          <VStack align="start" wordBreak="break-word">
             <Text as="b">Japanese title :</Text>
             <Text layerStyle="Medium-emphasis">
               {anime.title_japanese || "Unknown"}
