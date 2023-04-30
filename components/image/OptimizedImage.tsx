@@ -5,7 +5,7 @@ import { Skeleton, Image, ImageProps } from "@chakra-ui/react";
 import { fallbackImage } from "@/config/site";
 
 type OptimizedImageProps = {
-  url: string | null; 
+  url: string | null;
   border_radius: string;
   alt: string;
 } & ImageProps;
@@ -32,7 +32,9 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
         borderRadius={border_radius}
         src={imageUrl}
         alt={alt}
-        onLoad={() => setLoaded(true)}
+        onLoad={() => {
+          setLoaded(true);
+        }}
         onError={handleError}
         fallbackSrc={fallbackImage}
         {...rest}

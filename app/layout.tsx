@@ -7,6 +7,7 @@ export const metadata = {
     default: siteConfig.name,
     template: `%s | ${siteConfig.name}`,
   },
+  "google-site-verification": "G1fdKaWiLVjT0jg00pyrdcncs1OjOocbEussHVq-4Bk",
   description: siteConfig.description,
   keywords: [
     "Next.js",

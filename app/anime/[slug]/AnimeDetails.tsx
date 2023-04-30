@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import Products from "./Products";
+import { ProductSchema } from "./getProducts";
 
 type AnimeDetailsProps = {
   anime: AnimeSchema;
@@ -77,7 +78,7 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime }) => {
               {anime.source || "Unknown"}
             </Text>
             <Text as="b">Genres :</Text>
-            <HStack wrap="wrap">
+            <HStack wrap="wrap" align="start">
               {anime.genres.length
                 ? anime.genres.map((el, i) => (
                     <Text layerStyle="Medium-emphasis" key={i}>
@@ -103,7 +104,7 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime }) => {
         <Flex flexDirection="column" gap="4">
           {/* products */}
           <Heading>Related</Heading>
-          <Products />
+          <Products searchTerm={anime.title_english || ""} />
         </Flex>
       </GridItem>
     </ThreeColumnGridWrapper>
