@@ -26,7 +26,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       gap="4"
       bg="elevation.dp02"
       boxShadow="dp02"
-      _hover={{ boxShadow: "dp08", bg: "elevation.dp08" }}
       cursor="pointer"
       onClick={handleOpenSource}
     >
