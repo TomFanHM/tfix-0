@@ -7,6 +7,7 @@ import {
   orderBy,
   query,
   startAt,
+  where,
 } from "firebase/firestore";
 import { z } from "zod";
 
@@ -28,15 +29,14 @@ const ProductSchema = z.object({
 
 export type ProductSchema = z.infer<typeof ProductSchema>;
 
-export async function getProducts(searchTerm: string) {
+export async function getProducts(searchTerm: string | null) {
   try {
+    if (!searchTerm) return null;
     const docRef = collection(firestore, "anime_product");
     let q = query(
       docRef,
-      orderBy("series"),
-      startAt(searchTerm),
-      endAt(searchTerm + "\uf8ff"),
-      limit(50)
+      where("related", "array-contains", searchTerm),
+      limit(10)
     );
 
     const querySnapshot = await getDocs(q);
@@ -56,7 +56,7 @@ export async function getProducts(searchTerm: string) {
   }
 }
 
-export async function getProductsByReducingSearchTerms(
+/* export async function getProductsByReducingSearchTerms(
   searchTerm: string | null
 ) {
   if (!searchTerm) return null;
@@ -74,4 +74,4 @@ export async function getProductsByReducingSearchTerms(
   }
 
   return null;
-}
+} */

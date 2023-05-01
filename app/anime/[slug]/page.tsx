@@ -3,7 +3,7 @@ import { getAnimeById, getAnimes } from "../getAnimes";
 import { notFound } from "next/navigation";
 import MotionContainer from "@/components/container/MotionContainer";
 import AnimeDetails from "./AnimeDetails";
-import { getProductsByReducingSearchTerms } from "./getProducts";
+import { getProducts } from "./getProducts";
 
 export const revalidate = 3600 * 24;
 
@@ -23,9 +23,7 @@ const SelectedAnime = async ({
   const anime = await getAnimeById(params.slug);
 
   if (!anime) notFound();
-  const productsData = await getProductsByReducingSearchTerms(
-    anime.title_english
-  );
+  const productsData = await getProducts(anime.title_english);
 
   return (
     <MotionContainer maxW="container.xl">
