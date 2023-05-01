@@ -1,14 +1,5 @@
 import { firestore } from "@/firebase/firebaseApp";
-import {
-  collection,
-  endAt,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  startAt,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, limit, query, where } from "firebase/firestore";
 import { z } from "zod";
 
 const ProductSchema = z.object({
