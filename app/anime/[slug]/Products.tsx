@@ -1,34 +1,25 @@
 "use client";
 
 import React from "react";
-import { ProductSchema, getProductsByReducingSearchTerms } from "./getProducts";
-import { useQuery } from "@tanstack/react-query";
+import { ProductSchema } from "./getProducts";
+import { Flex, Heading, Image } from "@chakra-ui/react";
+import ProductCard from "./ProductCard";
 
 type ProductsProps = {
-  searchTerm: string;
+  productsData: ProductSchema[] | null;
 };
 
-const Products: React.FC<ProductsProps> = ({ searchTerm }) => {
-  const { isLoading, data } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      try {
-        if (!searchTerm) return null;
-        console.log('run')
-        const result = await getProductsByReducingSearchTerms(searchTerm);
-        console.log(result);
-        return result;
-      } catch (error) {
-        console.log("UserAvatar error: ", error);
-      }
-      return null;
-    },
-  });
-
+const Products: React.FC<ProductsProps> = ({ productsData }) => {
   return (
-    <div>
-      {/*       {products && products.map((el, i) => <h1 key={i}>{el.title}</h1>)} */}
-    </div>
+    <Flex flexDirection="column" gap="4">
+      {!productsData && (
+        <Image src="/empty.png" alt="empty" w="10rem" mx="auto"></Image>
+      )}
+      {productsData &&
+        productsData.map((product, i) => (
+          <ProductCard key={i} product={product} />
+        ))}
+    </Flex>
   );
 };
 

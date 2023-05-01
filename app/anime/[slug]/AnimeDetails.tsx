@@ -5,7 +5,7 @@ import { AnimeSchema } from "../getAnimes";
 import ThreeColumnGridWrapper from "@/components/container/ThreeColumnGridWrapper";
 import {
   AspectRatio,
-  Flex,
+  Button,
   GridItem,
   HStack,
   Heading,
@@ -15,12 +15,15 @@ import {
 import OptimizedImage from "@/components/image/OptimizedImage";
 import Products from "./Products";
 import { ProductSchema } from "./getProducts";
+import { useRouter } from "next/navigation";
 
 type AnimeDetailsProps = {
   anime: AnimeSchema;
+  productsData: ProductSchema[] | null;
 };
 
-const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime }) => {
+const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime, productsData }) => {
+  const router = useRouter();
   return (
     <ThreeColumnGridWrapper
       gridGap="64px 16px"
@@ -99,13 +102,19 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime }) => {
             {anime.synopsis || "No synopsis available"}
           </Text>
         </VStack>
+        <Button
+          mt="6"
+          w="full"
+          variant="solid"
+          onClick={() => router.push("/anime")}
+        >
+          Back
+        </Button>
       </GridItem>
       <GridItem colSpan={{ base: 3, md: 1 }}>
-        <Flex flexDirection="column" gap="4">
-          {/* products */}
-          <Heading>Related</Heading>
-          <Products searchTerm={anime.title_english || ""} />
-        </Flex>
+        {/* products */}
+        <Heading mb="6">Related</Heading>
+        <Products productsData={productsData} />
       </GridItem>
     </ThreeColumnGridWrapper>
   );

@@ -36,7 +36,7 @@ export async function getProducts(searchTerm: string) {
       orderBy("series"),
       startAt(searchTerm),
       endAt(searchTerm + "\uf8ff"),
-      limit(2)
+      limit(50)
     );
 
     const querySnapshot = await getDocs(q);
@@ -60,15 +60,17 @@ export async function getProductsByReducingSearchTerms(
   searchTerm: string | null
 ) {
   if (!searchTerm) return null;
+  //remove symbol
   const cleanedSearchTerm = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
-  console.log(cleanedSearchTerm);
   const words = cleanedSearchTerm.split(" ");
 
-  for (let i = words.length; i >= 0; i--) {
-    const currentSearchTerm = words.slice(0, i).join(" ");
-    console.log(words, currentSearchTerm);
+  while (words.length > 0) {
+    const currentSearchTerm = words.join(" ");
     const result = await getProducts(currentSearchTerm);
-    if (result && result.length) return result;
+    //the result should be array, if null, stop fetch
+    if (!result) return null;
+    if (result && result.length) return result; //check length bigger than 0
+    words.pop(); //remove end item
   }
 
   return null;
