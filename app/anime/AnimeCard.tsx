@@ -7,11 +7,11 @@ import OptimizedImage from "@/components/image/OptimizedImage";
 import { useRouter } from "next/navigation";
 
 const broadcastDayColors = {
-  Mondays: "blue",
-  Tuesdays: "green",
+  Mondays: "red",
+  Tuesdays: "orange",
   Wednesdays: "yellow",
-  Thursdays: "orange",
-  Fridays: "red",
+  Thursdays: "green",
+  Fridays: "blue",
   Saturdays: "purple",
   Sundays: "pink",
 } as const;

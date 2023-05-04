@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
-import { Skeleton, Image, ImageProps } from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import { Skeleton, Image as ChakraImage, ImageProps } from "@chakra-ui/react";
 import { fallbackImage } from "@/config/site";
 
 type OptimizedImageProps = {
@@ -19,16 +19,24 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   const [imageUrl, setImageUrl] = useState<string>(() =>
     url ? url : fallbackImage
   );
-  const [loaded, setLoaded] = useState<boolean>(() => (url ? false : true)); //not null or empty, need to load
+  const [loaded, setLoaded] = useState<boolean>(false);
 
   const handleError = () => {
     setImageUrl(fallbackImage);
     setLoaded(true);
   };
 
+  useEffect(() => {
+    const img = new Image();
+    img.src = imageUrl;
+    if (img.complete) {
+      setLoaded(true);
+    }
+  }, [imageUrl]);
+
   return (
     <Skeleton isLoaded={loaded} borderRadius={border_radius}>
-      <Image
+      <ChakraImage
         borderRadius={border_radius}
         src={imageUrl}
         alt={alt}

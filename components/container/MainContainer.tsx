@@ -1,6 +1,5 @@
 "use client";
 
-import { footerDisabledRoute, headerDisabledRoute } from "@/config/site";
 import { light, dark } from "@/styles/chakra/colors";
 import {
   Center,
@@ -9,7 +8,6 @@ import {
   Spinner,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { usePathname } from "next/navigation";
 import React, { Suspense } from "react";
 import Footer from "../footer";
 import Header from "../header";
@@ -18,17 +16,8 @@ type MainContainerProps = {
   children: React.ReactNode;
 };
 
-function getRouterName(pathname: string): string {
-  const pathParts = pathname.split("/");
-  return pathParts.length > 1 ? pathParts[1] : "";
-}
-
 const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
-  const pathName = usePathname();
   const color = useColorModeValue(light, dark);
-
-  const headerDisabled = headerDisabledRoute.includes(getRouterName(pathName));
-  const footerDisabled = footerDisabledRoute.includes(getRouterName(pathName));
 
   return (
     <Grid
@@ -40,16 +29,10 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
       color={color.onBackground}
       outlineColor={color.outline}
     >
-      <GridItem
-        area="header"
-        position="sticky"
-        top="0"
-        zIndex={99}
-        display={headerDisabled ? "none" : "unset"}
-      >
+      <GridItem area="header" position="sticky" top="0" zIndex={99}>
         <Header />
       </GridItem>
-      <GridItem area="module" position="relative">
+      <GridItem area="module" position="relative" overflow="hidden">
         <Suspense
           fallback={
             <Center minH="calc(100vh - 4rem)">
@@ -60,7 +43,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
           {children}
         </Suspense>
       </GridItem>
-      <GridItem area="footer" display={footerDisabled ? "none" : "unset"}>
+      <GridItem area="footer">
         <Footer />
       </GridItem>
     </Grid>

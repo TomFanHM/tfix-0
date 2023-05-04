@@ -1,9 +1,19 @@
 "use client";
 
-import { Flex, GridItem, Heading } from "@chakra-ui/react";
+import { Search2Icon } from "@chakra-ui/icons";
+import {
+  Flex,
+  GridItem,
+  Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Guide: React.FC = () => {
+  const router = useRouter();
   return (
     <GridItem colSpan={2}>
       <Flex
@@ -17,11 +27,24 @@ const Guide: React.FC = () => {
           What are you looking for?
         </Heading>
         <Heading whiteSpace="pre-wrap" mt="6">
-          Unleash your curiosity with our extensive range of categories!
+          Explore endless anime options with our advanced search feature.
         </Heading>
-        <Flex gap="4" flexDirection="row" flexWrap="wrap" mt="12"></Flex>
+        <InputGroup size="md" _focus={{ outline: "none" }} mt="12" maxW="40rem">
+          <InputLeftElement pointerEvents="none">
+            <Search2Icon boxSize={4} />
+          </InputLeftElement>
+          <Input
+            type="text"
+            placeholder="Search..."
+            value=""
+            bg="elevation.dp02"
+            boxShadow="dp02"
+            onClick={() => router.push("/anime/search")}
+          />
+        </InputGroup>
       </Flex>
     </GridItem>
   );
 };
+
 export default Guide;

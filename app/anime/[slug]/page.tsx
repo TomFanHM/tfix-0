@@ -7,13 +7,13 @@ import { getProducts } from "./getProducts";
 
 export const revalidate = 3600 * 24;
 
-export async function generateStaticParams() {
+/* export async function generateStaticParams() {
   const animes = await getAnimes([], 500);
 
   const animeList = animes.map((anime) => ({ slug: anime.id }));
 
   return animeList;
-}
+} */
 
 const SelectedAnime = async ({
   params,

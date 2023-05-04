@@ -17,8 +17,8 @@ import {
   Heading,
   Icon,
   IconButton,
-  Show,
   useColorModeValue,
+  Show,
   useDisclosure,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
@@ -45,7 +45,7 @@ const Header: React.FC = () => {
     }
   };
 
-  const [user, loading, error] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
   return (
@@ -67,12 +67,13 @@ const Header: React.FC = () => {
           alignItems="center"
           justifyContent="space-between"
         >
-          <Show below="md">
-            <DarkModeSwitch />
-          </Show>
+          <DarkModeSwitch
+            display={{ md: "none" }}
+            aria-label="toggle dark mode"
+          />
 
           <Heading
-            flexShrink={0}
+            flex="0 0 auto"
             onClick={() => router.push("/")}
             cursor="pointer"
           >
@@ -81,7 +82,7 @@ const Header: React.FC = () => {
           {/* pc */}
           <Show above="md">
             <Grid
-              w="full"
+              flex="1 1 auto"
               gridTemplateColumns="1fr auto auto auto"
               alignItems="center"
               gap="4"
@@ -115,7 +116,7 @@ const Header: React.FC = () => {
                 />
               </Flex>
               {/* menu */}
-              <DarkModeSwitch />
+              <DarkModeSwitch aria-label="toggle dark mode" />
               {!user && (
                 <Button
                   variant="custom_outline"
