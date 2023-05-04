@@ -1,29 +1,20 @@
 "use client";
 
 import MotionContainer from "@/components/container/MotionContainer";
-import { ChevronDownIcon, ChevronUpIcon, Search2Icon } from "@chakra-ui/icons";
-import {
-  InputGroup,
-  Input,
-  Button,
-  Stack,
-  SimpleGrid,
-  Text,
-  Box,
-  Flex,
-  Grid,
-  InputLeftElement,
-  Menu,
-  MenuButton,
-  HStack,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
+import { Stack, SimpleGrid, Text, Box, Flex, Grid } from "@chakra-ui/react";
 import React, { useState } from "react";
+import SearchBar from "./SearchBar";
 
 const Search: React.FC = () => {
-  const [category, setCategory] = useState("123");
+  const [category, setCategory] = useState("Animes");
+  const handleCategory = (e: "Animes" | "Products") => {
+    setCategory(e);
+  };
   const [searchQuery, setSearchQuery] = useState("");
+  const handleSearchQuery = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+
   const [results, setResults] = useState([
     { title: "hi", description: "hello" },
   ]);
@@ -38,55 +29,12 @@ const Search: React.FC = () => {
         justify="center"
         align="center"
       >
-        <HStack
-          maxW="40rem"
-          bg="elevation.dp02"
-          boxShadow="dp02"
-          w="full"
-          borderRadius="4"
-          spacing={0}
-          pr="4"
-        >
-          <InputGroup _focus={{ outline: "none" }} size="lg">
-            <Input
-              border="0"
-              focusBorderColor="transparent"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            <InputLeftElement pointerEvents="none">
-              <Search2Icon boxSize={4} />
-            </InputLeftElement>
-          </InputGroup>
-          <Menu offset={[0, 24]}>
-            {({ isOpen }) => (
-              <>
-                <MenuButton
-                  isActive={isOpen}
-                  bg="transparent"
-                  variant="ghost"
-                  as={Button}
-                  rightIcon={
-                    isOpen ? (
-                      <ChevronUpIcon boxSize={4} />
-                    ) : (
-                      <ChevronDownIcon boxSize={4} />
-                    )
-                  }
-                >
-                  {category}
-                </MenuButton>
-                <MenuList>
-                  <MenuItem>Download</MenuItem>
-                  <MenuItem onClick={() => alert("Kagebunshin")}>
-                    Create a Copy
-                  </MenuItem>
-                </MenuList>
-              </>
-            )}
-          </Menu>
-        </HStack>
+        <SearchBar
+          category={category}
+          searchQuery={searchQuery}
+          handleCategory={handleCategory}
+          handleSearchQuery={handleSearchQuery}
+        />
       </Flex>
       <Grid
         templateColumns="repeat(12, 1fr)"
