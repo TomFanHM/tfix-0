@@ -65,7 +65,7 @@ const Sidebar: React.FC = () => {
         <Flex py="2" justify="space-between" align="center">
           {!user && <Box borderRadius="full" bg="transparent" w="8" h="8" />}
           {user && <UserAvatar user={user} />}
-          <DarkModeSwitch />
+          <DarkModeSwitch aria-label="toggle dark mode" />
         </Flex>
         <Divider borderColor={color.outline} />
       </Box>
