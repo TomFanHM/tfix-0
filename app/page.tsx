@@ -27,8 +27,8 @@ export default function Home() {
             title="Breaking News"
             message="Get the latest headlines and updates in real-time"
             prompt="Catch up now"
-            backgroundImage="https://placehold.co/1600x900"
-            backgroundImageMobile="https://placehold.co/600x800"
+            backgroundImage="/images/dummy_1600x900.png"
+            backgroundImageMobile="/images/dummy_600x800.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/news"
           />
@@ -43,15 +43,15 @@ export default function Home() {
             title="Featured Anime"
             message="Immerse yourself in our curated anime selection, handpicked by our staff for your enjoyment"
             prompt="Watch now"
-            backgroundImage="https://placehold.co/1600x900"
-            backgroundImageMobile="https://placehold.co/600x800"
+            backgroundImage="/images/dummy_1600x900.png"
+            backgroundImageMobile="/images/dummy_600x800.png"
             url="/anime"
           />
           <NormalCard
             title="New Releases"
             message="Stay updated with the latest anime titles"
             prompt="Discover new"
-            backgroundImage="https://placehold.co/600x800"
+            backgroundImage="/images/dummy_600x800.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/anime/new_releases"
           />
@@ -59,7 +59,7 @@ export default function Home() {
             title="Popular Movie"
             message="Explore the most popular movies loved by our community"
             prompt="See popular"
-            backgroundImage="https://placehold.co/600x800"
+            backgroundImage="/images/dummy_600x800.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/movie"
           />
@@ -74,7 +74,7 @@ export default function Home() {
             title="Featured Posts"
             message="Read insightful articles by our talented contributors"
             prompt="Read more"
-            backgroundImage="https://placehold.co/600x800"
+            backgroundImage="/images/dummy_600x800.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/blog"
           />
@@ -82,7 +82,7 @@ export default function Home() {
             title="Write a Post"
             message="Share your ideas and engage with our growing community"
             prompt="Start writing"
-            backgroundImage="https://placehold.co/600x800"
+            backgroundImage="/images/dummy_600x800.png"
             customColor={{ light: "#000", dark: "#000" }}
             url="/blog/create"
           />
@@ -97,8 +97,8 @@ export default function Home() {
             title="Powered by OpenAI"
             message="Experience a cutting-edge chatbot backed by OpenAI's advanced language model, designed to understand and assist you better"
             prompt="Chat with AI"
-            backgroundImage="https://placehold.co/1600x900"
-            backgroundImageMobile="https://placehold.co/600x800"
+            backgroundImage="/images/dummy_1600x900.png"
+            backgroundImageMobile="/images/dummy_600x800.png"
             customColor={{ light: "#fff", dark: "#fff" }}
             url="/chatbot"
           />
@@ -107,10 +107,10 @@ export default function Home() {
             weakText="Ready for a personalized experience?"
             strongText="Sign up now and unlock all our features!"
             imageUrls={[
-              "https://placehold.co/600x900",
-              "https://placehold.co/600x600",
-              "https://placehold.co/600x900",
-              "https://placehold.co/600x800",
+              "/images/dummy_600x900.png",
+              "/images/dummy_600x600.png",
+              "/images/dummy_600x900.png",
+              "/images/dummy_600x800.png",
             ]}
           />
         </GridWrapper>

@@ -74,5 +74,18 @@ export const Button: ComponentStyleConfig = {
           props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
       },
     }),
+    custom_outline_reverse: (props: StyleFunctionProps) => ({
+      borderRadius: "20px",
+      border: "1px solid",
+      borderColor: props.colorMode === "light" ? light.error : dark.error,
+      bg: "transparent",
+      color: props.colorMode === "light" ? light.error : dark.error,
+      _hover: {
+        bg: props.colorMode === "light" ? light.tertiary : dark.tertiary,
+        color: props.colorMode === "light" ? light.onTertiary : dark.onTertiary,
+        borderColor:
+          props.colorMode === "light" ? light.onTertiary : dark.onTertiary,
+      },
+    }),
   },
 };

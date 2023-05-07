@@ -10,7 +10,7 @@ const Bannner: React.FC<BannnerProps> = () => {
   return (
     <GridItem colSpan={2}>
       <OptimizedImage
-        url={"https://placehold.co/1920x1080"}
+        url={"/images/dummy_1600x900.png"}
         alt="banner"
         position="relative"
         color="transparent"

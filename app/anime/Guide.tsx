@@ -29,16 +29,23 @@ const Guide: React.FC = () => {
         <Heading whiteSpace="pre-wrap" mt="6">
           Explore endless anime options with our advanced search feature.
         </Heading>
-        <InputGroup size="lg" _focus={{ outline: "none" }} mt="12" maxW="40rem">
+        <InputGroup
+          size="lg"
+          _focus={{ outline: "none" }}
+          mt="12"
+          maxW="40rem"
+          borderRadius="4px"
+          bg="elevation.dp02"
+          boxShadow="dp02"
+        >
           <InputLeftElement pointerEvents="none">
             <Search2Icon boxSize={4} />
           </InputLeftElement>
           <Input
+            border="0"
             type="text"
             placeholder="Search..."
             isReadOnly
-            bg="elevation.dp02"
-            boxShadow="dp02"
             onClick={() => router.push("/anime/search")}
           />
         </InputGroup>

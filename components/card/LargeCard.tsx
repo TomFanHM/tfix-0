@@ -10,11 +10,10 @@ import {
   useColorModeValue,
   VStack,
   Text,
-  Image,
   useBreakpointValue,
+  Image,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import React from "react";
 
 type CustomColor = {
   light: string;

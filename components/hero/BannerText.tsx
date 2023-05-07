@@ -8,6 +8,8 @@ type BannerTextProps = {
   topText?: string;
   middleText?: string;
   bottomText?: string;
+  gradient?: string;
+  gradientText?: string;
 };
 
 const BannerText: React.FC<BannerTextProps> = ({
@@ -57,6 +59,7 @@ const BannerText: React.FC<BannerTextProps> = ({
           variants={item}
           mt="4"
           size={{ base: "2xl", md: "4xl" }}
+          pb="4"
         >
           {middleText}
         </Heading>
@@ -65,7 +68,7 @@ const BannerText: React.FC<BannerTextProps> = ({
           className="item"
           variants={item}
           whiteSpace="pre-wrap"
-          mt="6"
+          mt="2"
         >
           {bottomText}
         </Text>

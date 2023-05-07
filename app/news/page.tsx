@@ -7,7 +7,6 @@ export const revalidate = 3600;
 
 const News = async (): Promise<JSX.Element> => {
   const articles = await getNews([], 10);
-
   return <NewsContainer title="Breaking" getArticles={articles} />;
 };
 

@@ -13,12 +13,19 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import React from "react";
+import { Filters } from "./SearchContainer";
+import { AnimeData, getAnimes } from "../getAnimes";
+import { OptionSchema } from "@/types/types";
+import { ProductSchema } from "../[slug]/getProducts";
 
 type SearchBarProps = {
   searchQuery: string;
   handleSearchQuery: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  category: string;
-  handleCategory: (e: "Animes" | "Products") => void;
+  category: "Anime" | "Product";
+  handleCategory: (el: "Anime" | "Product") => void;
+  filters: Filters;
+  handleQuery: (el: string) => void;
+  handleResults: (el: AnimeData[] | ProductSchema[]) => void;
 };
 
 const SearchBar: React.FC<SearchBarProps> = ({
@@ -26,7 +33,50 @@ const SearchBar: React.FC<SearchBarProps> = ({
   handleCategory,
   searchQuery,
   handleSearchQuery,
+  filters,
+  handleQuery,
+  handleResults,
 }) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    try {
+      handleQuery(searchQuery);
+      //search anime
+      if (category === "Anime") {
+        const { year, season } = filters["anime"];
+        const options: OptionSchema[] = [];
+        if (season)
+          options.push({
+            fieldPath: "season",
+            opStr: "==",
+            value: season,
+          });
+        if (year)
+          options.push({
+            fieldPath: "year",
+            opStr: "==",
+            value: year,
+          });
+        if (searchQuery)
+          options.push({
+            fieldPath: "title_english",
+            opStr: "==",
+            value: searchQuery,
+          });
+        const results = await getAnimes(options, 10);
+        console.log(results);
+        return results;
+      }
+      //search product
+      if (category === "Product") {
+        const productFilters = filters["product"];
+      }
+    } catch (error) {
+      console.log("Search error: ", error);
+    }
+  };
+
   return (
     <HStack
       w="full"
@@ -34,8 +84,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
       bg="elevation.dp02"
       boxShadow="dp02"
       borderRadius="4"
-      spacing={0}
-      px="4"
+      mx="auto"
+      as="form"
+      onSubmit={handleSubmit}
     >
       <InputGroup _focus={{ outline: "none" }} size="lg">
         <Input
@@ -69,11 +120,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
               {category}
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => handleCategory("Animes")}>
-                Animes
-              </MenuItem>
-              <MenuItem onClick={() => handleCategory("Products")}>
-                Products
+              <MenuItem onClick={() => handleCategory("Anime")}>Anime</MenuItem>
+              <MenuItem onClick={() => handleCategory("Product")}>
+                Product
               </MenuItem>
             </MenuList>
           </>
