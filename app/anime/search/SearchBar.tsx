@@ -65,8 +65,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             value: searchQuery,
           });
         const results = await getAnimes(options, 10);
-        console.log(results);
-        return results;
+        if (results) handleResults(results);
       }
       //search product
       if (category === "Product") {

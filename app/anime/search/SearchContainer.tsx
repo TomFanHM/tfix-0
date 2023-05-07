@@ -1,7 +1,7 @@
 "use client";
 
 import MotionContainer from "@/components/container/MotionContainer";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 import AnimeOptions from "./AnimeOptions";
@@ -9,6 +9,7 @@ import ProductOptions from "./ProductOptions";
 import { z } from "zod";
 import { AnimeData } from "../getAnimes";
 import { ProductSchema } from "../[slug]/getProducts";
+import SearchCard from "./SearchCard";
 
 export const Filters = z.object({
   anime: z.object({
@@ -64,12 +65,16 @@ const SearchContainer: React.FC = () => {
     anime: AnimeData[] | null;
     product: ProductSchema[] | null;
   }>({ anime: null, product: null });
+  //
   const handleResults = (el: AnimeData[] | ProductSchema[]) => {
     if (category === "Anime")
-      setResults((prev) => ({ ...prev, anime: el as AnimeData[] }));
+      setResults((prev) => ({ ...prev, anime: [...(el as AnimeData[])] }));
 
     if (category === "Product")
-      setResults((prev) => ({ ...prev, product: el as ProductSchema[] }));
+      setResults((prev) => ({
+        ...prev,
+        product: [...(el as ProductSchema[])],
+      }));
   };
 
   return (
@@ -107,6 +112,24 @@ const SearchContainer: React.FC = () => {
             }
           />
         )}
+        <Grid
+          templateColumns="repeat(12, 1fr)"
+          gap="64px"
+          py={{ base: "6", md: "8" }}
+          my={{ base: "6", md: "8" }}
+        >
+          {category === "Anime" &&
+            results["anime"] &&
+            results["anime"].map((item, i) => (
+              <GridItem key={i} colSpan={{ base: 6, sm: 4, md: 3 }}>
+                <SearchCard
+                  url={item.image}
+                  title={item.title_english || item.title_japanese || "Unknown"}
+                  link={`/anime/${item.id}`}
+                />
+              </GridItem>
+            ))}
+        </Grid>
       </Flex>
     </MotionContainer>
   );
