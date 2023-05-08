@@ -7,18 +7,11 @@ import { dark, light } from "./colors";
 import { elevation, shadows } from "./elevation";
 import { skeletonTheme } from "./skeleton";
 import { Button } from "./button";
+import { breakpoints } from "./breakpoints";
 
 const config: ThemeConfig = {
-  initialColorMode: "dark",
+  initialColorMode: "light",
   useSystemColorMode: false,
-};
-
-const breakpoints = {
-  sm: "320px",
-  md: "768px",
-  lg: "960px",
-  xl: "1200px",
-  "2xl": "1536px",
 };
 
 const styles: Styles = {
@@ -76,4 +69,4 @@ const theme = extendTheme({
   },
 });
 
-export { breakpoints, theme };
+export { theme };

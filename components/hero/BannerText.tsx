@@ -59,7 +59,7 @@ const BannerText: React.FC<BannerTextProps> = ({
           variants={item}
           mt="4"
           size={{ base: "2xl", md: "4xl" }}
-          pb="4"
+          pb="4" color='primary.dark'
         >
           {middleText}
         </Heading>
