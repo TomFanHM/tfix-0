@@ -11,12 +11,12 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-type ImageBlock = {
-  imageUrl: string;
+type PhotographProps = {
+  image: string;
   aspectRatio: string;
 };
 
-const ImageBlock: React.FC<ImageBlock> = ({ imageUrl, aspectRatio }) => {
+const Photograph: React.FC<PhotographProps> = ({ image, aspectRatio }) => {
   return (
     <Box
       position="relative"
@@ -33,7 +33,7 @@ const ImageBlock: React.FC<ImageBlock> = ({ imageUrl, aspectRatio }) => {
         h="full"
         color="transparent"
         objectFit="cover"
-        src={imageUrl}
+        src={image}
         alt="banner"
         transition="500ms ease-in-out"
         loading="lazy"
@@ -43,41 +43,33 @@ const ImageBlock: React.FC<ImageBlock> = ({ imageUrl, aspectRatio }) => {
   );
 };
 
-type ArrayOfMaxLength4 = readonly [string, string, string, string];
-
-type SimpleStackProps = {
-  weakText: string;
-  strongText: string;
-  background?: string;
-  onBackground?: string;
-  aspectRatioList?: ArrayOfMaxLength4;
-  imageUrls?: ArrayOfMaxLength4;
+type image = {
+  url: string;
+  aspectRatio: string;
 };
 
-const SimpleStack: React.FC<SimpleStackProps> = ({
-  weakText,
-  strongText,
-  background = '--chakra-colors-background',
-  onBackground = '--chakra-colors-onBackground',
-  aspectRatioList = ["2/3", "1/1", "2/3", "3/4"],
-  imageUrls = [
-    "/fallback.png",
-    "/fallback.png",
-    "/fallback.png",
-    "/fallback.png",
-  ],
-}) => {
+type CallToActionProps = {
+  children: React.ReactNode;
+  background: string;
+  color: string;
+  images: [image, image, image, image];
+};
 
+const CallToAction: React.FC<CallToActionProps> = ({
+  background,
+  color,
+  images,
+  children,
+}) => {
   return (
-    <GridItem
-      colSpan={2}
+    <Box
       position="relative"
       transform="translate3d(0px, 0px, 0px)"
       mt={{ base: "8", md: "16" }}
-      boxShadow={`0 0 0 100vmax var(${background})`}
+      boxShadow={`0 0 0 100vmax ${background}`}
       clipPath="inset(0 -100vmax)"
-      bg={`var(${background})`}
-      color={`var(${onBackground})`}
+      bg={background}
+      color={color}
     >
       <Flex
         flexDirection="row"
@@ -87,10 +79,7 @@ const SimpleStack: React.FC<SimpleStackProps> = ({
         gap="4"
       >
         <Box flex="1 1 0%" minW="20rem" textAlign="start" px="4">
-          <Text as="b">{weakText}</Text>
-          <Heading mt="6" size={{ base: "2xl", md: "4xl" }}>
-            {strongText}
-          </Heading>
+          {children}
         </Box>
         <Box flex="1 1 0%" minW="20rem">
           <Grid
@@ -101,32 +90,33 @@ const SimpleStack: React.FC<SimpleStackProps> = ({
           >
             <GridItem colSpan={1}>
               <Flex flexDirection="column" gap="4">
-                <ImageBlock
-                  aspectRatio={aspectRatioList[0]}
-                  imageUrl={imageUrls[0]}
+                <Photograph
+                  aspectRatio={images[0].aspectRatio}
+                  image={images[0].url}
                 />
-                <ImageBlock
-                  aspectRatio={aspectRatioList[1]}
-                  imageUrl={imageUrls[1]}
+                <Photograph
+                  aspectRatio={images[1].aspectRatio}
+                  image={images[1].url}
                 />
               </Flex>
             </GridItem>
             <GridItem colSpan={1}>
               <Flex flexDirection="column" gap="4">
-                <ImageBlock
-                  aspectRatio={aspectRatioList[2]}
-                  imageUrl={imageUrls[2]}
+                <Photograph
+                  aspectRatio={images[2].aspectRatio}
+                  image={images[2].url}
                 />
-                <ImageBlock
-                  aspectRatio={aspectRatioList[3]}
-                  imageUrl={imageUrls[3]}
+                <Photograph
+                  aspectRatio={images[3].aspectRatio}
+                  image={images[3].url}
                 />
               </Flex>
             </GridItem>
           </Grid>
         </Box>
       </Flex>
-    </GridItem>
+    </Box>
   );
 };
-export default SimpleStack;
+
+export default CallToAction;

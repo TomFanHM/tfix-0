@@ -1,31 +1,55 @@
-import SimpleStack from "@/components/action/SimpleStack";
 import GridLine from "@/components/container/GridLine";
 import GridWrapper from "@/components/container/GridWrapper";
 import MotionContainer from "@/components/container/MotionContainer";
-import BannerText from "@/components/hero/BannerText";
-import HeroBanner from "@/components/hero/HeroBanner";
 
-import { Heading, Text } from "../components/chakra/TypographyComponents";
-import { GridItem } from "../components/chakra/LayoutComponents";
-import NormalCard from "../components/chakra/ui/NormalCard";
-import LargeCard from "../components/chakra/ui/LargeCard";
+import { Heading, Text } from "@/components/chakra/TypographyComponents";
+import { GridItem } from "@/components/chakra/LayoutComponents";
+import NormalCard from "@/components/chakra/ui/NormalCard";
+import LargeCard from "@/components/chakra/ui/LargeCard";
+import HeroBanner from "@/components/chakra/ui/HeroBanner";
+import BannerText from "@/components/chakra/ui/BannerText";
+import CallToAction from "@/components/chakra/ui/CallToAction";
+import NewsletterSection from "@/components/chakra/ui/Newsletter";
 
 export default function Home() {
   return (
     <GridLine>
+      {/* */}
       <HeroBanner
-        title="Your Gateway to Discovery"
+        title={
+          <>
+            <Text as="span">Your Gateway to </Text>
+            <Text
+              as="span"
+              bgGradient="linear(to-l, var(--chakra-colors-secondary), var(--chakra-colors-tertiary))"
+              bgClip="text"
+            >
+              Discovery
+            </Text>
+          </>
+        }
         message="Unlock endless possibilities, fuel your curiosity, and let your imagination soar in this world of discovery!"
       />
+      {/* */}
       <MotionContainer>
         <GridWrapper>
           {/* news */}
-          <BannerText
-            topText="News"
-            middleText="Stay informed, stay connected"
-            bottomText="Unravel diverse perspectives and explore the world through journalism"
-          />
-
+          {/* */}
+          <GridItem colSpan={2} mx="10">
+            <BannerText
+              line1="News"
+              line2={
+                <>
+                  <Text as="span" color="var(--chakra-colors-primary)">
+                    Stay informed
+                  </Text>
+                  <Text as="span">, stay connected</Text>
+                </>
+              }
+              line3="Unravel diverse perspectives and explore the world through journalism"
+            />
+          </GridItem>
+          {/* */}
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Catch up now"
@@ -41,13 +65,17 @@ export default function Home() {
           </GridItem>
 
           {/* media, including anime and movie */}
+          {/* */}
           <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
-          <BannerText
-            topText="Media"
-            middleText="Experience the magic of storytelling"
-            bottomText="Discover a vast collection of movies and anime"
-          />
-
+          {/* */}
+          <GridItem colSpan={2} mx="10">
+            <BannerText
+              line1="Media"
+              line2="Experience the magic of storytelling"
+              line3="Discover a vast collection of movies and anime"
+            />
+          </GridItem>
+          {/* */}
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Watch now"
@@ -62,6 +90,7 @@ export default function Home() {
               </Text>
             </LargeCard>
           </GridItem>
+          {/* */}
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Discover new"
@@ -74,6 +103,7 @@ export default function Home() {
               </Text>
             </NormalCard>
           </GridItem>
+          {/* */}
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="See popular"
@@ -88,12 +118,24 @@ export default function Home() {
           </GridItem>
 
           {/* blog */}
+          {/* */}
           <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
-          <BannerText
-            topText="Blog"
-            middleText="Share your thoughts, create connections"
-            bottomText="Voice your opinions and interact with like-minded individuals. Experience the power of collective wisdom"
-          />
+          {/* */}
+          <GridItem colSpan={2} mx="10">
+            <BannerText
+              line1="Blog"
+              line2={
+                <>
+                  <Text as="span">Share your thoughts, </Text>
+                  <Text as="span" color="var(--chakra-colors-primary)">
+                    create connections
+                  </Text>
+                </>
+              }
+              line3="Voice your opinions and interact with like-minded individuals. Experience the power of collective wisdom"
+            />
+          </GridItem>
+          {/* */}
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Read more"
@@ -106,6 +148,7 @@ export default function Home() {
               </Text>
             </NormalCard>
           </GridItem>
+          {/* */}
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Start writing"
@@ -119,13 +162,17 @@ export default function Home() {
             </NormalCard>
           </GridItem>
           {/* chatbot */}
+          {/* */}
           <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
-          <BannerText
-            topText="Chatbot"
-            middleText="Embrace engaging interactions"
-            bottomText="Personalized assistance at your fingertips"
-          />
-
+          {/* */}
+          <GridItem colSpan={2} mx="10">
+            <BannerText
+              line1="Chatbot"
+              line2="Embrace engaging interactions"
+              line3="Personalized assistance at your fingertips"
+            />
+          </GridItem>
+          {/* */}
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Chat with AI"
@@ -135,22 +182,33 @@ export default function Home() {
             >
               <Heading wordBreak="break-word">Powered by OpenAI</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
-                Experience a cutting-edge chatbot backed by OpenAI's advanced
-                language model, designed to understand and assist you better
+                Experience a cutting-edge chatbot backed by OpenAI&apos;s
+                advanced language model, designed to understand and assist you
+                better
               </Text>
             </LargeCard>
           </GridItem>
-
-          <SimpleStack
-            weakText="Ready for a personalized experience?"
-            strongText="Sign up now and unlock all our features!"
-            imageUrls={[
-              "/images/dummy_600x900.png",
-              "/images/dummy_600x600.png",
-              "/images/dummy_600x900.png",
-              "/images/dummy_600x800.png",
-            ]}
-          />
+          {/* */}
+          <GridItem colSpan={2}>
+            <CallToAction
+              background="var(--chakra-colors-secondaryContainer)"
+              color="var(--chakra-colors-onSecondaryContainer)"
+              images={[
+                { url: "/images/dummy_600x900.png", aspectRatio: "2/3" },
+                { url: "/images/dummy_600x600.png", aspectRatio: "1/1" },
+                { url: "/images/dummy_600x900.png", aspectRatio: "2/3" },
+                { url: "/images/dummy_600x800.png", aspectRatio: "3/4" },
+              ]}
+            >
+              <Text as="b">Ready for a personalized experience?</Text>
+              <Heading mt="6" size={{ base: "2xl", md: "4xl" }}>
+                Sign up now and unlock all our features!
+              </Heading>
+            </CallToAction>
+          </GridItem>
+          <GridItem colSpan={2}>
+            <NewsletterSection />
+          </GridItem>
         </GridWrapper>
       </MotionContainer>
     </GridLine>

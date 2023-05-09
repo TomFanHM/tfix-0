@@ -1,21 +1,17 @@
 "use client";
 
 import { useScrollScale } from "@/hooks/useScrollScale";
-import { Flex, Heading, Text, Box, Container } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 
 type HeroBannerProps = {
-  title: string;
-  message: string;
+  title: React.ReactNode;
+  message: React.ReactNode;
   children?: React.ReactNode;
 };
 
-const HeroBanner: React.FC<HeroBannerProps> = ({
-  title,
-  message,
-  children,
-}) => {
+const HeroBanner: React.FC<HeroBannerProps> = ({ title, message }) => {
   const container = {
     hidden: { opacity: 1 },
     visible: {
@@ -35,28 +31,22 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
     },
   };
 
-  const scale = useScrollScale(1, 10000, 1.1);
-
+  const scale = useScrollScale(1, 1000, 1.1);
   return (
-    <Box
+    <Flex
       position="relative"
       w="full"
       maxW="full"
       h="70vh"
-      minH="40rem"
       maxH="50rem"
       overflow="hidden"
+      align="center"
+      justify="center"
     >
       <Box w="full" h="full" position="absolute" inset="0" overflow="hidden">
         {/* Canvas */}
       </Box>
-      <Container
-        maxW="container.lg"
-        position="absolute"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
-      >
+      <Container maxW="container.lg">
         <Flex
           flexDirection="column"
           justify="center"
@@ -81,10 +71,10 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
           <Text as={motion.b} className="item" variants={item}>
             {message}
           </Text>
-          {children && children}
         </Flex>
       </Container>
-    </Box>
+    </Flex>
   );
 };
+
 export default HeroBanner;

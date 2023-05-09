@@ -1,14 +1,7 @@
 "use client"; // Error components must be Client components
 
 import MotionContainer from "@/components/container/MotionContainer";
-import { light, dark } from "@/styles/chakra/colors";
-import {
-  Flex,
-  Heading,
-  Button,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Flex, Heading, Button, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
 
 export default function Error({
@@ -23,8 +16,6 @@ export default function Error({
     console.error(error);
   }, [error]);
 
-  const color = useColorModeValue(light, dark);
-
   return (
     <MotionContainer>
       <Flex
@@ -36,7 +27,7 @@ export default function Error({
         maxW="20rem"
         mx="auto"
       >
-        <Heading color={color.secondary}>Error</Heading>
+        <Heading color="var(--chakra-colors-secondary)">Error</Heading>
         <Text>Something went wrong!</Text>
         <Button variant="form" onClick={() => reset()}>
           Try again

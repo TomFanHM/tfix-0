@@ -1,6 +1,5 @@
 "use client";
 
-import { light, dark } from "@/styles/chakra/colors";
 import {
   Box,
   Container,
@@ -9,7 +8,6 @@ import {
   HStack,
   Icon,
   Link,
-  useColorModeValue,
   VStack,
   Text,
 } from "@chakra-ui/react";
@@ -17,16 +15,12 @@ import React from "react";
 import { BsInstagram, BsFacebook, BsYoutube } from "react-icons/bs";
 import NextLink from "next/link";
 
-type FooterProps = {};
-
-const Footer: React.FC<FooterProps> = () => {
-  const color = useColorModeValue(light, dark);
-
+const Footer: React.FC = () => {
   return (
     <Box
       py={{ base: "20", sm: "30", md: "40" }}
-      bg={color.surfaceVariant}
-      color={color.onSurfaceVariant}
+      bg={"var(--chakra-colors-surfaceVariant)"}
+      color={"var(--chakra-colors-onSurfaceVariant)"}
     >
       <Container maxW="container.xl">
         <Flex
