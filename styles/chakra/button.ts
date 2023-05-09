@@ -1,7 +1,6 @@
 import "@fontsource/roboto/400.css";
 
 import { ComponentStyleConfig, StyleFunctionProps } from "@chakra-ui/react";
-import { light, dark } from "./colors";
 
 export const Button: ComponentStyleConfig = {
   baseStyle: {
@@ -10,82 +9,75 @@ export const Button: ComponentStyleConfig = {
   },
   variants: {
     //
-    form: (props: StyleFunctionProps) => ({
+    form: {
       w: "full",
       borderRadius: "20px",
       border: "1px solid",
-      borderColor:
-        props.colorMode === "light" ? light.onSurface : dark.onSurface,
+      borderColor: "var(--chakra-colors-onSurface)",
       position: "relative",
       overflow: "hidden",
       zIndex: 1,
       bg: "elevation.dp02",
-      color: props.colorMode === "light" ? light.onSurface : dark.onSurface,
+      color: "var(--chakra-colors-onSurface)",
       boxShadow: "dp02",
       _before: {
         content: '""',
         position: "absolute",
         inset: 0,
-        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
+        bg: "var(--chakra-colors-secondary)",
         transform: "scaleX(0)",
         transformOrigin: "left",
         zIndex: -1,
         transition: "250ms ease-in-out",
       },
       _hover: {
-        color:
-          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
+        color: "var(--chakra-colors-onSecondary)",
         _before: {
           transform: "scaleX(1)",
         },
       },
-    }),
+    },
     //
-    icon: (props: StyleFunctionProps) => ({
+    icon: {
       bg: "transparent",
       _hover: {
-        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
-        color:
-          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
+        bg: "var(--chakra-colors-secondary)",
+        color: "var(--chakra-colors-onSecondary)",
       },
-    }),
+    },
     //
-    custom_solid: (props: StyleFunctionProps) => ({
+    custom_solid: {
       borderRadius: "20px",
-      bg: props.colorMode === "light" ? light.primary : dark.primary,
-      color: props.colorMode === "light" ? light.onPrimary : dark.onPrimary,
+      bg: "var(--chakra-colors-primary)",
+      color: "var(--chakra-colors-onPrimary)",
       _hover: {
-        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
-        color:
-          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
+        bg: "var(--chakra-colors-secondary)",
+        color: "var(--chakra-colors-onSecondary)",
       },
-    }),
-    custom_outline: (props: StyleFunctionProps) => ({
+    },
+    custom_outline: {
       borderRadius: "20px",
       border: "1px solid",
-      borderColor: props.colorMode === "light" ? light.primary : dark.primary,
+      borderColor: "var(--chakra-colors-primary)",
       bg: "transparent",
-      color: props.colorMode === "light" ? light.primary : dark.primary,
+      color: "var(--chakra-colors-primary)",
       _hover: {
-        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
-        color:
-          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
-        borderColor:
-          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
+        bg: "var(--chakra-colors-secondary)",
+        color: "var(--chakra-colors-onSecondary)",
+        borderColor: "var(--chakra-colors-onSecondary)",
       },
-    }),
-    custom_outline_reverse: (props: StyleFunctionProps) => ({
+    },
+    custom_outline_reverse: {
       borderRadius: "20px",
       border: "1px solid",
-      borderColor: props.colorMode === "light" ? light.error : dark.error,
+      borderColor: "var(--chakra-colors-error)",
       bg: "transparent",
-      color: props.colorMode === "light" ? light.error : dark.error,
+      color: "var(--chakra-colors-error)",
       _hover: {
-        bg: props.colorMode === "light" ? light.tertiary : dark.tertiary,
-        color: props.colorMode === "light" ? light.onTertiary : dark.onTertiary,
-        borderColor:
-          props.colorMode === "light" ? light.onTertiary : dark.onTertiary,
+        bg: "var(--chakra-colors-tertiary)",
+        color: "var(--chakra-colors-onTertiary)",
+        borderColor: "var(--chakra-colors-onTertiary)",
       },
-    }),
+    },
   },
 };
