@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { RecoilRoot } from "recoil";
 import AuthModal from "@/components/auth/modal";
-import { Providers } from "@/components/chakra/providers";
+import { Providers } from "@/components/chakra/Providers";
 
 const queryClient = new QueryClient();
 

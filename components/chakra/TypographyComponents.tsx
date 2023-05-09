@@ -2,4 +2,4 @@
 
 import { Heading, Highlight, Text } from "@chakra-ui/react";
 
-export default { Heading, Highlight, Text };
+export { Heading, Highlight, Text };

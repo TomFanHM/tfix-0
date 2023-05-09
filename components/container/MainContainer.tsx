@@ -28,6 +28,39 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
       bg={color.background}
       color={color.onBackground}
       outlineColor={color.outline}
+      sx={{
+        "--chakra-colors-primary": color.primary,
+        "--chakra-colors-onPrimary": color.onPrimary,
+        "--chakra-colors-primaryContainer": color.primaryContainer,
+        "--chakra-colors-onPrimaryContainer": color.onPrimaryContainer,
+        "--chakra-colors-secondary": color.secondary,
+        "--chakra-colors-onSecondary": color.onSecondary,
+        "--chakra-colors-secondaryContainer": color.secondaryContainer,
+        "--chakra-colors-onSecondaryContainer": color.onSecondaryContainer,
+        "--chakra-colors-tertiary": color.tertiary,
+        "--chakra-colors-onTertiary": color.onTertiary,
+        "--chakra-colors-tertiaryContainer": color.tertiaryContainer,
+        "--chakra-colors-onTertiaryContainer": color.onTertiaryContainer,
+        "--chakra-colors-error": color.error,
+        "--chakra-colors-errorContainer": color.errorContainer,
+        "--chakra-colors-onError": color.onError,
+        "--chakra-colors-onErrorContainer": color.onErrorContainer,
+        "--chakra-colors-background": color.background,
+        "--chakra-colors-onBackground": color.onBackground,
+        "--chakra-colors-surface": color.surface,
+        "--chakra-colors-onSurface": color.onSurface,
+        "--chakra-colors-surfaceVariant": color.surfaceVariant,
+        "--chakra-colors-onSurfaceVariant": color.onSurfaceVariant,
+        "--chakra-colors-outline": color.outline,
+        "--chakra-colors-inverseOnSurface": color.inverseOnSurface,
+        "--chakra-colors-inverseSurface": color.inverseSurface,
+        "--chakra-colors-inversePrimary": color.inversePrimary,
+        "--chakra-colors-shadow": color.shadow,
+        "--chakra-colors-surfaceTint": color.surfaceTint,
+        "--chakra-colors-outlineVariant": color.outlineVariant,
+        "--chakra-colors-scrim": color.scrim,
+        "--chakra-colors-semiPrimaryContainer": color.semiPrimaryContainer,
+      }}
     >
       <GridItem area="header" position="sticky" top="0" zIndex={99}>
         <Header />

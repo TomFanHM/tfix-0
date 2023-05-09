@@ -1,52 +1,34 @@
 "use client";
 
-import { light, dark } from "@/styles/chakra/colors";
-import {
-  Button,
-  Flex,
-  GridItem,
-  Heading,
-  useColorModeValue,
-  VStack,
-  Image,
-  Text,
-} from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import React from "react";
-
-type CustomColor = {
-  light: string;
-  dark: string;
-};
+import { useRouter } from "next/navigation";
+import { Button, Flex, Box, VStack, Image } from "@chakra-ui/react";
+import { fallbackImage } from "@/config/site";
 
 type NormalCardProps = {
-  title: string;
-  message: string;
-  backgroundImage?: string;
+  children?: React.ReactNode;
+  image?: string;
   prompt: string;
-  customColor?: CustomColor;
+  color?: string;
   url: string;
 };
 
 const NormalCard: React.FC<NormalCardProps> = ({
-  title,
-  message,
-  backgroundImage = "/IMG_0798.PNG",
+  image = fallbackImage,
   prompt,
-  customColor = { light: light.onSurface, dark: dark.onSurface },
+  color = "var(--chakra-colors-onSurface)",
   url,
+  children,
 }) => {
-  const custom_color = useColorModeValue(customColor.light, customColor.dark);
-  const color = useColorModeValue(light, dark);
   const router = useRouter();
 
   return (
-    <GridItem
+    <Box
+      w="full"
       borderRadius="20px"
       overflow="hidden"
       position="relative"
       transform="translate3d(0px, 0px, 0px)"
-      colSpan={{ base: 2, md: 1 }}
       boxShadow="dp02"
       data-group
       onClick={() => router.push(url)}
@@ -58,7 +40,7 @@ const NormalCard: React.FC<NormalCardProps> = ({
         h="full"
         color="transparent"
         objectFit="cover"
-        src={backgroundImage}
+        src={image}
         alt="banner"
         transition="500ms ease-in-out"
         _groupHover={{ transform: "scale(1.1)" }}
@@ -75,28 +57,27 @@ const NormalCard: React.FC<NormalCardProps> = ({
         gap="4"
         align="start"
         justify={{ md: "space-between" }}
-        color={custom_color}
-        bg={color.surface}
+        bg="var(--chakra-colors-surface)"
       >
-        <VStack spacing="4" align="start" px="4" zIndex={1}>
-          <Heading wordBreak="break-word">{title}</Heading>
-          <Text wordBreak="break-word" fontWeight="bold">
-            {message}
-          </Text>
+        <VStack spacing="4" align="start" px="4" zIndex={1} color={color}>
+          {children}
         </VStack>
-
         <Button
           variant="ghost"
           borderRadius="20px"
           fontWeight="bold"
-          color={custom_color}
-          _groupHover={{ bg: color.primary, color: color.onPrimary }}
+          color={color}
+          _groupHover={{
+            bg: "var(--chakra-colors-primary)",
+            color: "var(--chakra-colors-onPrimary)",
+          }}
           zIndex={1}
         >
           {prompt}
         </Button>
       </Flex>
-    </GridItem>
+    </Box>
   );
 };
+
 export default NormalCard;

@@ -1,56 +1,42 @@
 "use client";
 
 import { fallbackImage } from "@/config/site";
-import { dark, light } from "@/styles/chakra/colors";
 import {
-  Button,
-  Flex,
-  GridItem,
-  Heading,
-  useColorModeValue,
-  VStack,
-  Text,
   useBreakpointValue,
+  Flex,
+  VStack,
+  Button,
+  Box,
   Image,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 
-type CustomColor = {
-  light: string;
-  dark: string;
-};
-
 type LargeCardProps = {
-  title: string;
-  message: string;
-  backgroundImage?: string;
-  backgroundImageMobile?: string;
+  children?: React.ReactNode;
+  mobileImage?: string;
+  image?: string;
   prompt: string;
-  customColor?: CustomColor;
+  color?: string;
   url: string;
 };
 
 const LargeCard: React.FC<LargeCardProps> = ({
-  title,
-  message,
-  backgroundImage = fallbackImage,
-  backgroundImageMobile = fallbackImage,
+  mobileImage = fallbackImage,
+  image = fallbackImage,
   prompt,
-  customColor = { light: light.onSurface, dark: dark.onSurface },
+  color = "var(--chakra-colors-onSurface)",
   url,
+  children,
 }) => {
-  const custom_color = useColorModeValue(customColor.light, customColor.dark);
-  const color = useColorModeValue(light, dark);
   const router = useRouter();
   const isLargerThanMdSize = useBreakpointValue({ base: false, md: true });
 
   return (
-    <GridItem
+    <Box
       borderRadius="20px"
       overflow="hidden"
       position="relative"
       transform="translate3d(0px, 0px, 0px)"
-      colSpan={2}
       boxShadow="dp02"
       data-group
       onClick={() => router.push(url)}
@@ -62,7 +48,7 @@ const LargeCard: React.FC<LargeCardProps> = ({
         h="full"
         color="transparent"
         objectFit="cover"
-        src={isLargerThanMdSize ? backgroundImage : backgroundImageMobile}
+        src={isLargerThanMdSize ? image : mobileImage}
         alt="banner"
         transition="500ms ease-in-out"
         _groupHover={{ transform: "scale(1.1)" }}
@@ -79,8 +65,8 @@ const LargeCard: React.FC<LargeCardProps> = ({
         gap="4"
         align="start"
         justify={{ md: "space-between" }}
-        color={custom_color}
-        bg={color.surface}
+        color={color}
+        bg="var(--chakra-colors-surface)"
       >
         <VStack
           spacing="4"
@@ -90,21 +76,22 @@ const LargeCard: React.FC<LargeCardProps> = ({
           zIndex={1}
           my={{ md: "auto" }}
         >
-          <Heading wordBreak="break-word">{title}</Heading>
-          <Text wordBreak="break-word">{message}</Text>
+          {children}
         </VStack>
-
         <Button
           variant="ghost"
           borderRadius="20px"
-          color={custom_color}
-          _groupHover={{ bg: color.primary, color: color.onPrimary }}
+          color={color}
+          _groupHover={{
+            bg: "var(--chakra-colors-primary)",
+            color: "var(--chakra-colors-onPrimary)",
+          }}
           zIndex={1}
         >
           {prompt}
         </Button>
       </Flex>
-    </GridItem>
+    </Box>
   );
 };
 export default LargeCard;

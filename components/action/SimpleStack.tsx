@@ -1,10 +1,8 @@
 "use client";
 
-import { dark, light } from "@/styles/chakra/colors";
 import {
   Flex,
   GridItem,
-  useColorModeValue,
   Box,
   Image,
   Text,
@@ -45,18 +43,13 @@ const ImageBlock: React.FC<ImageBlock> = ({ imageUrl, aspectRatio }) => {
   );
 };
 
-type CustomColor = {
-  light: string;
-  dark: string;
-};
-
 type ArrayOfMaxLength4 = readonly [string, string, string, string];
 
 type SimpleStackProps = {
   weakText: string;
   strongText: string;
-  background?: CustomColor;
-  onBackground?: CustomColor;
+  background?: string;
+  onBackground?: string;
   aspectRatioList?: ArrayOfMaxLength4;
   imageUrls?: ArrayOfMaxLength4;
 };
@@ -64,8 +57,8 @@ type SimpleStackProps = {
 const SimpleStack: React.FC<SimpleStackProps> = ({
   weakText,
   strongText,
-  background = { light: light.background, dark: dark.background },
-  onBackground = { light: light.onBackground, dark: dark.onBackground },
+  background = '--chakra-colors-background',
+  onBackground = '--chakra-colors-onBackground',
   aspectRatioList = ["2/3", "1/1", "2/3", "3/4"],
   imageUrls = [
     "/fallback.png",
@@ -74,14 +67,6 @@ const SimpleStack: React.FC<SimpleStackProps> = ({
     "/fallback.png",
   ],
 }) => {
-  const customBackgroundColor = useColorModeValue(
-    background.light,
-    background.dark
-  );
-  const customOnBackgroundColor = useColorModeValue(
-    onBackground.light,
-    onBackground.dark
-  );
 
   return (
     <GridItem
@@ -89,10 +74,10 @@ const SimpleStack: React.FC<SimpleStackProps> = ({
       position="relative"
       transform="translate3d(0px, 0px, 0px)"
       mt={{ base: "8", md: "16" }}
-      boxShadow={`0 0 0 100vmax ${customBackgroundColor}`}
+      boxShadow={`0 0 0 100vmax var(${background})`}
       clipPath="inset(0 -100vmax)"
-      bg={customBackgroundColor}
-      color={customOnBackgroundColor}
+      bg={`var(${background})`}
+      color={`var(${onBackground})`}
     >
       <Flex
         flexDirection="row"
