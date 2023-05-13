@@ -4,21 +4,19 @@ import MotionContainer from "@/components/container/MotionContainer";
 import ThreeColumnGridWrapper from "@/components/container/ThreeColumnGridWrapper";
 import { firestore } from "@/firebase/firebaseApp";
 import { scrollToTop } from "@/functions/functions";
-import { Stack, Skeleton, GridItem, Button } from "@chakra-ui/react";
+import { Stack, Skeleton, GridItem, Button, Heading } from "@chakra-ui/react";
 import {
   collection,
   query,
   orderBy,
   startAfter,
   limit,
-  getDocs,
   where,
 } from "firebase/firestore";
 import React, { useCallback, useState } from "react";
 import Guide from "./Guide";
-import Header from "./Header";
 import NewsCard from "./NewsCard";
-import { ArticleSchema } from "./getNews";
+import { ArticleSchema, getNews } from "./getNews";
 
 type NewsContainerProps = {
   title: string;
@@ -58,17 +56,7 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
         );
 
     try {
-      const querySnapshot = await getDocs(q);
-
-      const moreNews = querySnapshot.docs
-        .map((doc) => {
-          const rawDocData = doc.data();
-          const docData = ArticleSchema.safeParse(rawDocData);
-          if (docData.success) {
-            return docData.data;
-          }
-        })
-        .flatMap((f) => (f ? [f] : [])); //remove undefined
+      const moreNews = await getNews(q);
 
       if (moreNews.length > 0) {
         setArticles((prevArticles) => [...prevArticles, ...moreNews]);
@@ -90,7 +78,11 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
         my={{ base: "6", md: "8" }}
       >
         <>
-          <Header title={title} />
+          <GridItem colSpan={3}>
+            <Heading size={{ base: "2xl", md: "4xl" }} fontWeight="extrabold">
+              {title}
+            </Heading>
+          </GridItem>
         </>
         <>
           {articles.map((article, i) => (

@@ -9,34 +9,44 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
+  MenuGroup,
+  FormControl,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
 import { MdFilterListAlt, MdOutlineSort } from "react-icons/md";
-import { Filters } from "./SearchContainer";
+import { Filters } from "./getData";
+import { SmallCloseIcon } from "@chakra-ui/icons";
 
 type ProductOptionsProps = {
   filters: Filters["product"];
-  onFiltersChange: (newFilters: Partial<Filters["product"]>) => void;
+  setFieldValue: (field: string, value: any) => void;
 };
 
 const ProductOptions: React.FC<ProductOptionsProps> = ({
   filters,
-  onFiltersChange,
+  setFieldValue,
 }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string | null>(null);
 
+  const resetFilters = () => {
+    setFieldValue("product.category", "");
+    setFieldValue("product.series", "");
+  };
+
   return (
-    <>
-      {/* Option */}
-      <Flex
-        mt="4"
-        w="full"
-        maxW="40rem"
-        overflow="hidden"
-        justify="start"
-        gap="4"
-        mx="auto"
-      >
+    <Flex
+      w="full"
+      maxW="40rem"
+      mt="4"
+      overflow="hidden"
+      mx="auto"
+      flexDirection="column"
+      gap="4"
+    >
+      {/* Buttons */}
+      <Flex justify="start" align="center" gap="4">
         <Button
           leftIcon={<Icon as={MdFilterListAlt} />}
           variant="custom_outline"
@@ -44,6 +54,16 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
         >
           Filters
         </Button>
+
+        {(filters.category || filters.series) && (
+          <Button
+            leftIcon={<SmallCloseIcon />}
+            variant="custom_outline_reverse"
+            onClick={resetFilters}
+          >
+            Filters
+          </Button>
+        )}
 
         <Menu offset={[0, 24]}>
           {({ isOpen }) => (
@@ -57,26 +77,43 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
                 {sort || "Sort"}
               </MenuButton>
               <MenuList>
-                <MenuItem>ddd</MenuItem>
-                <MenuItem>Broadcast</MenuItem>
+                <MenuGroup title="Sort by">
+                  <MenuItem onClick={() => setSort(null)}>Default</MenuItem>
+                  <MenuItem onClick={() => setSort("Price")}>Price</MenuItem>
+                  <MenuItem onClick={() => setSort("Release Date")}>
+                    Release Date
+                  </MenuItem>
+                </MenuGroup>
               </MenuList>
             </>
           )}
         </Menu>
       </Flex>
+
       {/* Filters */}
       {filterOpen && (
-        <Flex
-          flexDirection={{ base: "column", md: "row" }}
-          gap="4"
-          mt="4"
-          w="full"
-          maxW="40rem"
-          overflow="hidden"
-          mx="auto"
-        ></Flex>
+        <Flex gap="4" mt="4" flexDirection={{ base: "column", md: "row" }}>
+          <FormControl>
+            <FormLabel>Category</FormLabel>
+            <Input
+              placeholder="Enter product category"
+              value={filters.category}
+              onChange={(e) =>
+                setFieldValue("product.category", e.target.value)
+              }
+            />
+          </FormControl>
+          <FormControl>
+            <FormLabel>Series</FormLabel>
+            <Input
+              placeholder="Enter product series"
+              value={filters.series}
+              onChange={(e) => setFieldValue("product.series", e.target.value)}
+            />
+          </FormControl>
+        </Flex>
       )}
-    </>
+    </Flex>
   );
 };
 export default ProductOptions;

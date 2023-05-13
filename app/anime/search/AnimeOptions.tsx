@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import { AnimeData } from "../getAnimes";
+import { SmallCloseIcon } from "@chakra-ui/icons";
 import {
   Flex,
   Button,
@@ -9,35 +8,40 @@ import {
   Menu,
   MenuButton,
   MenuList,
-  MenuItem,
   MenuGroup,
-  HStack,
-  VStack,
+  MenuItem,
   FormControl,
   FormLabel,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
   Select,
 } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { MdFilterListAlt, MdOutlineSort } from "react-icons/md";
-import { Filters } from "./SearchContainer";
-import { SmallCloseIcon } from "@chakra-ui/icons";
+import { Filters } from "./getData";
+import { Genres, Studios } from "./options";
 
 type AnimeOptionsProps = {
   filters: Filters["anime"];
-  onFiltersChange: (newFilters: Partial<Filters["anime"]>) => void;
+  setFieldValue: (field: string, value: any) => void;
 };
 
 const AnimeOptions: React.FC<AnimeOptionsProps> = ({
   filters,
-  onFiltersChange,
+  setFieldValue,
 }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
   const [sort, setSort] = useState<string | null>(null);
   //filter
+  const resetFilters = () => {
+    setFieldValue("anime.year", "");
+    setFieldValue("anime.season", "");
+    setFieldValue("anime.genres", "");
+    setFieldValue("anime.studios", "");
+  };
 
   return (
     <Flex
@@ -50,20 +54,23 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
       gap="4"
     >
       {/* Buttons */}
-      <HStack justify="start" align="center" spacing="4">
+      <Flex justify="start" align="center" gap="4">
         <Button
-          leftIcon={<Icon as={MdFilterListAlt} />}
+          leftIcon={<Icon as={MdFilterListAlt} boxSize={6} />}
           variant="custom_outline"
           onClick={() => setFilterOpen((prev) => !prev)}
         >
           Filters
         </Button>
 
-        {(filters.year || filters.season) && (
+        {(filters.year ||
+          filters.season ||
+          filters.genres ||
+          filters.studios) && (
           <Button
             leftIcon={<SmallCloseIcon />}
             variant="custom_outline_reverse"
-            onClick={() => onFiltersChange({ year: 0, season: "" })}
+            onClick={resetFilters}
           >
             Filters
           </Button>
@@ -76,7 +83,7 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
                 isActive={isOpen}
                 variant="custom_outline"
                 as={Button}
-                leftIcon={<Icon as={MdOutlineSort} />}
+                leftIcon={<Icon as={MdOutlineSort} boxSize={6} />}
               >
                 {sort || "Sort"}
               </MenuButton>
@@ -95,17 +102,17 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
             </>
           )}
         </Menu>
-      </HStack>
+      </Flex>
       {/* Filters */}
       {filterOpen && (
-        <VStack gap="4" mt="4">
+        <Flex gap="4" mt="4" flexDirection={{ base: "column", md: "row" }}>
           <FormControl>
             <FormLabel>Year</FormLabel>
             <NumberInput
               value={filters.year}
               max={2050}
-              min={0}
-              onChange={(_, el) => onFiltersChange({ year: el })}
+              min={2000}
+              onChange={(_, el) => setFieldValue("anime.year", el)}
             >
               <NumberInputField />
               <NumberInputStepper>
@@ -119,11 +126,7 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
             <Select
               placeholder="Select season"
               value={filters.season}
-              onChange={(el) => {
-                console.log(el.target.value);
-
-                onFiltersChange({ season: el.target.value });
-              }}
+              onChange={(el) => setFieldValue("anime.season", el.target.value)}
             >
               <option value={"winter"}>Winter</option>
               <option value={"spring"}>Spring</option>
@@ -131,7 +134,35 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
               <option value={"fall"}>Fall</option>
             </Select>
           </FormControl>
-        </VStack>
+          <FormControl>
+            <FormLabel>Genre</FormLabel>
+            <Select
+              placeholder="Select genre"
+              value={filters.genres}
+              onChange={(el) => setFieldValue("anime.genres", el.target.value)}
+            >
+              {Genres.map((el, i) => (
+                <option key={i} value={el}>
+                  {el}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl>
+            <FormLabel>Studio</FormLabel>
+            <Select
+              placeholder="Select studio"
+              value={filters.studios}
+              onChange={(el) => setFieldValue("anime.studios", el.target.value)}
+            >
+              {Studios.map((el, i) => (
+                <option key={i} value={el}>
+                  {el}
+                </option>
+              ))}
+            </Select>
+          </FormControl>
+        </Flex>
       )}
     </Flex>
   );

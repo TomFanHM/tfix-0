@@ -3,6 +3,8 @@ import React from "react";
 import { getNews } from "../getNews";
 import NewsContainer from "../NewsContainer";
 import { capitalizeFirstLetter } from "@/functions/functions";
+import { firestore } from "@/firebase/firebaseApp";
+import { collection, limit, orderBy, query, where } from "firebase/firestore";
 export const revalidate = 3600;
 
 const categories = [
@@ -27,21 +29,19 @@ const SelectedCategory = async ({
 }: {
   params: { slug: string };
 }): Promise<JSX.Element> => {
-  const filter = capitalizeFirstLetter(params.slug);
-  const articles = await getNews(
-    [
-      {
-        fieldPath: "category",
-        opStr: "==",
-        value: filter,
-      },
-    ],
-    10
-  );
-
   if (!categories.includes(params.slug)) {
     notFound();
   }
+
+  const filter = capitalizeFirstLetter(params.slug);
+  const docRef = collection(firestore, "news");
+  const q = query(
+    docRef,
+    where("category", "==", filter),
+    orderBy("publishedAt", "desc"),
+    limit(10)
+  );
+  const articles = await getNews(q);
 
   return (
     <NewsContainer title={filter} getArticles={articles} filter={filter} />

@@ -1,16 +1,6 @@
 import { z } from "zod";
 import { firestore } from "@/firebase/firebaseApp";
-import {
-  collection,
-  query,
-  where,
-  limit,
-  getDocs,
-  orderBy,
-  doc,
-  getDoc,
-} from "firebase/firestore";
-import { OptionSchema } from "@/types/types";
+import { getDocs, doc, getDoc, DocumentData, Query } from "firebase/firestore";
 
 export const AnimeSchema = z.object({
   mal_id: z.number(),
@@ -37,19 +27,7 @@ export type AnimeSchema = z.infer<typeof AnimeSchema>;
 
 export type AnimeData = { id: string } & AnimeSchema;
 
-export async function getAnimes(
-  options: OptionSchema[],
-  count: number
-): Promise<AnimeData[]> {
-  const animesRef = collection(firestore, "animes");
-
-  let q = query(animesRef);
-
-  options.forEach((option) => {
-    q = query(q, where(option.fieldPath, option.opStr, option.value));
-  });
-
-  q = query(q, orderBy("popularity", "asc"), limit(count));
+export async function getAnimes(q: Query<DocumentData>): Promise<AnimeData[]> {
   const querySnapshot = await getDocs(q);
 
   const animes = querySnapshot.docs.map((doc) => {

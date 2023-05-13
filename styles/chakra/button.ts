@@ -39,46 +39,51 @@ export const Button: ComponentStyleConfig = {
       },
     }),
     //
-    icon: {
+    icon: (props: StyleFunctionProps) => ({
       bg: "transparent",
       _hover: {
-        bg: "var(--chakra-colors-secondary)",
-        color: "var(--chakra-colors-onSecondary)",
+        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
+        color:
+          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
       },
-    },
+    }),
     //
-    custom_solid: {
+    custom_solid: (props: StyleFunctionProps) => ({
       borderRadius: "20px",
-      bg: "var(--chakra-colors-primary)",
-      color: "var(--chakra-colors-onPrimary)",
+      bg: props.colorMode === "light" ? light.primary : dark.primary,
+      color: props.colorMode === "light" ? light.onPrimary : dark.onPrimary,
       _hover: {
-        bg: "var(--chakra-colors-secondary)",
-        color: "var(--chakra-colors-onSecondary)",
+        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
+        color:
+          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
       },
-    },
-    custom_outline: {
-      borderRadius: "20px",
-      border: "1px solid",
-      borderColor: "var(--chakra-colors-primary)",
-      bg: "transparent",
-      color: "var(--chakra-colors-primary)",
-      _hover: {
-        bg: "var(--chakra-colors-secondary)",
-        color: "var(--chakra-colors-onSecondary)",
-        borderColor: "var(--chakra-colors-onSecondary)",
-      },
-    },
-    custom_outline_reverse: {
+    }),
+    custom_outline: (props: StyleFunctionProps) => ({
       borderRadius: "20px",
       border: "1px solid",
-      borderColor: "var(--chakra-colors-error)",
+      borderColor: props.colorMode === "light" ? light.primary : dark.primary,
       bg: "transparent",
-      color: "var(--chakra-colors-error)",
+      color: props.colorMode === "light" ? light.primary : dark.primary,
       _hover: {
-        bg: "var(--chakra-colors-tertiary)",
-        color: "var(--chakra-colors-onTertiary)",
-        borderColor: "var(--chakra-colors-onTertiary)",
+        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
+        color:
+          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
+        borderColor:
+          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
       },
-    },
+    }),
+    custom_outline_reverse: (props: StyleFunctionProps) => ({
+      borderRadius: "20px",
+      border: "1px solid",
+      borderColor: props.colorMode === "light" ? light.error : dark.error,
+      bg: "transparent",
+      color: props.colorMode === "light" ? light.error : dark.error,
+      _hover: {
+        bg: props.colorMode === "light" ? light.tertiary : dark.tertiary,
+        color: props.colorMode === "light" ? light.onTertiary : dark.onTertiary,
+        borderColor:
+          props.colorMode === "light" ? light.onTertiary : dark.onTertiary,
+      },
+    }),
   },
 };

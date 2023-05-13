@@ -3,7 +3,6 @@
 import { CalendarIcon, CheckCircleIcon } from "@chakra-ui/icons";
 import {
   FormControl,
-  FormLabel,
   Input,
   Button,
   Box,
@@ -13,12 +12,28 @@ import {
   GridItem,
   Heading,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 
 const SubscribeForm: React.FC = () => {
+  const [email, setEmail] = useState<string>("");
+  const toast = useToast();
+
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    //
+    setEmail("");
+    toast({
+      title: "Thank you for subscribing to our website.",
+      variant: "solid",
+      status: "success",
+      isClosable: true,
+    });
+  };
+
   return (
-    <VStack mt="6" spacing="4">
+    <VStack mt="6" spacing="4" as="form" onSubmit={handleSubmit}>
       <FormControl id="email-address">
         <Input
           name="email"
@@ -30,6 +45,10 @@ const SubscribeForm: React.FC = () => {
           shadow="dp02"
           placeholder="Enter your email"
           size="lg"
+          value={email}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
         />
       </FormControl>
       <Button type="submit" variant="custom_solid" w="full">

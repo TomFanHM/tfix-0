@@ -4,11 +4,15 @@ import { notFound } from "next/navigation";
 import MotionContainer from "@/components/container/MotionContainer";
 import AnimeDetails from "./AnimeDetails";
 import { getProducts } from "./getProducts";
+import { firestore } from "@/firebase/firebaseApp";
+import { collection, query, orderBy, limit } from "firebase/firestore";
 
 export const revalidate = 3600 * 24;
 
 export async function generateStaticParams() {
-  const animes = await getAnimes([], 500);
+  const animesRef = collection(firestore, "animes");
+  const q = query(animesRef, orderBy("popularity", "asc"), limit(500));
+  const animes = await getAnimes(q);
 
   const animeList = animes.map((anime) => ({ slug: anime.id }));
 

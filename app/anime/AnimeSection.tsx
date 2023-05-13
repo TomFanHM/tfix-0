@@ -52,7 +52,7 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ title, anime }) => {
   }, [calculateScrollProgress]);
 
   return (
-    <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
+    <>
       <Flex justify="space-between" py="4" align="center">
         <Heading>{title}</Heading>
         <VStack>
@@ -93,7 +93,7 @@ const AnimeSection: React.FC<AnimeSectionProps> = ({ title, anime }) => {
           </GridItem>
         ))}
       </Grid>
-    </GridItem>
+    </>
   );
 };
 

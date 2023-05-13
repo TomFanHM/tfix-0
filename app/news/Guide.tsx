@@ -2,12 +2,10 @@
 
 import { newsConfig } from "@/config/news";
 import { Button, Flex, GridItem, Heading } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React from "react";
 
 const Guide: React.FC = () => {
-  const router = useRouter();
-
   return (
     <GridItem colSpan={3}>
       <Flex
@@ -26,13 +24,9 @@ const Guide: React.FC = () => {
         <Flex gap="4" flexDirection="row" flexWrap="wrap" mt="12">
           {newsConfig.mainNav &&
             newsConfig.mainNav.map((el, i) => (
-              <Button
-                key={i}
-                className="item"
-                onClick={() => router.push(el.href)}
-              >
-                {el.title}
-              </Button>
+              <Link href={el.href} key={i}>
+                <Button className="item">{el.title}</Button>
+              </Link>
             ))}
         </Flex>
       </Flex>
