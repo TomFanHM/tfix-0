@@ -20,7 +20,6 @@ const SubscribeForm: React.FC = () => {
   return (
     <VStack mt="6" spacing="4">
       <FormControl id="email-address">
-        <FormLabel htmlFor="email-address">Email address</FormLabel>
         <Input
           name="email"
           type="email"
@@ -73,19 +72,19 @@ const NewsletterSection: React.FC = () => {
       w="full"
       position="relative"
       overflow="hidden"
-      py={{ base: "16", sm: "24", lg: "32" }}
+      py={{ base: "16", md: "24" }}
       mx="auto"
     >
       <Flex
         flexDirection={{ base: "column", md: "row" }}
-        gridGap={{ base: "8", lg: "16" }}
+        gridGap={{ base: "8", md: "16" }}
         align="center"
       >
         <Box>
-          <Heading fontSize={{ base: "2xl", sm: "4xl" }} fontWeight="bold">
-            Subscribe to Our Newsletter
+          <Heading size={{ base: "2xl", md: "4xl" }} fontWeight="bold">
+            Subscribe to our newsletter
           </Heading>
-          <Text mt="4" fontSize="lg" layerStyle="High-emphasis">
+          <Text mt="4" size="lg" layerStyle="High-emphasis">
             Don&apos;t miss out on the latest news, updates, and exclusive
             content! Subscribe to our newsletter by entering your email address
             below:
@@ -93,8 +92,8 @@ const NewsletterSection: React.FC = () => {
           <SubscribeForm />
         </Box>
         <Grid
-          gridGap={{ base: "8", sm: "10" }}
-          gridTemplateColumns={{ base: "1fr", sm: "1fr 1fr" }}
+          gridGap={{ base: "8", md: "10" }}
+          gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
           alignItems="start"
         >
           <GridItem colSpan={1}>

@@ -29,6 +29,7 @@ export default function Error({
       >
         <Heading color="var(--chakra-colors-secondary)">Error</Heading>
         <Text>Something went wrong!</Text>
+
         <Button variant="form" onClick={() => reset()}>
           Try again
         </Button>

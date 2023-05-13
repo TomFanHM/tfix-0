@@ -17,10 +17,8 @@ import {
   Icon,
   IconButton,
   useColorModeValue,
-  Show,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
@@ -30,11 +28,11 @@ import DarkModeSwitch from "./DarkModeSwitch";
 import HeaderMenu from "./HeaderMenu";
 import MobileDrawer from "./MobileDrawer";
 import { mediaConfig } from "@/config/media";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   const color = useColorModeValue(light, dark);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const router = useRouter();
 
   const toggleDrawer = () => {
     if (isOpen) {
@@ -70,18 +68,15 @@ const Header: React.FC = () => {
             display={{ md: "none" }}
             aria-label="toggle dark mode"
           />
+          <Link href="/">
+            <Heading flex="0 0 auto" cursor="pointer">
+              TFIX
+            </Heading>
+          </Link>
 
-          <Heading
-            flex="0 0 auto"
-            onClick={() => router.push("/")}
-            cursor="pointer"
-          >
-            TFIX
-          </Heading>
           {/* pc */}
-          <Show above="md">
+          <Box display={{ base: "none", md: "unset" }} flex="1 1 auto">
             <Grid
-              flex="1 1 auto"
               gridTemplateColumns="1fr auto auto auto"
               alignItems="center"
               gap="4"
@@ -141,34 +136,29 @@ const Header: React.FC = () => {
               {user && <UserAvatar user={user} />}
               {user && <SignoutButton variant="solid" />}
             </Grid>
-          </Show>
+          </Box>
           {/* pc */}
+          {/* ------------------------------ */}
           {/* mobile */}
-          <Show below="md">
-            <IconButton
-              variant="ghost"
-              aria-label="Open mobile menu"
-              icon={
-                <Icon
-                  as={isOpen ? SmallCloseIcon : HamburgerIcon}
-                  boxSize={6}
-                />
-              }
-              onClick={toggleDrawer}
-            />
-          </Show>
-          {/* mobile */}
+          <IconButton
+            variant="ghost"
+            aria-label="Open mobile menu"
+            icon={
+              <Icon as={isOpen ? SmallCloseIcon : HamburgerIcon} boxSize={6} />
+            }
+            onClick={toggleDrawer}
+            display={{ md: "none" }}
+          />
+          {/* mobile menu */}
+          <MobileDrawer
+            isOpen={isOpen}
+            onClose={onClose}
+            color={color}
+            user={user}
+          />
+          {/* mobile menu */}
 
-          {/* mobile menu */}
-          <Show below="md">
-            <MobileDrawer
-              isOpen={isOpen}
-              onClose={onClose}
-              color={color}
-              user={user}
-            />
-          </Show>
-          {/* mobile menu */}
+          {/* mobile */}
         </Container>
       </Flex>
     </Box>

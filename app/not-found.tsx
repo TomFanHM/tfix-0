@@ -1,11 +1,10 @@
 "use client";
 
 import MotionContainer from "@/components/container/MotionContainer";
-import { Flex, Heading, Button, Text } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import { Flex, Heading, Button, Text, Link } from "@chakra-ui/react";
+import NextLink from "next/link";
 
 export default function PageNotFound() {
-  const router = useRouter();
   return (
     <MotionContainer>
       <Flex
@@ -21,9 +20,9 @@ export default function PageNotFound() {
           404 - Not Found
         </Heading>
         <Text>Oops! The page you are looking for does not exist.</Text>
-        <Button variant="form" onClick={() => router.push("/")}>
-          Go to Home
-        </Button>
+        <Link as={NextLink} w="full" href="/">
+          <Button variant="form">Go to Home</Button>
+        </Link>
       </Flex>
     </MotionContainer>
   );

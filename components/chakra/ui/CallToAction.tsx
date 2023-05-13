@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  Flex,
-  GridItem,
-  Box,
-  Image,
-  Text,
-  Heading,
-  Grid,
-} from "@chakra-ui/react";
+import { Flex, GridItem, Box, Image, Grid } from "@chakra-ui/react";
 import React from "react";
 
 type PhotographProps = {

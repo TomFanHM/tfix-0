@@ -12,7 +12,7 @@ export const blogsConfig: BlogsConfig = {
     },
     {
       title: "Create Post",
-      href: "/blogs/create_post",
+      href: "/blogs/create",
     },
   ],
 };

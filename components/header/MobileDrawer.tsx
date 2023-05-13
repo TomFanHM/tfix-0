@@ -25,9 +25,10 @@ import {
   AccordionPanel,
   Box,
   Text,
+  Show,
 } from "@chakra-ui/react";
 import { User } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import React from "react";
 import { useSetRecoilState } from "recoil";
@@ -47,8 +48,6 @@ const MobileDrawerItem: React.FC<MobileDrawerItemProps> = ({
   color,
   onClose,
 }) => {
-  const router = useRouter();
-
   return (
     <AccordionItem
       color={color.onPrimaryContainer}
@@ -65,19 +64,16 @@ const MobileDrawerItem: React.FC<MobileDrawerItemProps> = ({
 
       <AccordionPanel py="8" display="flex" flexDirection="column" gap="2">
         {config.map((el, i) => (
-          <Text
-            key={i}
-            textAlign="start"
-            py="1"
-            px="4"
-            _hover={{ bg: color.secondary, color: color.onSecondary }}
-            onClick={() => {
-              router.push(el.href);
-              onClose();
-            }}
-          >
-            {el.title}
-          </Text>
+          <Link key={i} href={el.href} onClick={() => onClose()}>
+            <Text
+              textAlign="start"
+              py="1"
+              px="4"
+              _hover={{ bg: color.secondary, color: color.onSecondary }}
+            >
+              {el.title}
+            </Text>
+          </Link>
         ))}
       </AccordionPanel>
     </AccordionItem>
@@ -100,72 +96,82 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
   return (
-    <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="full">
-      <DrawerOverlay />
-      <DrawerContent
-        bg={color.primaryContainer}
-        color={color.onPrimaryContainer}
+    <Show below="md">
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        size="full"
+        isFullHeight
       >
-        <DrawerCloseButton />
+        <DrawerOverlay />
+        <DrawerContent
+          bg={color.primaryContainer}
+          color={color.onPrimaryContainer}
+        >
+          <DrawerCloseButton />
 
-        <DrawerHeader>
-          <Heading>TFIX</Heading>
-        </DrawerHeader>
+          <DrawerHeader>
+            <Heading>TFIX</Heading>
+          </DrawerHeader>
 
-        <DrawerBody overflowY="scroll">
-          <Accordion allowToggle>
-            <MobileDrawerItem
-              title="News"
-              config={newsConfig.mainNav}
-              color={color}
-              onClose={onClose}
-            />
-            <MobileDrawerItem
-              title="Media"
-              config={mediaConfig.mainNav}
-              color={color}
-              onClose={onClose}
-            />
-            <MobileDrawerItem
-              title="Blogs"
-              config={blogsConfig.mainNav}
-              color={color}
-              onClose={onClose}
-            />
-            <MobileDrawerItem
-              title="Chatbot"
-              config={chatbotConfig.mainNav}
-              color={color}
-              onClose={onClose}
-            />
-          </Accordion>
-        </DrawerBody>
+          <DrawerBody overflowY="scroll">
+            <Accordion allowToggle>
+              <MobileDrawerItem
+                title="News"
+                config={newsConfig.mainNav}
+                color={color}
+                onClose={onClose}
+              />
+              <MobileDrawerItem
+                title="Media"
+                config={mediaConfig.mainNav}
+                color={color}
+                onClose={onClose}
+              />
+              <MobileDrawerItem
+                title="Blogs"
+                config={blogsConfig.mainNav}
+                color={color}
+                onClose={onClose}
+              />
+              <MobileDrawerItem
+                title="Chatbot"
+                config={chatbotConfig.mainNav}
+                color={color}
+                onClose={onClose}
+              />
+            </Accordion>
+          </DrawerBody>
 
-        <DrawerFooter>
-          <Flex flexDirection="column" gap="4" w="full">
-            {!user && (
-              <Button
-                variant="custom_outline"
-                onClick={() => setAuthModalState({ open: true, view: "login" })}
-              >
-                Log in
-              </Button>
-            )}
-            {!user && (
-              <Button
-                variant="custom_solid"
-                onClick={() =>
-                  setAuthModalState({ open: true, view: "signup" })
-                }
-              >
-                Sign up
-              </Button>
-            )}
-            {user && <SignoutButton variant="custom_solid" />}
-          </Flex>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+          <DrawerFooter>
+            <Flex flexDirection="column" gap="4" w="full">
+              {!user && (
+                <Button
+                  variant="custom_outline"
+                  onClick={() =>
+                    setAuthModalState({ open: true, view: "login" })
+                  }
+                >
+                  Log in
+                </Button>
+              )}
+              {!user && (
+                <Button
+                  variant="custom_solid"
+                  onClick={() =>
+                    setAuthModalState({ open: true, view: "signup" })
+                  }
+                >
+                  Sign up
+                </Button>
+              )}
+              {user && <SignoutButton variant="custom_solid" />}
+            </Flex>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
+    </Show>
   );
 };
 export default MobileDrawer;

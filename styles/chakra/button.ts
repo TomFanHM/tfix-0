@@ -1,6 +1,7 @@
 import "@fontsource/roboto/400.css";
 
 import { ComponentStyleConfig, StyleFunctionProps } from "@chakra-ui/react";
+import { light, dark } from "./colors";
 
 export const Button: ComponentStyleConfig = {
   baseStyle: {
@@ -9,34 +10,34 @@ export const Button: ComponentStyleConfig = {
   },
   variants: {
     //
-    form: {
+    form: (props: StyleFunctionProps) => ({
       w: "full",
       borderRadius: "20px",
       border: "1px solid",
-      borderColor: "var(--chakra-colors-onSurface)",
+      borderColor:
+        props.colorMode === "light" ? light.onSurface : dark.onSurface,
       position: "relative",
       overflow: "hidden",
       zIndex: 1,
-      bg: "elevation.dp02",
-      color: "var(--chakra-colors-onSurface)",
-      boxShadow: "dp02",
+      color: props.colorMode === "light" ? light.onSurface : dark.onSurface,
       _before: {
         content: '""',
         position: "absolute",
         inset: 0,
-        bg: "var(--chakra-colors-secondary)",
+        bg: props.colorMode === "light" ? light.secondary : dark.secondary,
         transform: "scaleX(0)",
         transformOrigin: "left",
         zIndex: -1,
         transition: "250ms ease-in-out",
       },
       _hover: {
-        color: "var(--chakra-colors-onSecondary)",
+        color:
+          props.colorMode === "light" ? light.onSecondary : dark.onSecondary,
         _before: {
           transform: "scaleX(1)",
         },
       },
-    },
+    }),
     //
     icon: {
       bg: "transparent",

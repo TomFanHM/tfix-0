@@ -10,7 +10,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import React from "react";
 
 type HeaderMenuProps = {
@@ -26,8 +26,6 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
   navItems,
   color,
 }) => {
-  const router = useRouter();
-
   return (
     <Menu offset={[0, 24]}>
       <MenuButton as={Button} variant="ghost">
@@ -43,16 +41,16 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
       >
         <MenuGroup title={menuGroupTitle}>
           {navItems.map((item, i) => (
-            <MenuItem
-              key={i}
-              borderRadius="8"
-              bg={color.surface}
-              color={color.onSurface}
-              _hover={{ bg: color.primary, color: color.onPrimary }}
-              onClick={() => router.push(item.href)}
-            >
-              {item.title}
-            </MenuItem>
+            <Link key={i} href={item.href}>
+              <MenuItem
+                borderRadius="8"
+                bg={color.surface}
+                color={color.onSurface}
+                _hover={{ bg: color.primary, color: color.onPrimary }}
+              >
+                {item.title}
+              </MenuItem>
+            </Link>
           ))}
         </MenuGroup>
       </MenuList>

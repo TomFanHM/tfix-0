@@ -1,14 +1,7 @@
 "use client";
 
 import { light, dark } from "@/styles/chakra/colors";
-import {
-  Center,
-  Grid,
-  GridItem,
-  Spinner,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import React, { Suspense } from "react";
+import { Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import Footer from "../footer";
 import Header from "../header";
 
@@ -65,16 +58,13 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
       <GridItem area="header" position="sticky" top="0" zIndex={99}>
         <Header />
       </GridItem>
-      <GridItem area="module" position="relative" overflow="hidden">
-        <Suspense
-          fallback={
-            <Center minH="calc(100vh - 4rem)">
-              <Spinner color={color.primary} />
-            </Center>
-          }
-        >
-          {children}
-        </Suspense>
+      <GridItem
+        area="module"
+        position="relative"
+        minH="calc(100vh - 4rem)"
+        overflow="hidden"
+      >
+        {children}
       </GridItem>
       <GridItem area="footer">
         <Footer />

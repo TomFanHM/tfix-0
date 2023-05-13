@@ -9,7 +9,7 @@ import {
   Box,
   Image,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type LargeCardProps = {
   children?: React.ReactNode;
@@ -28,70 +28,70 @@ const LargeCard: React.FC<LargeCardProps> = ({
   url,
   children,
 }) => {
-  const router = useRouter();
   const isLargerThanMdSize = useBreakpointValue({ base: false, md: true });
 
   return (
-    <Box
-      borderRadius="20px"
-      overflow="hidden"
-      position="relative"
-      transform="translate3d(0px, 0px, 0px)"
-      boxShadow="dp02"
-      data-group
-      onClick={() => router.push(url)}
-    >
-      <Image
-        position="absolute"
-        inset="0"
-        w="full"
-        h="full"
-        color="transparent"
-        objectFit="cover"
-        src={isLargerThanMdSize ? image : mobileImage}
-        alt="banner"
-        transition="500ms ease-in-out"
-        _groupHover={{ transform: "scale(1.1)" }}
-        zIndex={0}
-        loading="lazy"
-      />
-      <Flex
-        flexDirection="column"
-        px="4"
-        py="8"
-        transition="500ms ease-in-out"
-        w="full"
-        sx={{ aspectRatio: { base: "3/4", md: "2/1" } }}
-        gap="4"
-        align="start"
-        justify={{ md: "space-between" }}
-        color={color}
-        bg="var(--chakra-colors-surface)"
+    <Link href={url}>
+      <Box
+        borderRadius="20px"
+        overflow="hidden"
+        position="relative"
+        transform="translate3d(0px, 0px, 0px)"
+        boxShadow="dp02"
+        data-group
       >
-        <VStack
-          spacing="4"
-          align="start"
+        <Image
+          position="absolute"
+          inset="0"
+          w="full"
+          h="full"
+          color="transparent"
+          objectFit="cover"
+          src={isLargerThanMdSize ? image : mobileImage}
+          alt="banner"
+          transition="500ms ease-in-out"
+          _groupHover={{ transform: "scale(1.1)" }}
+          zIndex={0}
+          loading="lazy"
+        />
+        <Flex
+          flexDirection="column"
           px="4"
-          w={{ md: "50%" }}
-          zIndex={1}
-          my={{ md: "auto" }}
-        >
-          {children}
-        </VStack>
-        <Button
-          variant="ghost"
-          borderRadius="20px"
+          py="8"
+          transition="500ms ease-in-out"
+          w="full"
+          sx={{ aspectRatio: { base: "3/4", md: "2/1" } }}
+          gap="4"
+          align="start"
+          justify={{ md: "space-between" }}
           color={color}
-          _groupHover={{
-            bg: "var(--chakra-colors-primary)",
-            color: "var(--chakra-colors-onPrimary)",
-          }}
-          zIndex={1}
+          bg="var(--chakra-colors-surface)"
         >
-          {prompt}
-        </Button>
-      </Flex>
-    </Box>
+          <VStack
+            spacing="4"
+            align="start"
+            px="4"
+            w={{ md: "50%" }}
+            zIndex={1}
+            my={{ md: "auto" }}
+          >
+            {children}
+          </VStack>
+          <Button
+            variant="ghost"
+            borderRadius="20px"
+            color={color}
+            _groupHover={{
+              bg: "var(--chakra-colors-primary)",
+              color: "var(--chakra-colors-onPrimary)",
+            }}
+            zIndex={1}
+          >
+            {prompt}
+          </Button>
+        </Flex>
+      </Box>
+    </Link>
   );
 };
 export default LargeCard;
