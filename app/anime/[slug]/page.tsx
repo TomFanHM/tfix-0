@@ -1,11 +1,12 @@
 import React from "react";
-import { getAnimeById, getAnimes } from "../getAnimes";
+
 import { notFound } from "next/navigation";
 import MotionContainer from "@/components/container/MotionContainer";
-import AnimeDetails from "./AnimeDetails";
-import { getProducts } from "./getProducts";
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, query, orderBy, limit } from "firebase/firestore";
+import AnimeDetails from "../_components/AnimeDetails";
+import { getAnimes, getAnimeById } from "../_components/getAnimes";
+import { getProducts } from "../_components/getProducts";
 
 export const revalidate = 3600 * 24;
 

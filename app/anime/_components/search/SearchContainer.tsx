@@ -20,9 +20,9 @@ import { FormikProps, useFormik } from "formik";
 import CategoryDropdown from "./CategoryDropdown";
 import SearchBar from "./SearchBar";
 import dynamic from "next/dynamic";
-import { ProductSchema, getProductsByFilter } from "../[slug]/getProducts";
 import { AnimeSchema, getAnimes } from "../getAnimes";
 import SearchCard from "./SearchCard";
+import { ProductSchema, getProductsByFilter } from "../getProducts";
 
 const Loader = () => {
   return (
@@ -77,7 +77,6 @@ const SearchContainer: React.FC = () => {
       },
     },
     onSubmit: async (values) => {
-      setLoading(true);
       const currentTime = Date.now();
       if (currentTime - lastSearchTime < 10 * 1000) {
         toast({
@@ -91,6 +90,7 @@ const SearchContainer: React.FC = () => {
         });
         return;
       }
+      setLoading(true);
 
       try {
         if (category === "Anime") {

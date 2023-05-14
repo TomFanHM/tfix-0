@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { getNews } from "../getNews";
-import NewsContainer from "../NewsContainer";
+
 import { capitalizeFirstLetter } from "@/functions/functions";
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
+import { getNews } from "../_components/getNews";
+import NewsContainer from "../_components/NewsContainer";
 export const revalidate = 3600;
 
 const categories = [

@@ -1,5 +1,8 @@
 import React from "react";
-import SearchContainer from "./SearchContainer";
+import dynamic from "next/dynamic";
+const SearchContainer = dynamic(
+  () => import("../_components/search/SearchContainer")
+);
 
 const Search: React.FC = () => {
   return <SearchContainer />;

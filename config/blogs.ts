@@ -3,7 +3,7 @@ import { BlogsConfig } from "@/types";
 export const blogsConfig: BlogsConfig = {
   mainNav: [
     {
-      title: "Popular",
+      title: "Posts",
       href: "/blogs",
     },
     {

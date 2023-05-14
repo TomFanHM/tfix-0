@@ -1,7 +1,7 @@
 import { DocumentData, Query, getDocs } from "firebase/firestore";
 import { z } from "zod";
 
-export const MovieSheme = z.object({
+export const MovieSchema = z.object({
   id: z.number(),
   original_language: z.string().nullable(),
   original_title: z.string().nullable(),
@@ -12,16 +12,16 @@ export const MovieSheme = z.object({
   poster_path: z.string().nullable(),
 });
 
-export type MovieSheme = z.infer<typeof MovieSheme>;
+export type MovieSchema = z.infer<typeof MovieSchema>;
 
-export type MovieData = { docId: string } & MovieSheme;
+export type MovieData = { docId: string } & MovieSchema;
 
 export async function getMovies(q: Query<DocumentData>): Promise<MovieData[]> {
   const querySnapshot = await getDocs(q);
 
   const movies = querySnapshot.docs.map((doc) => {
     const rawDocData = doc.data();
-    const docData = MovieSheme.safeParse(rawDocData);
+    const docData = MovieSchema.safeParse(rawDocData);
     if (docData.success) {
       return { docId: doc.id, ...docData.data };
     }

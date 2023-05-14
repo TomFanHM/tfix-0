@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { AnimeSchema } from "../getAnimes";
 import ThreeColumnGridWrapper from "@/components/container/ThreeColumnGridWrapper";
 import {
   AspectRatio,
@@ -16,6 +15,7 @@ import OptimizedImage from "@/components/image/OptimizedImage";
 import Products from "./Products";
 import { ProductSchema } from "./getProducts";
 import { useRouter } from "next/navigation";
+import { AnimeSchema } from "./getAnimes";
 
 type AnimeDetailsProps = {
   anime: AnimeSchema;

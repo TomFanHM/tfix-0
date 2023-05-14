@@ -1,8 +1,9 @@
 import React from "react";
-import { getNews } from "./getNews";
-import NewsContainer from "./NewsContainer";
+
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, limit, orderBy, query } from "firebase/firestore";
+import { getNews } from "./_components/getNews";
+import NewsContainer from "./_components/NewsContainer";
 
 //fetch per 1 hour
 export const revalidate = 3600;

@@ -1,13 +1,13 @@
 import MotionContainer from "@/components/container/MotionContainer";
 import React from "react";
-import { getAnimes, getCurrentSeason } from "./getAnimes";
-import AnimeSection from "./AnimeSection";
 import GridWrapper from "@/components/container/GridWrapper";
-import Guide from "./Guide";
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { GridItem } from "@/components/chakra/LayoutComponents";
 import OptimizedImage from "@/components/image/OptimizedImage";
+import AnimeSection from "./_components/AnimeSection";
+import Guide from "./_components/Guide";
+import { getCurrentSeason, getAnimes } from "./_components/getAnimes";
 
 export const revalidate = 3600 * 24;
 

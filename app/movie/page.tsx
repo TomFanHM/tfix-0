@@ -1,9 +1,9 @@
 import React from "react";
-import { getMovies } from "./getMovie";
 import { notFound } from "next/navigation";
-import MovieContainer from "./MovieContainer";
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, query, orderBy, limit } from "firebase/firestore";
+import { getMovies } from "./_components/getMovie";
+import MovieContainer from "./_components/MovieContainer";
 export const revalidate = 3600 * 24;
 
 const Movies = async (): Promise<JSX.Element> => {
