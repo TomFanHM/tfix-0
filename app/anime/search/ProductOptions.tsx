@@ -15,16 +15,18 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { MdFilterListAlt, MdOutlineSort } from "react-icons/md";
-import { Filters } from "./getData";
+import { Filters } from "./getQuery";
 import { SmallCloseIcon } from "@chakra-ui/icons";
 
 type ProductOptionsProps = {
   filters: Filters["product"];
+  handleChange: (e: React.ChangeEvent) => void;
   setFieldValue: (field: string, value: any) => void;
 };
 
 const ProductOptions: React.FC<ProductOptionsProps> = ({
   filters,
+  handleChange,
   setFieldValue,
 }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
@@ -94,21 +96,23 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
       {filterOpen && (
         <Flex gap="4" mt="4" flexDirection={{ base: "column", md: "row" }}>
           <FormControl>
-            <FormLabel>Category</FormLabel>
+            <FormLabel htmlFor="product.category">Category</FormLabel>
             <Input
+              id="product.category"
+              name="product.category"
               placeholder="Enter product category"
               value={filters.category}
-              onChange={(e) =>
-                setFieldValue("product.category", e.target.value)
-              }
+              onChange={handleChange}
             />
           </FormControl>
           <FormControl>
-            <FormLabel>Series</FormLabel>
+            <FormLabel htmlFor="product.series">Series</FormLabel>
             <Input
+              id="product.series"
+              name="product.series"
               placeholder="Enter product series"
               value={filters.series}
-              onChange={(e) => setFieldValue("product.series", e.target.value)}
+              onChange={handleChange}
             />
           </FormControl>
         </Flex>

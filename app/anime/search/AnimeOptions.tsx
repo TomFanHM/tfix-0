@@ -21,16 +21,18 @@ import {
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { MdFilterListAlt, MdOutlineSort } from "react-icons/md";
-import { Filters } from "./getData";
+import { Filters } from "./getQuery";
 import { Genres, Studios } from "./options";
 
 type AnimeOptionsProps = {
   filters: Filters["anime"];
+  handleChange: (e: React.ChangeEvent) => void;
   setFieldValue: (field: string, value: any) => void;
 };
 
 const AnimeOptions: React.FC<AnimeOptionsProps> = ({
   filters,
+  handleChange,
   setFieldValue,
 }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
@@ -39,8 +41,8 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
   const resetFilters = () => {
     setFieldValue("anime.year", "");
     setFieldValue("anime.season", "");
-    setFieldValue("anime.genres", "");
-    setFieldValue("anime.studios", "");
+    setFieldValue("anime.genre", "");
+    setFieldValue("anime.studio", "");
   };
 
   return (
@@ -65,8 +67,8 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
 
         {(filters.year ||
           filters.season ||
-          filters.genres ||
-          filters.studios) && (
+          filters.genre ||
+          filters.studio) && (
           <Button
             leftIcon={<SmallCloseIcon />}
             variant="custom_outline_reverse"
@@ -106,13 +108,16 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
       {/* Filters */}
       {filterOpen && (
         <Flex gap="4" mt="4" flexDirection={{ base: "column", md: "row" }}>
+          {/* Year */}
           <FormControl>
-            <FormLabel>Year</FormLabel>
+            <FormLabel htmlFor="anime.year">Year</FormLabel>
             <NumberInput
+              id="anime.year"
+              name="anime.year"
               value={filters.year}
               max={2050}
               min={2000}
-              onChange={(_, el) => setFieldValue("anime.year", el)}
+              onChange={(_, num) => setFieldValue("anime.year", num)}
             >
               <NumberInputField />
               <NumberInputStepper>
@@ -121,12 +126,15 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
               </NumberInputStepper>
             </NumberInput>
           </FormControl>
+          {/* Season */}
           <FormControl>
-            <FormLabel>Season</FormLabel>
+            <FormLabel htmlFor="anime.season">Season</FormLabel>
             <Select
+              id="anime.season"
+              name="anime.season"
               placeholder="Select season"
               value={filters.season}
-              onChange={(el) => setFieldValue("anime.season", el.target.value)}
+              onChange={handleChange}
             >
               <option value={"winter"}>Winter</option>
               <option value={"spring"}>Spring</option>
@@ -134,12 +142,15 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
               <option value={"fall"}>Fall</option>
             </Select>
           </FormControl>
+          {/* Genre */}
           <FormControl>
-            <FormLabel>Genre</FormLabel>
+            <FormLabel htmlFor="anime.genre">Genre</FormLabel>
             <Select
+              id="anime.genre"
+              name="anime.genre"
               placeholder="Select genre"
-              value={filters.genres}
-              onChange={(el) => setFieldValue("anime.genres", el.target.value)}
+              value={filters.genre}
+              onChange={handleChange}
             >
               {Genres.map((el, i) => (
                 <option key={i} value={el}>
@@ -149,11 +160,13 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
             </Select>
           </FormControl>
           <FormControl>
-            <FormLabel>Studio</FormLabel>
+            <FormLabel htmlFor="anime.studio">Studio</FormLabel>
             <Select
+              id="anime.studio"
+              name="anime.studio"
               placeholder="Select studio"
-              value={filters.studios}
-              onChange={(el) => setFieldValue("anime.studios", el.target.value)}
+              value={filters.studio}
+              onChange={handleChange}
             >
               {Studios.map((el, i) => (
                 <option key={i} value={el}>

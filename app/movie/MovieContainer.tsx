@@ -1,22 +1,56 @@
 "use client";
 
-import React, { useState } from "react";
-import { MovieData } from "./getMovie";
+import React, { useCallback, useState } from "react";
+import { MovieData, getMovies } from "./getMovie";
 import ThreeColumnGridWrapper from "@/components/container/ThreeColumnGridWrapper";
-import { GridItem, Heading, Skeleton, Stack } from "@chakra-ui/react";
+import { Button, GridItem, Heading, Skeleton, Stack } from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
 import MotionContainer from "@/components/container/MotionContainer";
+import { firestore } from "@/firebase/firebaseApp";
+import {
+  collection,
+  limit,
+  orderBy,
+  query,
+  startAfter,
+} from "firebase/firestore";
+import { scrollToTop } from "@/functions/functions";
 
 type MovieContainerProps = {
-  getMovies: MovieData[];
+  moviesData: MovieData[];
 };
 
-const MovieContainer: React.FC<MovieContainerProps> = ({ getMovies }) => {
-  const [movies, setMovies] = useState<MovieData[]>(getMovies);
+const MovieContainer: React.FC<MovieContainerProps> = ({ moviesData }) => {
+  const [movies, setMovies] = useState<MovieData[]>(moviesData);
   const [loading, setLoading] = useState<boolean>(false);
   const [lastVisible, setLastVisible] = useState<MovieData | null>(
-    getMovies.length > 0 ? getMovies[getMovies.length - 1] : null
+    moviesData.length > 0 ? moviesData[moviesData.length - 1] : null
   );
+
+  const fetchMoreMovies = useCallback(async (): Promise<void> => {
+    if (loading || !lastVisible) return;
+    setLoading(true);
+    const moviesRef = collection(firestore, "movies");
+    const q = query(
+      moviesRef,
+      orderBy("release_date", "desc"),
+      startAfter(lastVisible.release_date),
+      limit(9) //3 col span
+    );
+    try {
+      const moreMovies = await getMovies(q);
+      if (moreMovies.length > 0) {
+        setMovies((prev) => [...prev, ...moreMovies]);
+        setLastVisible(moreMovies[moreMovies.length - 1]);
+      } else {
+        setLastVisible(null);
+      }
+    } catch (error) {
+      console.log("fetchMoreMovies", error);
+    }
+    setLoading(false);
+  }, [lastVisible, loading]);
+
   return (
     <MotionContainer maxW="container.xl">
       <ThreeColumnGridWrapper
@@ -31,7 +65,9 @@ const MovieContainer: React.FC<MovieContainerProps> = ({ getMovies }) => {
         </GridItem>
         <>
           {movies.map((movie, i) => (
-            <MovieCard key={i} movie={movie} />
+            <GridItem key={i} colSpan={{ base: 3, md: 1 }}>
+              <MovieCard movie={movie} />
+            </GridItem>
           ))}
         </>
         <>
@@ -42,6 +78,27 @@ const MovieContainer: React.FC<MovieContainerProps> = ({ getMovies }) => {
                 <Skeleton h="4" />
                 <Skeleton h="4" />
               </Stack>
+            </GridItem>
+          )}
+        </>
+        <>
+          {lastVisible && (
+            <GridItem colSpan={3}>
+              <Button
+                w="full"
+                variant="solid"
+                onClick={fetchMoreMovies}
+                isLoading={loading}
+              >
+                More
+              </Button>
+            </GridItem>
+          )}
+          {!lastVisible && (
+            <GridItem colSpan={3}>
+              <Button w="full" variant="solid" onClick={scrollToTop}>
+                Scroll to Top
+              </Button>
             </GridItem>
           )}
         </>

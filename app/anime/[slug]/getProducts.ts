@@ -1,5 +1,13 @@
 import { firestore } from "@/firebase/firebaseApp";
-import { collection, getDocs, limit, query, where } from "firebase/firestore";
+import {
+  DocumentData,
+  Query,
+  collection,
+  getDocs,
+  limit,
+  query,
+  where,
+} from "firebase/firestore";
 import { z } from "zod";
 
 const ProductSchema = z.object({
@@ -45,6 +53,25 @@ export async function getProducts(searchTerm: string | null) {
     console.log("getProducts: ", error);
     return null;
   }
+}
+
+export async function getProductsByFilter(q: Query<DocumentData>) {
+  try {
+    const querySnapshot = await getDocs(q);
+    const products = querySnapshot.docs.map((doc) => {
+      const rawDocData = doc.data();
+      const docData = ProductSchema.safeParse(rawDocData);
+
+      if (docData.success) {
+        return docData.data;
+      }
+    });
+
+    return products.flatMap((f) => (f ? [f] : []));
+  } catch (error) {
+    console.log("getProductsByFilter: ", error);
+  }
+  return null;
 }
 
 /* export async function getProductsByReducingSearchTerms(

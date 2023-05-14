@@ -16,7 +16,9 @@ const SearchBar: React.FC<SearchBarProps> = ({ query, handleChange }) => {
         border="0"
         focusBorderColor="transparent"
         placeholder="Search..."
+        id="query"
         name="query"
+        type="text"
         value={query}
         onChange={handleChange}
       />

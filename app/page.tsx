@@ -189,6 +189,8 @@ export default function Home() {
             </LargeCard>
           </GridItem>
           {/* */}
+          <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
+          {/* */}
           <GridItem colSpan={2}>
             <CallToAction
               background="var(--chakra-colors-secondaryContainer)"
@@ -206,6 +208,9 @@ export default function Home() {
               </Heading>
             </CallToAction>
           </GridItem>
+          {/* */}
+          <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
+          {/* */}
           <GridItem colSpan={2}>
             <NewsletterSection />
           </GridItem>

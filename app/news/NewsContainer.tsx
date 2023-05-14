@@ -122,7 +122,9 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
           )}
         </>
         <>
-          <Guide />
+          <GridItem colSpan={3}>
+            <Guide />
+          </GridItem>
         </>
       </ThreeColumnGridWrapper>
     </MotionContainer>
