@@ -39,8 +39,8 @@ const SubscribeForm: React.FC = () => {
           name="email"
           type="email"
           borderRadius="md"
-          px="3.5"
-          py="2"
+          px="4"
+          py="4"
           bg="elevation.dp02"
           shadow="dp02"
           placeholder="Enter your email"
@@ -78,7 +78,7 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description }) => {
       <Text mt="4" fontWeight="semibold">
         {title}
       </Text>
-      <Text mt="2" lineHeight="7" layerStyle="High-emphasis">
+      <Text mt="6" lineHeight="8" layerStyle="High-emphasis">
         {description}
       </Text>
     </Flex>

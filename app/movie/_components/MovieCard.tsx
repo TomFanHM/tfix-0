@@ -2,7 +2,7 @@
 
 import React from "react";
 import { MovieData } from "./getMovie";
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, Heading, Text, Box } from "@chakra-ui/react";
 import OptimizedImage from "@/components/image/OptimizedImage";
 
 type MovieCardProps = {
@@ -11,7 +11,7 @@ type MovieCardProps = {
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
-    <>
+    <Box>
       <OptimizedImage
         url={`https://image.tmdb.org/t/p/original${
           movie.poster_path || movie.backdrop_path
@@ -36,7 +36,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
           Release date : {movie.release_date}
         </Text>
       </Flex>
-    </>
+    </Box>
   );
 };
 export default MovieCard;

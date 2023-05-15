@@ -9,7 +9,7 @@ import AnimeSection from "./_components/AnimeSection";
 import Guide from "./_components/Guide";
 import { getCurrentSeason, getAnimes } from "./_components/getAnimes";
 
-export const revalidate = 3600 * 24;
+export const revalidate = 86400 //3600 * 24;
 
 const Animes = async (): Promise<JSX.Element> => {
   const year = new Date().getFullYear();
@@ -74,7 +74,7 @@ const Animes = async (): Promise<JSX.Element> => {
           <AnimeSection title="Upcoming" anime={upComingAnime} />
         </GridItem>
         <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
-          <AnimeSection title="Popluar" anime={popularAnime} />
+          <AnimeSection title="Popular" anime={popularAnime} />
         </GridItem>
         <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
           <AnimeSection title="Adventures" anime={adventureAnime} />

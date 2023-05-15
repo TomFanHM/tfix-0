@@ -8,7 +8,7 @@ import AnimeDetails from "../_components/AnimeDetails";
 import { getAnimes, getAnimeById } from "../_components/getAnimes";
 import { getProducts } from "../_components/getProducts";
 
-export const revalidate = 3600 * 24;
+export const revalidate = 86400 //3600 * 24;
 
 export async function generateStaticParams() {
   const animesRef = collection(firestore, "animes");

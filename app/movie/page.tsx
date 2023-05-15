@@ -4,7 +4,7 @@ import { firestore } from "@/firebase/firebaseApp";
 import { collection, query, orderBy, limit } from "firebase/firestore";
 import { getMovies } from "./_components/getMovie";
 import MovieContainer from "./_components/MovieContainer";
-export const revalidate = 3600 * 24;
+export const revalidate = 86400 //3600 * 24;
 
 const Movies = async (): Promise<JSX.Element> => {
   const moviesRef = collection(firestore, "movies");

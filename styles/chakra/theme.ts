@@ -8,6 +8,7 @@ import { Button } from "./button";
 import { breakpoints } from "./breakpoints";
 import { styles } from "./styles";
 import { dark, light } from "./colors";
+import { menuTheme } from "./menu";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -42,6 +43,7 @@ const theme = extendTheme({
   components: {
     Skeleton: skeletonTheme,
     Button: Button,
+    Menu: menuTheme,
   },
 });
 

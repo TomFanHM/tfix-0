@@ -19,9 +19,7 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
         <>
           <MenuButton
             isActive={isOpen}
-            bg="transparent"
             variant="ghost"
-            gap="4"
             as={Button}
             rightIcon={
               isOpen ? (
@@ -34,10 +32,14 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
             {category}
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={() => handleCategorySelect("Anime")}>
+            <MenuItem
+              onClick={() => handleCategorySelect("Anime")}
+            >
               Anime
             </MenuItem>
-            <MenuItem onClick={() => handleCategorySelect("Product")}>
+            <MenuItem
+              onClick={() => handleCategorySelect("Product")}
+            >
               Product
             </MenuItem>
           </MenuList>

@@ -11,7 +11,7 @@ const GridWrapper: React.FC<GridWrapperProps> = ({ children, ...props }) => {
   return (
     <Grid
       gridTemplateColumns="1fr 1fr"
-      gap="5" //1.25rem
+      gap="6"
       alignContent="center"
       w="full"
       mx="auto"

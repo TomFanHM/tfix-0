@@ -11,6 +11,10 @@ import BannerText from "@/components/chakra/ui/BannerText";
 import CallToAction from "@/components/chakra/ui/CallToAction";
 import NewsletterSection from "@/components/chakra/ui/Newsletter";
 
+const Spacer = () => {
+  return <GridItem py={{ base: "8", md: "16" }} colSpan={2}></GridItem>;
+};
+
 export default function Home() {
   return (
     <GridLine>
@@ -66,7 +70,7 @@ export default function Home() {
 
           {/* media, including anime and movie */}
           {/* */}
-          <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
+          <Spacer />
           {/* */}
           <GridItem colSpan={2} mx="10">
             <BannerText
@@ -119,7 +123,7 @@ export default function Home() {
 
           {/* blog */}
           {/* */}
-          <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
+          <Spacer />
           {/* */}
           <GridItem colSpan={2} mx="10">
             <BannerText
@@ -163,7 +167,7 @@ export default function Home() {
           </GridItem>
           {/* chatbot */}
           {/* */}
-          <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
+          <Spacer />
           {/* */}
           <GridItem colSpan={2} mx="10">
             <BannerText
@@ -189,7 +193,7 @@ export default function Home() {
             </LargeCard>
           </GridItem>
           {/* */}
-          <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
+          <Spacer />
           {/* */}
           <GridItem colSpan={2}>
             <CallToAction
@@ -209,7 +213,7 @@ export default function Home() {
             </CallToAction>
           </GridItem>
           {/* */}
-          <GridItem py={{ base: "10", md: "20" }} colSpan={2}></GridItem>
+          <Spacer />
           {/* */}
           <GridItem colSpan={2}>
             <NewsletterSection />

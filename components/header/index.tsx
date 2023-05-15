@@ -20,15 +20,17 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
+import dynamic from 'next/dynamic';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
-import UserAvatar from "../auth/avatar/UserAvatar";
-import SignoutButton from "../auth/modal/SignoutButton";
 import DarkModeSwitch from "./DarkModeSwitch";
 import HeaderMenu from "./HeaderMenu";
 import MobileDrawer from "./MobileDrawer";
 import { mediaConfig } from "@/config/media";
 import Link from "next/link";
+
+const UserAvatar = dynamic(() => import("../auth/avatar/UserAvatar"));
+const SignoutButton = dynamic(() => import("../auth/modal/SignoutButton"));
 
 const Header: React.FC = () => {
   const color = useColorModeValue(light, dark);

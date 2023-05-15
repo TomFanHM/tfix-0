@@ -41,7 +41,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({
       >
         <MenuGroup title={menuGroupTitle}>
           {navItems.map((item, i) => (
-            <Link key={i} href={item.href}>
+            <Link key={i} href={item.href}> 
               <MenuItem
                 borderRadius="8"
                 bg={color.surface}
