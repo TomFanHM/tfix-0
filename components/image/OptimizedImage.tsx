@@ -16,9 +16,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   alt,
   ...rest
 }) => {
-  const [imageUrl, setImageUrl] = useState<string>(() =>
-    url ? url : fallbackImage
-  );
+  const [imageUrl, setImageUrl] = useState<string>(url ? url : fallbackImage);
   const [loaded, setLoaded] = useState<boolean>(false);
 
   const handleError = () => {
@@ -27,12 +25,20 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
   };
 
   useEffect(() => {
+    if (!url) {
+      setImageUrl(fallbackImage);
+      setLoaded(true);
+      return;
+    }
+
+    setImageUrl(url);
+
     const img = new Image();
-    img.src = imageUrl;
+    img.src = url;
     if (img.complete) {
       setLoaded(true);
     }
-  }, [imageUrl]);
+  }, [url]);
 
   return (
     <Skeleton isLoaded={loaded} borderRadius={border_radius}>

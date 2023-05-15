@@ -41,11 +41,11 @@ export type CommentSchema = z.infer<typeof CommentSchema>;
 
 export type PostSchema = z.infer<typeof PostSchema>;
 
-export type PostsData = {
+export type PostData = {
   id: string;
 } & PostSchema;
 
-export async function getPosts(q: Query<DocumentData>): Promise<PostsData[]> {
+export async function getPosts(q: Query<DocumentData>): Promise<PostData[]> {
   const querySnapshot = await getDocs(q);
   const posts = querySnapshot.docs.map((doc) => {
     const rawDocData = doc.data();

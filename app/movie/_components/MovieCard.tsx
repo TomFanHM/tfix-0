@@ -29,7 +29,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
       />
       <Flex flexDirection="column" mt="4" gap="4">
         <Heading size="lg">{movie.title || "No title available"}</Heading>
-        <Text mt="4" cursor="pointer">
+        <Text mt="4" cursor="pointer" noOfLines={5}>
           {movie.overview || "No overview available"}
         </Text>
         <Text layerStyle="Medium-emphasis">

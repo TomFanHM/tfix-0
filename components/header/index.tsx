@@ -20,7 +20,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 import DarkModeSwitch from "./DarkModeSwitch";
