@@ -48,7 +48,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
           {article.category}
         </Link>
         <Heading size="lg">{article.title || "No title available"}</Heading>
-        <Text mt="4" onClick={handleOpenSource} cursor="pointer">
+        <Text mt="4" onClick={handleOpenSource} cursor="pointer" noOfLines={5}>
           {article.description || "No description available"}
         </Text>
         <Text layerStyle="Medium-emphasis">
