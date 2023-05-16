@@ -13,6 +13,7 @@ import {
   Icon,
   GridItem,
   Link,
+  Divider,
 } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
 import NextLink from "next/link";
@@ -134,13 +135,8 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         <Text layerStyle="Medium-emphasis">
           {fromNow(new Date(post.createdAt.seconds * 1000))}
         </Text>
-        <Flex
-          borderTop="1px solid"
-          borderColor="var(--chakra-colors-outline)"
-          wrap="wrap"
-          gap="4"
-          mt="4"
-        >
+        <Divider />
+        <Flex wrap="wrap" gap="4" mt="4">
           <Button
             isLoading={loading}
             variant="custom_solid"

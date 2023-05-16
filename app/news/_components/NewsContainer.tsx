@@ -1,10 +1,16 @@
 "use client";
 
 import MotionContainer from "@/components/container/MotionContainer";
-import ThreeColumnGridWrapper from "@/components/container/ThreeColumnGridWrapper";
 import { firestore } from "@/firebase/firebaseApp";
 import { scrollToTop } from "@/functions/functions";
-import { Stack, Skeleton, GridItem, Button, Heading } from "@chakra-ui/react";
+import {
+  Grid,
+  Stack,
+  Skeleton,
+  GridItem,
+  Button,
+  Heading,
+} from "@chakra-ui/react";
 import {
   collection,
   query,
@@ -72,7 +78,11 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
 
   return (
     <MotionContainer maxW="container.xl">
-      <ThreeColumnGridWrapper
+      <Grid
+        templateColumns="repeat(3, 1fr)"
+        alignContent="center"
+        w="full"
+        mx="auto"
         gridGap="64px 16px"
         py={{ base: "6", md: "8" }}
         my={{ base: "6", md: "8" }}
@@ -126,7 +136,7 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
             <Guide />
           </GridItem>
         </>
-      </ThreeColumnGridWrapper>
+      </Grid>
     </MotionContainer>
   );
 };

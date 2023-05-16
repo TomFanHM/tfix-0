@@ -14,6 +14,7 @@ export const usePost = () => {
     user: User,
     liked: boolean
   ): Promise<boolean> => {
+    setError(null); //reset
     setLoading(true);
     try {
       const postDocRef = doc(firestore, "posts", post.id);
@@ -51,6 +52,7 @@ export const usePost = () => {
   };
 
   const onDeletePost = async (post: PostData): Promise<boolean> => {
+    setError(null); //reset
     setLoading(true);
     try {
       //It's not possible to execute a single operation across multiple Firebase products.

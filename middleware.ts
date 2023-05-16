@@ -5,7 +5,6 @@ export function middleware(request: NextRequest) {
   const regx = new RegExp("/api/*");
 
   if (regx.test(request.url)) {
-    //
   }
 
   const origin = request.headers.get("orgin");

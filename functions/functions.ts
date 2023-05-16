@@ -79,3 +79,11 @@ export const scrollToTop = (): void => {
     behavior: "smooth",
   });
 };
+
+export function getYoutubeEmbedLink(input: string): string {
+  if (input.startsWith("https://www.youtube.com/embed/")) {
+    return input;
+  }
+
+  return `https://www.youtube.com/embed/${input}`;
+}
