@@ -1,4 +1,4 @@
-# 🚀 Next.js 13.4 with Turbo Pack Fullstack Website
+# 🚀 Next.js 13.4 with Turbo Pack Fullstack Website (progressing)
 
 Welcome to this Fullstack Website project, built using the power of Next.js 13.4 and the powerful Turbo Pack! Get ready to explore a world filled with news, anime, movies, blogs, and even a chatbot.
 
