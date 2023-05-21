@@ -2,7 +2,7 @@
 
 import { User } from "firebase/auth";
 import React, { useState } from "react";
-import { PostData } from "./getPosts";
+import { PostData, PostSchema } from "./getPosts";
 import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import {
   Flex,
@@ -38,7 +38,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
   const { loading, error, onVote, onDeletePost } = usePost();
-  const [likes, setLikes] = useState<PostData["likes"]>(post.likes);
+  const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
 
   const liked: boolean = user ? likes.includes(user.uid) : false;
   const likeCount = likes.length;
