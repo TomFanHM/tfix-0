@@ -8,10 +8,10 @@ import React from "react";
 type HeroBannerProps = {
   title: React.ReactNode;
   message: React.ReactNode;
-  children?: React.ReactNode;
+  image: string;
 };
 
-const HeroBanner: React.FC<HeroBannerProps> = ({ title, message }) => {
+const HeroBanner: React.FC<HeroBannerProps> = ({ title, message, image }) => {
   const container = {
     hidden: { opacity: 1 },
     visible: {
@@ -39,14 +39,14 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ title, message }) => {
       maxW="full"
       h="70vh"
       maxH="50rem"
-      overflow="hidden"
+      overflowX="hidden"
       align="center"
       justify="center"
     >
       <Box w="full" h="full" position="absolute" inset="0" overflow="hidden">
-        {/* Canvas */}
+        {/* <Image /> */}
       </Box>
-      <Container maxW="container.lg">
+      <Container maxW="container.lg" zIndex={1}>
         <Flex
           flexDirection="column"
           justify="center"

@@ -20,6 +20,7 @@ export default function Home() {
     <GridLine>
       {/* */}
       <HeroBanner
+        image="/images/banner.png"
         title={
           <>
             <Text as="span">Your Gateway to </Text>
@@ -57,9 +58,10 @@ export default function Home() {
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Catch up now"
-              image="/images/dummy_1600x900.png"
-              mobileImage="/images/dummy_600x800.png"
+              image="/images/news.png"
+              mobileImage="/images/news_mobile.png"
               url="/news"
+              color="#282828"
             >
               <Heading wordBreak="break-word">Breaking News</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
@@ -83,9 +85,10 @@ export default function Home() {
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Watch now"
-              image="/images/dummy_1600x900.png"
-              mobileImage="/images/dummy_600x800.png"
+              image="/images/anime.png"
+              mobileImage="/images/anime_mobile.png"
               url="/anime"
+              color="#282828"
             >
               <Heading wordBreak="break-word">Featured Anime</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
@@ -98,8 +101,9 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Discover new"
-              image="/images/dummy_600x800.png"
-              url="/anime"
+              image="/images/search.png"
+              url="/anime/search"
+              color="#282828"
             >
               <Heading wordBreak="break-word">New Releases</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
@@ -111,8 +115,9 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="See popular"
-              image="/images/dummy_600x800.png"
+              image="/images/movie.png"
               url="/movie"
+              color="#282828"
             >
               <Heading wordBreak="break-word">Popular Movie</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
@@ -143,8 +148,9 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Read more"
-              image="/images/dummy_600x800.png"
+              image="/images/blog.png"
               url="/blog"
+              color="#282828"
             >
               <Heading wordBreak="break-word">Featured Posts</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
@@ -156,8 +162,9 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Start writing"
-              image="/images/dummy_600x800.png"
+              image="/images/create.png"
               url="/blog/create"
+              color="#282828"
             >
               <Heading wordBreak="break-word">Write a Post</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
@@ -180,9 +187,10 @@ export default function Home() {
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Chat with AI"
-              image="/images/dummy_1600x900.png"
-              mobileImage="/images/dummy_600x800.png"
+              image="/images/chatbot.png"
+              mobileImage="/images/chatbot_mobile.png"
               url="/chatbot"
+              color="#f4f4f4"
             >
               <Heading wordBreak="break-word">Powered by OpenAI</Heading>
               <Text wordBreak="break-word" fontWeight="bold">

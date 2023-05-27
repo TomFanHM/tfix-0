@@ -3,10 +3,11 @@
 import React from "react";
 import { PostData } from "./getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
-import { Grid, GridItem, Heading } from "@chakra-ui/react";
+import { Button, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 import PostCard from "./PostCard";
 import { auth } from "@/firebase/firebaseApp";
 import { useAuthState } from "react-firebase-hooks/auth";
+import Link from "next/link";
 
 type BlogContainerProps = {
   posts: PostData[];
@@ -26,9 +27,14 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
         my={{ base: "6", md: "8" }}
       >
         <GridItem colSpan={3}>
-          <Heading size={{ base: "2xl", md: "4xl" }} fontWeight="extrabold">
-            Blogs
-          </Heading>
+          <Flex justify="space-between" align="center">
+            <Heading size={{ base: "2xl", md: "4xl" }} fontWeight="extrabold">
+              Blogs
+            </Heading>
+            <Link href="/blogs/create">
+              <Button variant="custom_solid">Create Post</Button>
+            </Link>
+          </Flex>
         </GridItem>
         <>
           {posts.map((post, i) => (

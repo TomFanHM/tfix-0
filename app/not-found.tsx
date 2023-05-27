@@ -12,7 +12,7 @@ export default function PageNotFound() {
         flexDirection="column"
         align="start"
         justify="center"
-        gap="1rem"
+        gap="4"
         maxW="20rem"
         mx="auto"
       >

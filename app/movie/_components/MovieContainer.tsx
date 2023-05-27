@@ -2,8 +2,14 @@
 
 import React, { useCallback, useState } from "react";
 import { MovieData, getMovies } from "./getMovie";
-import ThreeColumnGridWrapper from "@/components/container/ThreeColumnGridWrapper";
-import { Button, GridItem, Heading, Skeleton, Stack } from "@chakra-ui/react";
+import {
+  Button,
+  Grid,
+  GridItem,
+  Heading,
+  Skeleton,
+  Stack,
+} from "@chakra-ui/react";
 import MovieCard from "./MovieCard";
 import MotionContainer from "@/components/container/MotionContainer";
 import { firestore } from "@/firebase/firebaseApp";
@@ -53,7 +59,11 @@ const MovieContainer: React.FC<MovieContainerProps> = ({ moviesData }) => {
 
   return (
     <MotionContainer maxW="container.xl">
-      <ThreeColumnGridWrapper
+      <Grid
+        templateColumns="repeat(3, 1fr)"
+        alignContent="center"
+        w="full"
+        mx="auto"
         gridGap="64px 16px"
         py={{ base: "6", md: "8" }}
         my={{ base: "6", md: "8" }}
@@ -102,7 +112,7 @@ const MovieContainer: React.FC<MovieContainerProps> = ({ moviesData }) => {
             </GridItem>
           )}
         </>
-      </ThreeColumnGridWrapper>
+      </Grid>
     </MotionContainer>
   );
 };

@@ -8,12 +8,20 @@ import NewsContainer from "./_components/NewsContainer";
 //fetch per 1 hour
 export const revalidate = 3600;
 
-const News = async (): Promise<JSX.Element> => {
+async function getData() {
   const docRef = collection(firestore, "news");
-
   const q = query(docRef, orderBy("publishedAt", "desc"), limit(10));
+  const data = await getNews(q);
 
-  const articles = await getNews(q);
+  if (!data.length) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return data;
+}
+
+const News = async (): Promise<JSX.Element> => {
+  const articles = await getData();
   return <NewsContainer title="Breaking" getArticles={articles} />;
 };
 

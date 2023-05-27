@@ -9,42 +9,46 @@ import AnimeSection from "./_components/AnimeSection";
 import Guide from "./_components/Guide";
 import { getCurrentSeason, getAnimes } from "./_components/getAnimes";
 
-export const revalidate = 86400 //3600 * 24;
+export const revalidate = 86400; //3600 * 24;
 
-const Animes = async (): Promise<JSX.Element> => {
+async function getData() {
   const year = new Date().getFullYear();
   const season = getCurrentSeason();
   const animesRef = collection(firestore, "animes");
+  const data = await Promise.all([
+    getAnimes(
+      query(
+        animesRef,
+        where("year", "==", year),
+        where("season", "==", season),
+        orderBy("popularity", "asc"),
+        limit(100)
+      )
+    ),
+    getAnimes(
+      query(
+        animesRef,
+        where("status", "==", "Not yet aired"),
+        orderBy("popularity", "asc"),
+        limit(100)
+      )
+    ),
+    getAnimes(query(animesRef, orderBy("popularity", "asc"), limit(20))),
+    getAnimes(
+      query(
+        animesRef,
+        where("genres", "array-contains", "Adventure"),
+        orderBy("popularity", "asc"),
+        limit(20)
+      )
+    ),
+  ]);
 
-  const [currentSeason, upComingAnime, popularAnime, adventureAnime] =
-    await Promise.all([
-      getAnimes(
-        query(
-          animesRef,
-          where("year", "==", year),
-          where("season", "==", season),
-          orderBy("popularity", "asc"),
-          limit(100)
-        )
-      ),
-      getAnimes(
-        query(
-          animesRef,
-          where("status", "==", "Not yet aired"),
-          orderBy("popularity", "asc"),
-          limit(100)
-        )
-      ),
-      getAnimes(query(animesRef, orderBy("popularity", "asc"), limit(20))),
-      getAnimes(
-        query(
-          animesRef,
-          where("genres", "array-contains", "Adventure"),
-          orderBy("popularity", "asc"),
-          limit(20)
-        )
-      ),
-    ]);
+  return data;
+}
+
+const Animes = async (): Promise<JSX.Element> => {
+  const data = await getData();
 
   return (
     <MotionContainer maxW="container.xl">
@@ -68,16 +72,16 @@ const Animes = async (): Promise<JSX.Element> => {
           />
         </GridItem>
         <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
-          <AnimeSection title="New releases" anime={currentSeason} />
+          <AnimeSection title="New releases" anime={data[0]} />
         </GridItem>
         <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
-          <AnimeSection title="Upcoming" anime={upComingAnime} />
+          <AnimeSection title="Upcoming" anime={data[1]} />
         </GridItem>
         <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
-          <AnimeSection title="Popular" anime={popularAnime} />
+          <AnimeSection title="Popular" anime={data[2]} />
         </GridItem>
         <GridItem colSpan={2} w="full" maxW="full" overflow="hidden">
-          <AnimeSection title="Adventures" anime={adventureAnime} />
+          <AnimeSection title="Adventures" anime={data[3]} />
         </GridItem>
 
         <GridItem colSpan={2}>

@@ -14,6 +14,8 @@ import {
   GridItem,
   Link,
   Divider,
+  HStack,
+  Avatar,
 } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
 import NextLink from "next/link";
@@ -38,7 +40,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
   const { loading, error, onVote, onDeletePost } = usePost();
-  const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
+  const [likes, setLikes] = useState<PostSchema["likes"]>(post.likes);
 
   const liked: boolean = user ? likes.includes(user.uid) : false;
   const likeCount = likes.length;
@@ -89,13 +91,10 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
     //if logged in
     const success = await onVote(post, user, liked);
     if (success) {
-      const newList = liked
+      const newArr = liked
         ? likes.filter((e) => e !== user.uid)
         : [...likes, user.uid];
-      setLikes((prev) => ({
-        ...prev,
-        likes: newList,
-      }));
+      setLikes(newArr);
     }
   };
 
@@ -132,9 +131,13 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         <Text mt="4" noOfLines={5}>
           {post.introduction}
         </Text>
-        <Text layerStyle="Medium-emphasis">
-          {fromNow(new Date(post.createdAt.seconds * 1000))}
-        </Text>
+        <HStack spacing={4}>
+          <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} />
+          <Text layerStyle="Medium-emphasis">
+            {fromNow(new Date(post.createdAt.seconds * 1000))}
+          </Text>
+        </HStack>
+
         <Divider />
         <Flex wrap="wrap" gap="4" mt="4">
           <Button
@@ -144,7 +147,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
               <Icon
                 as={BsFillHeartFill}
                 boxSize={6}
-                color={liked ? "red.400" : "var(--chakra-colors-onSurface)"}
+                color={liked ? "red.400" : "unset"}
               />
             }
             onClick={handleVote}

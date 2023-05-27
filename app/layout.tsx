@@ -5,16 +5,14 @@ import AppLayout from "./AppLayout";
 export const metadata = {
   title: {
     default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    template: siteConfig.name,
   },
   verification: {
     google: "G1fdKaWiLVjT0jg00pyrdcncs1OjOocbEussHVq-4Bk",
-    yandex: "yandex",
-    yahoo: "yahoo",
   },
   description: siteConfig.description,
   keywords: [
-    "Next.js",
+    "Next",
     "React",
     "TFIX",
     "Server Components",
@@ -51,7 +49,7 @@ export const metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${siteConfig.url}/og.jpg`],
+    images: [`${siteConfig.url}/og.png`],
     creator: "Tom Fan",
   },
   icons: {
