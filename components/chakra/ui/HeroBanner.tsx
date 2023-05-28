@@ -1,7 +1,15 @@
 "use client";
 
 import { useScrollScale } from "@/hooks/useScrollScale";
-import { Box, Container, Flex, Heading, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  Image,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -9,9 +17,15 @@ type HeroBannerProps = {
   title: React.ReactNode;
   message: React.ReactNode;
   image: string;
+  mobileImage: string;
 };
 
-const HeroBanner: React.FC<HeroBannerProps> = ({ title, message, image }) => {
+const HeroBanner: React.FC<HeroBannerProps> = ({
+  title,
+  message,
+  image,
+  mobileImage,
+}) => {
   const container = {
     hidden: { opacity: 1 },
     visible: {
@@ -31,10 +45,11 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ title, message, image }) => {
     },
   };
 
-  const scale = useScrollScale(1, 1000, 1.1);
+  const scale = useScrollScale(1, 10000, 1.1);
+
+  const isLargerThanMdSize = useBreakpointValue({ base: false, md: true });
   return (
     <Flex
-      position="relative"
       w="full"
       maxW="full"
       h="70vh"
@@ -43,8 +58,31 @@ const HeroBanner: React.FC<HeroBannerProps> = ({ title, message, image }) => {
       align="center"
       justify="center"
     >
-      <Box w="full" h="full" position="absolute" inset="0" overflow="hidden">
-        {/* <Image /> */}
+      <Box
+        w="full"
+        h="full"
+        maxW="200vh"
+        position="absolute"
+        inset="0"
+        overflow="hidden"
+        zIndex={0}
+      >
+        <Box
+          willChange="transform, opacity"
+          position="relative"
+          transform={`scale(${scale})`}
+          opacity={2 - scale} //scale from 1 to 1.1
+        >
+          <Image
+            src={isLargerThanMdSize ? image : mobileImage}
+            w="full"
+            h="full"
+            objectFit="cover"
+            alt="banner"
+            color="transparent"
+            loading="lazy"
+          />
+        </Box>
       </Box>
       <Container maxW="container.lg" zIndex={1}>
         <Flex

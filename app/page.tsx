@@ -21,6 +21,7 @@ export default function Home() {
       {/* */}
       <HeroBanner
         image="/images/banner.png"
+        mobileImage="/images/banner_mobile.png"
         title={
           <>
             <Text as="span">Your Gateway to </Text>
@@ -105,9 +106,9 @@ export default function Home() {
               url="/anime/search"
               color="#282828"
             >
-              <Heading wordBreak="break-word">New Releases</Heading>
+              <Heading wordBreak="break-word">Search</Heading>
               <Text wordBreak="break-word" fontWeight="bold">
-                Stay updated with the latest anime titles
+                Find your next favorite anime by searching our vast collection
               </Text>
             </NormalCard>
           </GridItem>
@@ -208,10 +209,10 @@ export default function Home() {
               background="var(--chakra-colors-secondaryContainer)"
               color="var(--chakra-colors-onSecondaryContainer)"
               images={[
-                { url: "/images/dummy_600x900.png", aspectRatio: "2/3" },
-                { url: "/images/dummy_600x600.png", aspectRatio: "1/1" },
-                { url: "/images/dummy_600x900.png", aspectRatio: "2/3" },
-                { url: "/images/dummy_600x800.png", aspectRatio: "3/4" },
+                { url: "/images/one_side_front.png", aspectRatio: "2/3" },
+                { url: "/images/one_side.png", aspectRatio: "1/1" },
+                { url: "/images/one_side_front_other.png", aspectRatio: "2/3" },
+                { url: "/images/one_side_male.png", aspectRatio: "3/4" },
               ]}
             >
               <Text as="b">Ready for a personalized experience?</Text>
