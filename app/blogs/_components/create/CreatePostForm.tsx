@@ -1,103 +1,185 @@
 "use client";
 
 import useCreatePost from "@/hooks/useCreatePost";
-import { Flex, Heading } from "@chakra-ui/react";
+import {
+  Button,
+  Divider,
+  Flex,
+  HStack,
+  Icon,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+} from "@chakra-ui/react";
 import { User } from "firebase/auth";
-import { color } from "framer-motion";
+import { FormikProps, useFormik } from "formik";
 import React, { useState } from "react";
 import { IconType } from "react-icons";
 import { BsCardText, BsTagsFill } from "react-icons/bs";
 import { MdImage, MdVideocam } from "react-icons/md";
+import DraftView from "./DraftView";
+import ArticleInput from "./ArticleInput";
+import ImageInput from "./ImageInput";
+import IframeInput from "./IframeInput";
+import TagsInput from "./TagsInput";
+import { useRouter } from "next/navigation";
 
 type TabType = {
   label: string;
   icon: IconType;
 };
 
-type PostArticleData = {
-  headline: string;
-  introduction: string;
-  content: string;
-};
-
-const tabItems = [
+const tabItems: TabType[] = [
   { label: "Post", icon: BsCardText },
   { label: "Image", icon: MdImage },
   { label: "Video", icon: MdVideocam },
   { label: "Tags", icon: BsTagsFill },
 ];
 
+type CreateForm = {
+  headline: string;
+  introduction: string;
+  content: string;
+  selectedFile: File | null;
+  iframeURL: string;
+  selectedTag: string;
+};
+
 type CreatePostFormProps = { user: User };
 
 const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
   const { loading, createPost, error } = useCreatePost();
-
-  const [errorMessage, setErrorMessage] = useState<string>("");
   //chakra ui tab
   const [tabIndex, setTabIndex] = useState<number>(0);
-  //article
-  const [article, setArticle] = useState<PostArticleData>({
-    headline: "",
-    introduction: "",
-    content: "",
+  //data
+  const formik: FormikProps<CreateForm> = useFormik<CreateForm>({
+    initialValues: {
+      headline: "",
+      introduction: "",
+      content: "",
+      selectedFile: null,
+      iframeURL: "",
+      selectedTag: "",
+    },
+    onSubmit: async (values) => {},
   });
 
-  function handleUpdateArticle(key: keyof PostArticleData, value: string) {
-    setArticle((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  }
+  //view draft
+  const [draftView, setDraftView] = useState<boolean>(false);
 
-  //upload image
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const router = useRouter();
 
-  const handleSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return;
-    const file = e.target.files[0];
-    if (file.size < 3000000) {
-      setSelectedFile(file);
-      setErrorMessage("");
-    } else {
-      setErrorMessage("Only jpg or jpg file and below 3MB is allowed");
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const {
+      headline,
+      introduction,
+      content,
+      selectedFile,
+      iframeURL,
+      selectedTag,
+    } = formik.values;
+    const article = {
+      headline: headline,
+      introduction: introduction,
+      content: content,
+    };
+
+    const success = await createPost(
+      user,
+      article,
+      selectedFile,
+      iframeURL,
+      selectedTag
+    );
+    if (success) {
+      router.push("/blogs");
     }
   };
 
-  const handleRemoveFile = () => {
-    setSelectedFile(null);
-  };
-
-  //iframe
-  const [iframeURL, setIframeURL] = useState<string>("");
-  const handleUpdateURL = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setIframeURL(e.target.value);
-  };
-
-  //tags
-  const [selectedTag, setSelectedTag] = useState<string>("");
-  const handleSelectTags = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedTag(e.target.value);
-  };
-
-  //view draft
-  const [draftview, setDraftview] = useState<boolean>(false);
-  //
-
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <Flex
+        w="full"
         flexDirection="column"
         p="4"
         gap="4"
         mx="auto"
         borderRadius="20px"
-        as="form"
         bg="elevation.dp02"
         boxShadow="dp02"
       >
-        <Heading>123</Heading>
+        <Flex justify="space-between" gap="4" align="center">
+          <Text as="b">New post</Text>
+          <Button
+            variant="custom_solid"
+            onClick={() => setDraftView((prev) => !prev)}
+          >
+            {draftView ? "Publish" : "Preview"}
+          </Button>
+        </Flex>
+        <Divider />
+        {draftView && <DraftView data={formik.values} />}
+        {!draftView && (
+          <>
+            <Tabs
+              isFitted
+              index={tabIndex}
+              onChange={(index: number) => setTabIndex(index)}
+            >
+              <TabList>
+                {tabItems.map((tab: TabType, i) => (
+                  <Tab key={i}>
+                    <HStack>
+                      <Icon as={tab.icon} />
+                      <Text>{tab.label}</Text>
+                    </HStack>
+                  </Tab>
+                ))}
+              </TabList>
+              <TabPanels>
+                <TabPanel>
+                  <ArticleInput
+                    headline={formik.values.headline}
+                    introduction={formik.values.introduction}
+                    content={formik.values.content}
+                    handleChange={formik.handleChange}
+                    setFieldValue={formik.setFieldValue}
+                  />
+                </TabPanel>
+                <TabPanel>
+                  <ImageInput
+                    selectedFile={formik.values.selectedFile}
+                    setFieldValue={formik.setFieldValue}
+                  />
+                </TabPanel>
+                <TabPanel>
+                  <IframeInput
+                    iframeURL={formik.values.iframeURL}
+                    handleChange={formik.handleChange}
+                  />
+                </TabPanel>
+                <TabPanel>
+                  <TagsInput
+                    selectedTag={formik.values.selectedTag}
+                    handleChange={formik.handleChange}
+                  />
+                </TabPanel>
+              </TabPanels>
+            </Tabs>
+            <Button variant="form" type="submit" mx="auto" isLoading={loading}>
+              Publish
+            </Button>
+            <Text color="var(--chakra-colors-error)" textAlign="center">
+              {error?.message}
+            </Text>
+          </>
+        )}
       </Flex>
-    </>
+    </form>
   );
 };
 

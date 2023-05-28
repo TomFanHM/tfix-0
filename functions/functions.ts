@@ -1,3 +1,5 @@
+import DOMPurify from "isomorphic-dompurify";
+
 export function capitalizeFirstLetter(str: string): string {
   if (typeof str !== "string") return "";
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -81,9 +83,19 @@ export const scrollToTop = (): void => {
 };
 
 export function getYoutubeEmbedLink(input: string): string {
-  if (input.startsWith("https://www.youtube.com/embed/")) {
+  if (input.startsWith("https://www.youtube-nocookie.com/embed/")) {
     return input;
   }
 
-  return `https://www.youtube.com/embed/${input}`;
+  return `https://www.youtube-nocookie.com/embed/${input}`;
+}
+
+export function cleanHtml(dirty: string): string {
+  const clean = DOMPurify.sanitize(dirty, {
+    USE_PROFILES: { html: true },
+    ADD_TAGS: ["iframe", "pre"],
+    ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
+    FORBID_TAGS: ["style"],
+  });
+  return clean;
 }

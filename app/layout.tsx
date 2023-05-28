@@ -1,6 +1,7 @@
 import MainContainer from "@/components/container/MainContainer";
 import { siteConfig } from "@/config/site";
 import AppLayout from "./AppLayout";
+import "react-quill/dist/quill.snow.css";
 
 export const metadata = {
   title: {

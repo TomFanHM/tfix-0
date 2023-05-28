@@ -28,10 +28,10 @@ const CreatePostContainer: React.FC = () => {
     >
       {user && (
         <>
-          <GridItem colSpan={{ base: 3, md: 2 }}>
+          <GridItem colSpan={{ base: 3, md: 2 }} outline="1px solid green">
             <CreatePostForm user={user} />
           </GridItem>
-          <GridItem colSpan={{ base: 3, md: 1 }}>
+          <GridItem colSpan={{ base: 3, md: 1 }} outline="1px solid green">
             {/* <Guidelines /> */}
           </GridItem>
         </>
