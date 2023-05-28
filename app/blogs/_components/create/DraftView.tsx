@@ -1,4 +1,4 @@
-"use  client";
+"use client";
 
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { cleanHtml, splitString } from "@/functions/functions";
