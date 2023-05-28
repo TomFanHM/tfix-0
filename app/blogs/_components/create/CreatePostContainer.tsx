@@ -5,6 +5,8 @@ import { Center, Grid, GridItem, Spinner } from "@chakra-ui/react";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import CreatePostForm from "./CreatePostForm";
+import Guidelines from "./Guidelines";
+import NotUser from "@/components/auth/notUser/notUser";
 
 const CreatePostContainer: React.FC = () => {
   const [user, loading, error] = useAuthState(auth);
@@ -28,16 +30,22 @@ const CreatePostContainer: React.FC = () => {
     >
       {user && (
         <>
-          <GridItem colSpan={{ base: 3, md: 2 }} outline="1px solid green">
+          <GridItem colSpan={{ base: 3, md: 2 }}>
             <CreatePostForm user={user} />
           </GridItem>
-          <GridItem colSpan={{ base: 3, md: 1 }} outline="1px solid green">
-            {/* <Guidelines /> */}
+          <GridItem colSpan={{ base: 3, md: 1 }}>
+            <Guidelines />
           </GridItem>
         </>
       )}
 
-      {!user && <></>}
+      {!user && (
+        <>
+          <GridItem colSpan={3}>
+            <NotUser />
+          </GridItem>
+        </>
+      )}
     </Grid>
   );
 };
