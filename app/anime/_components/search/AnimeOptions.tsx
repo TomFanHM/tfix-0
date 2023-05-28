@@ -151,6 +151,7 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
               placeholder="Select genre"
               value={filters.genre}
               onChange={handleChange}
+              disabled={filters.studio !== ""}
             >
               {Genres.map((el, i) => (
                 <option key={i} value={el}>
@@ -167,6 +168,7 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
               placeholder="Select studio"
               value={filters.studio}
               onChange={handleChange}
+              disabled={filters.genre !== ""}
             >
               {Studios.map((el, i) => (
                 <option key={i} value={el}>

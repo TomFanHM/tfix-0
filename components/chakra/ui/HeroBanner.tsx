@@ -61,7 +61,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
       <Box
         w="full"
         h="full"
-        maxW="200vh"
+        maxH="200vh"
         position="absolute"
         inset="0"
         overflow="hidden"
@@ -70,6 +70,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
         <Box
           willChange="transform, opacity"
           position="relative"
+          w="full"
           transform={`scale(${scale})`}
           opacity={2 - scale} //scale from 1 to 1.1
         >
