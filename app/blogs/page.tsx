@@ -18,9 +18,9 @@ async function getData() {
   return data;
 }
 
-const Blog = async (): Promise<JSX.Element> => {
+const Blogs = async (): Promise<JSX.Element> => {
   const posts = await getData();
 
   return <BlogContainer posts={posts} />;
 };
-export default Blog;
+export default Blogs;

@@ -1,5 +1,6 @@
 import { firestore } from "@/firebase/firebaseApp";
 import { DocumentData, Query, doc, getDoc, getDocs } from "firebase/firestore";
+import safeJsonStringify from "safe-json-stringify";
 import { z } from "zod";
 
 export const Timestamp = z.object({
@@ -49,7 +50,8 @@ export async function getPosts(q: Query<DocumentData>): Promise<PostData[]> {
   const querySnapshot = await getDocs(q);
   const posts = querySnapshot.docs.map((doc) => {
     const rawDocData = doc.data();
-    const docData = PostSchema.safeParse(rawDocData);
+    const safeData = JSON.parse(safeJsonStringify(rawDocData));
+    const docData = PostSchema.safeParse(safeData);
     if (docData.success) {
       return { id: doc.id, ...docData.data };
     }
@@ -62,7 +64,8 @@ export async function getPostById(slug: string) {
     const postDocRef = doc(firestore, "posts", slug);
     const rawPostDoc = await getDoc(postDocRef);
     if (!rawPostDoc.exists()) throw new Error("Invalid post id.");
-    const docData = PostSchema.parse(rawPostDoc.data());
+    const safeData = JSON.parse(safeJsonStringify(rawPostDoc.data()));
+    const docData = PostSchema.parse(safeData);
     return { id: rawPostDoc.id, ...docData };
   } catch (error) {
     return null;
