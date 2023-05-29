@@ -7,6 +7,7 @@ import { Button, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 import { auth } from "@/firebase/firebaseApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
+import PostCard from "./PostCard";
 
 type BlogContainerProps = {
   posts: PostData[];
@@ -37,7 +38,13 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
         </GridItem>
         <>
           {posts.map((post, i) => (
-            <Heading key={i}>{post.content}</Heading>
+            <PostCard
+              key={i}
+              id={i}
+              user={user}
+              post={post}
+              isCreator={post.creatorId === user?.uid}
+            />
           ))}
         </>
       </Grid>
@@ -45,13 +52,3 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
   );
 };
 export default BlogContainer;
-
-{
-  /* <PostCard
-key={i}
-id={i}
-user={user}
-post={post}
-isCreator={post.creatorId === user?.uid}
-/> */
-}

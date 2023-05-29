@@ -42,8 +42,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const { loading, error, onVote, onDeletePost } = usePost();
   const [likes, setLikes] = useState<PostSchema["likes"]>(post.likes);
 
-  //const liked: boolean = user ? likes.includes(user.uid) : false;
-  const liked = true;
+  const liked: boolean = user ? likes.includes(user.uid) : false;
   const likeCount = likes.length;
 
   //share
