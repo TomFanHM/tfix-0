@@ -14,14 +14,13 @@ import {
   Link,
   Divider,
   HStack,
-  Avatar,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
-import OptimizedImage from "@/components/image/OptimizedImage";
 import { BsFillEyeFill, BsFillHeartFill, BsShareFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
 import { siteConfig } from "@/config/site";
+import OptimizedImage from "@/components/image/OptimizedImage";
 
 type PostCardProps = {
   id: number;
@@ -38,7 +37,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   /* const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState); */
 
   /* const { loading, error, onVote, onDeletePost } = usePost(); */
-  const [likes, setLikes] = useState<PostSchema["likes"]>(post.likes);
+  const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
 
   const liked: boolean = user ? likes.includes(user.uid) : false;
   const likeCount = likes.length;
@@ -130,7 +129,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
           {post.introduction}
         </Text>
         <HStack spacing={4}>
-          <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} />
+          {/* <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} /> */}
           <Text layerStyle="Medium-emphasis">
             {fromNow(new Date(post.createdAt.seconds * 1000))}
           </Text>
