@@ -14,6 +14,7 @@ import {
   Link,
   Divider,
   HStack,
+  Avatar,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
@@ -21,6 +22,9 @@ import { BsFillEyeFill, BsFillHeartFill, BsShareFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
 import { siteConfig } from "@/config/site";
 import OptimizedImage from "@/components/image/OptimizedImage";
+import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { useSetRecoilState } from "recoil";
+import { usePost } from "@/hooks/usePost";
 
 type PostCardProps = {
   id: number;
@@ -34,16 +38,16 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const banner: boolean = id % 5 === 0 || id % 5 === 1;
 
   const toast = useToast();
-  /* const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState); */
+  const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
-  /* const { loading, error, onVote, onDeletePost } = usePost(); */
+  const { loading, error, onVote, onDeletePost } = usePost();
   const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
 
   const liked: boolean = user ? likes.includes(user.uid) : false;
   const likeCount = likes.length;
 
   //share
-  /*   const handleCopyURL = async (): Promise<void> => {
+  const handleCopyURL = async (): Promise<void> => {
     try {
       await navigator.clipboard
         .writeText(`${siteConfig.url}/posts/${post.id}`)
@@ -63,11 +67,11 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         isClosable: true,
       });
     }
-  }; */
+  };
 
   //delete
   const handleDeletePost = async (): Promise<void> => {
-    /* const success = await onDeletePost(post);
+    const success = await onDeletePost(post);
     if (success) {
       toast({
         title: "Deleted.",
@@ -75,24 +79,24 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         status: "success",
         isClosable: true,
       });
-    } */
+    }
   };
 
   //vote
   const handleVote = async () => {
     //request user login
     if (!user) {
-      /* setAuthModalState({ open: true, view: "login" }); */
+      setAuthModalState({ open: true, view: "login" });
       return;
     }
     //if logged in
-    /* const success = await onVote(post, user, liked);
+    const success = await onVote(post, user, liked);
     if (success) {
       const newArr = liked
         ? likes.filter((e) => e !== user.uid)
         : [...likes, user.uid];
       setLikes(newArr);
-    } */
+    }
   };
 
   return (
@@ -129,7 +133,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
           {post.introduction}
         </Text>
         <HStack spacing={4}>
-          {/* <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} /> */}
+          <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} />
           <Text layerStyle="Medium-emphasis">
             {fromNow(new Date(post.createdAt.seconds * 1000))}
           </Text>
@@ -138,7 +142,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         <Divider />
         <Flex wrap="wrap" gap="4" mt="4">
           <Button
-            //isLoading={loading}
+            isLoading={loading}
             variant="custom_solid"
             leftIcon={
               <Icon
@@ -152,23 +156,23 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
             {likeCount}
           </Button>
           <Button
-            //isLoading={loading}
+            isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsFillEyeFill} boxSize={6} />}
           >
             {post.views}
           </Button>
           <Button
-            //isLoading={loading}
+            isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsShareFill} boxSize={6} />}
-            //onClick={handleCopyURL}
+            onClick={handleCopyURL}
           >
             Share
           </Button>
           {isCreator && (
             <Button
-              //isLoading={loading}
+              isLoading={loading}
               variant="custom_solid"
               leftIcon={<Icon as={MdDeleteForever} boxSize={6} />}
               onClick={handleDeletePost}
