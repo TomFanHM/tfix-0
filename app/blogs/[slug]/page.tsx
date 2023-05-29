@@ -2,7 +2,6 @@ import { firestore } from "@/firebase/firebaseApp";
 import { collection, query, orderBy, limit } from "firebase/firestore";
 import React from "react";
 import { getPostById, getPosts } from "../_components/getPosts";
-import { notFound } from "next/navigation";
 
 export const revalidate = 86400; //3600 * 24;
 
@@ -22,7 +21,7 @@ const PostDetail = async ({
   params: { slug: string };
 }): Promise<JSX.Element> => {
   const post = await getPostById(params.slug);
-  if (!post) notFound();
+
   return <div>Have a good coding</div>;
 };
 export default PostDetail;
