@@ -14,7 +14,6 @@ import {
   Link,
   Divider,
   HStack,
-  Avatar,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
@@ -133,7 +132,6 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
           {post.introduction}
         </Text>
         <HStack spacing={4}>
-          {/* <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} /> */}
           <Text layerStyle="Medium-emphasis">
             {fromNow(new Date(post.createdAt.seconds * 1000))}
           </Text>
