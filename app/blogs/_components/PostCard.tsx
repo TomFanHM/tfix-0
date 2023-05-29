@@ -19,20 +19,10 @@ import {
 } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
 import NextLink from "next/link";
-import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { BsFillEyeFill, BsFillHeartFill, BsShareFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
 import { usePost } from "@/hooks/usePost";
-
-function containsString(arr: string[], target: string) {
-  for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === target) {
-      return true;
-    }
-  }
-  return false;
-}
 
 type PostCardProps = {
   id: number;
@@ -51,7 +41,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const { loading, error, onVote, onDeletePost } = usePost();
   const [likes, setLikes] = useState<PostSchema["likes"]>(post.likes);
 
-  const liked: boolean = user ? containsString(likes, user.uid) : false;
+  const liked: boolean = user ? likes.includes(user.uid) : false;
   const likeCount = likes.length;
 
   //share
@@ -143,7 +133,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         <HStack spacing={4}>
           <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} />
           <Text layerStyle="Medium-emphasis">
-            {fromNow(new Date(post.createdAt.seconds * 1000))}
+            {/* {fromNow(new Date(post.createdAt.seconds * 1000))} */}
           </Text>
         </HStack>
 

@@ -4,7 +4,7 @@ import React from "react";
 import { getPosts } from "./_components/getPosts";
 import BlogContainer from "./_components/BlogContainer";
 
-export const revalidate = 3600;
+//export const revalidate = 3600;
 
 async function getData() {
   const postsDocRef = collection(firestore, "posts");
