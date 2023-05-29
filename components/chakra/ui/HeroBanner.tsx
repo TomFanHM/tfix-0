@@ -47,7 +47,12 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
 
   const scale = useScrollScale(1, 10000, 1.1);
 
-  const isLargerThanMdSize = useBreakpointValue({ base: false, md: true });
+  const isLargerThanMdSize = useBreakpointValue(
+    { base: false, md: true },
+    {
+      fallback: "md",
+    }
+  );
   return (
     <Flex
       w="full"
