@@ -4,7 +4,6 @@ import React from "react";
 import { PostData } from "./getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import { Button, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
-import PostCard from "./PostCard";
 import { auth } from "@/firebase/firebaseApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Link from "next/link";
@@ -38,13 +37,7 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
         </GridItem>
         <>
           {posts.map((post, i) => (
-            <PostCard
-              key={i}
-              id={i}
-              user={user}
-              post={post}
-              isCreator={post.creatorId === user?.uid}
-            />
+            <Heading key={i}>{post.content}</Heading>
           ))}
         </>
       </Grid>
@@ -52,3 +45,13 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
   );
 };
 export default BlogContainer;
+
+{
+  /* <PostCard
+key={i}
+id={i}
+user={user}
+post={post}
+isCreator={post.creatorId === user?.uid}
+/> */
+}
