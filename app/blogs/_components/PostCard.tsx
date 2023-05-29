@@ -3,7 +3,6 @@
 import { User } from "firebase/auth";
 import React, { useState } from "react";
 import { PostData, PostSchema } from "./getPosts";
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import {
   Flex,
   Heading,
@@ -17,7 +16,6 @@ import {
   HStack,
   Avatar,
 } from "@chakra-ui/react";
-import { useSetRecoilState } from "recoil";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
@@ -36,7 +34,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const banner: boolean = id % 5 === 0 || id % 5 === 1;
 
   const toast = useToast();
-  const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
+  /* const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState); */
 
   /* const { loading, error, onVote, onDeletePost } = usePost(); */
   const [likes, setLikes] = useState<PostSchema["likes"]>(post.likes);
@@ -84,7 +82,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const handleVote = async () => {
     //request user login
     if (!user) {
-      setAuthModalState({ open: true, view: "login" });
+      /* setAuthModalState({ open: true, view: "login" }); */
       return;
     }
     //if logged in
