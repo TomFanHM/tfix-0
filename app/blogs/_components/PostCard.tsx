@@ -21,6 +21,7 @@ import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { BsFillEyeFill, BsFillHeartFill, BsShareFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
+import { siteConfig } from "@/config/site";
 
 type PostCardProps = {
   id: number;
@@ -46,7 +47,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const handleCopyURL = async (): Promise<void> => {
     try {
       await navigator.clipboard
-        .writeText(`${window.location.href}/posts/${post.id}`)
+        .writeText(`${siteConfig.url}/posts/${post.id}`)
         .then(() =>
           toast({
             title: "Copied to clipboard.",
