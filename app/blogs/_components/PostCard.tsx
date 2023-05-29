@@ -44,7 +44,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const likeCount = likes.length;
 
   //share
-  const handleCopyURL = async (): Promise<void> => {
+  /*   const handleCopyURL = async (): Promise<void> => {
     try {
       await navigator.clipboard
         .writeText(`${siteConfig.url}/posts/${post.id}`)
@@ -64,7 +64,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         isClosable: true,
       });
     }
-  };
+  }; */
 
   //delete
   const handleDeletePost = async (): Promise<void> => {
@@ -117,7 +117,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
             <Link
               key={i}
               as={NextLink}
-              href={"#"}
+              href={"/blogs"}
               textDecoration="underline"
               w="min-content"
             >
@@ -163,7 +163,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
             //isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsShareFill} boxSize={6} />}
-            onClick={handleCopyURL}
+            //onClick={handleCopyURL}
           >
             Share
           </Button>
