@@ -1,5 +1,3 @@
-"use client";
-
 import { firestore, storage } from "@/firebase/firebaseApp";
 import {
   splitString,

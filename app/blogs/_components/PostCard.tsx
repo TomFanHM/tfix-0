@@ -19,10 +19,10 @@ import {
 } from "@chakra-ui/react";
 import { useSetRecoilState } from "recoil";
 import NextLink from "next/link";
+import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { BsFillEyeFill, BsFillHeartFill, BsShareFill } from "react-icons/bs";
 import { MdDeleteForever } from "react-icons/md";
-import { usePost } from "@/hooks/usePost";
 
 type PostCardProps = {
   id: number;
@@ -38,7 +38,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
   const toast = useToast();
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
-  const { loading, error, onVote, onDeletePost } = usePost();
+  /* const { loading, error, onVote, onDeletePost } = usePost(); */
   const [likes, setLikes] = useState<PostSchema["likes"]>(post.likes);
 
   const liked: boolean = user ? likes.includes(user.uid) : false;
@@ -69,7 +69,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
 
   //delete
   const handleDeletePost = async (): Promise<void> => {
-    const success = await onDeletePost(post);
+    /* const success = await onDeletePost(post);
     if (success) {
       toast({
         title: "Deleted.",
@@ -77,7 +77,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         status: "success",
         isClosable: true,
       });
-    }
+    } */
   };
 
   //vote
@@ -88,13 +88,13 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
       return;
     }
     //if logged in
-    const success = await onVote(post, user, liked);
+    /* const success = await onVote(post, user, liked);
     if (success) {
       const newArr = liked
         ? likes.filter((e) => e !== user.uid)
         : [...likes, user.uid];
       setLikes(newArr);
-    }
+    } */
   };
 
   return (
@@ -133,14 +133,14 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
         <HStack spacing={4}>
           <Avatar src={post.creatorPhotoURL} name={post.creatorDisplayName} />
           <Text layerStyle="Medium-emphasis">
-            {/* {fromNow(new Date(post.createdAt.seconds * 1000))} */}
+            {fromNow(new Date(post.createdAt.seconds * 1000))}
           </Text>
         </HStack>
 
         <Divider />
         <Flex wrap="wrap" gap="4" mt="4">
           <Button
-            isLoading={loading}
+            //isLoading={loading}
             variant="custom_solid"
             leftIcon={
               <Icon
@@ -154,14 +154,14 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
             {likeCount}
           </Button>
           <Button
-            isLoading={loading}
+            //isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsFillEyeFill} boxSize={6} />}
           >
             {post.views}
           </Button>
           <Button
-            isLoading={loading}
+            //isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsShareFill} boxSize={6} />}
             onClick={handleCopyURL}
@@ -170,7 +170,7 @@ const PostCard: React.FC<PostCardProps> = ({ id, user, post, isCreator }) => {
           </Button>
           {isCreator && (
             <Button
-              isLoading={loading}
+              //isLoading={loading}
               variant="custom_solid"
               leftIcon={<Icon as={MdDeleteForever} boxSize={6} />}
               onClick={handleDeletePost}

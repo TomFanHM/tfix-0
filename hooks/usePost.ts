@@ -1,5 +1,3 @@
-"use client";
-
 import { PostData } from "@/app/blogs/_components/getPosts";
 import { firestore, storage } from "@/firebase/firebaseApp";
 import { User } from "firebase/auth";
