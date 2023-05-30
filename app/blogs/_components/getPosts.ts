@@ -15,7 +15,7 @@ export const PostSchema = z.object({
   headline: z.string(),
   introduction: z.string(),
   coverURL: z.string(),
-  iframeURL: z.string().optional(),
+  iframeURL: z.string().optional().nullable(),
   content: z.string(),
   tags: z.array(z.string()),
   views: z.number(),
