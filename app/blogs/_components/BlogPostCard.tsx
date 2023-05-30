@@ -2,7 +2,6 @@
 
 import { User } from "firebase/auth";
 import { PostData } from "./getPosts";
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import {
   Flex,
   GridItem,
@@ -11,13 +10,10 @@ import {
   useToast,
   Text,
   HStack,
-  Avatar,
   Divider,
   Button,
   Icon,
 } from "@chakra-ui/react";
-import { useSetRecoilState } from "recoil";
-import { usePost } from "@/hooks/usePost";
 import { siteConfig } from "@/config/site";
 import { useCallback } from "react";
 import OptimizedImage from "@/components/image/OptimizedImage";
@@ -42,8 +38,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   isCreator,
 }) => {
   const toast = useToast();
-  const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
-  const { loading, error, onVote, onDeletePost } = usePost();
 
   //share
   const handleCopyURL = useCallback(async () => {
@@ -102,12 +96,12 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           {post.introduction}
         </Text>
         <HStack spacing={4}>
-          <Avatar
+          {/* <Avatar
             src={post.creatorPhotoURL}
             name={post.creatorDisplayName}
             pointerEvents="none"
             loading="lazy"
-          />
+          /> */}
           <Text layerStyle="Medium-emphasis">
             {fromNow(new Date(post.createdAt.seconds * 1000))}
           </Text>
@@ -115,19 +109,16 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         <Divider />
         <Flex wrap="wrap" gap="4" mt="4">
           <Button
-            isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsFillHeartFill} boxSize={6} />}
           ></Button>
           <Button
-            isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsFillEyeFill} boxSize={6} />}
           >
             {post.views}
           </Button>
           <Button
-            isLoading={loading}
             variant="custom_solid"
             leftIcon={<Icon as={BsShareFill} boxSize={6} />}
             onClick={handleCopyURL}
@@ -136,7 +127,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           </Button>
           {isCreator && (
             <Button
-              isLoading={loading}
               variant="custom_solid"
               leftIcon={<Icon as={MdDeleteForever} boxSize={6} />}
             >
