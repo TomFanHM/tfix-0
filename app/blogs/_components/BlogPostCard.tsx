@@ -33,6 +33,7 @@ type BlogPostCardProps = {
   user: User | null | undefined;
   post: PostData;
   isCreator: boolean;
+  handleRemovePost: (postId: string) => void;
 };
 
 const BlogPostCard: React.FC<BlogPostCardProps> = ({
@@ -41,6 +42,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   user,
   post,
   isCreator,
+  handleRemovePost,
 }) => {
   const toast = useToast();
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
@@ -50,6 +52,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   const likeCount = likes.length;
 
   useEffect(() => {
+    //reset
     setLikes([...post.likes]);
   }, [post]);
 
@@ -86,8 +89,9 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         status: "success",
         isClosable: true,
       });
+      handleRemovePost(post.id);
     }
-  }, [onDeletePost, post, toast]);
+  }, [onDeletePost, handleRemovePost, post, toast]);
 
   //vote
   const handleVote = async () => {
