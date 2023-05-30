@@ -6,12 +6,16 @@ import MotionContainer from "@/components/container/MotionContainer";
 import { Button, Flex, Grid, GridItem, Heading } from "@chakra-ui/react";
 import Link from "next/link";
 import BlogPostCard from "./BlogPostCard";
+import { auth } from "@/firebase/firebaseApp";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 type BlogContainerProps = {
   posts: PostData[];
 };
 
 const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
+  const [user] = useAuthState(auth);
+
   return (
     <MotionContainer maxW="container.xl">
       <Grid
@@ -39,8 +43,9 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
               key={i}
               large={i % 5 === 0}
               banner={i % 5 === 0 || i % 5 === 1}
-              user={null}
+              user={user}
               post={post}
+              isCreator={post.creatorId === user?.uid}
             />
           ))}
         </>

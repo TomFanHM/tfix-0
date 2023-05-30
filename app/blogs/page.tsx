@@ -4,11 +4,12 @@ import React from "react";
 import { getPosts } from "./_components/getPosts";
 import BlogContainer from "./_components/BlogContainer";
 
-//export const revalidate = 3600;
+export const revalidate = 0;
+//export const fetchCache = "no-cache";
 
 async function getData() {
   const postsDocRef = collection(firestore, "posts");
-  const q = query(postsDocRef, orderBy("createdAt", "desc"), limit(20));
+  const q = query(postsDocRef, orderBy("createdAt", "desc"), limit(10));
   const data = await getPosts(q);
 
   return data;

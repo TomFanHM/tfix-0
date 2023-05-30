@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "firebase/auth";
-import { PostData } from "./getPosts";
+import { PostData, PostSchema } from "./getPosts";
 import {
   Flex,
   GridItem,
@@ -13,20 +13,26 @@ import {
   Divider,
   Button,
   Icon,
+  IconButton,
 } from "@chakra-ui/react";
 import { siteConfig } from "@/config/site";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
-import { BsFillEyeFill, BsFillHeartFill, BsShareFill } from "react-icons/bs";
-import { MdDeleteForever } from "react-icons/md";
+import { BsFillEyeFill, BsFillHeartFill } from "react-icons/bs";
+import { MdDeleteForever, MdShare } from "react-icons/md";
+import CustomAvatar from "@/components/image/CustomAvatar";
+import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { useSetRecoilState } from "recoil";
+import { usePost } from "@/hooks/usePost";
 
 type BlogPostCardProps = {
   large: boolean;
   banner: boolean;
   user: User | null | undefined;
   post: PostData;
+  isCreator: boolean;
 };
 
 const BlogPostCard: React.FC<BlogPostCardProps> = ({
@@ -34,8 +40,18 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   banner,
   user,
   post,
+  isCreator,
 }) => {
   const toast = useToast();
+  const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
+  const { loading, error, onVote, onDeletePost } = usePost();
+  const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
+  const liked: boolean = user ? likes.includes(user.uid) : false;
+  const likeCount = likes.length;
+
+  useEffect(() => {
+    setLikes([...post.likes]);
+  }, [post]);
 
   //share
   const handleCopyURL = useCallback(async () => {
@@ -58,7 +74,37 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         isClosable: true,
       });
     }
-  }, [post.id]);
+  }, [post, toast]);
+
+  //delete
+  const handleDeletePost = useCallback(async (): Promise<void> => {
+    const success = await onDeletePost(post);
+    if (success) {
+      toast({
+        title: "Deleted.",
+        variant: "solid",
+        status: "success",
+        isClosable: true,
+      });
+    }
+  }, [onDeletePost, post, toast]);
+
+  //vote
+  const handleVote = async () => {
+    //request user login
+    if (!user) {
+      setAuthModalState({ open: true, view: "login" });
+      return;
+    }
+    //if logged in
+    const success = await onVote(post, user, liked);
+    if (success) {
+      const newArr = liked
+        ? likes.filter((e) => e !== user.uid)
+        : [...likes, user.uid];
+      setLikes(newArr);
+    }
+  };
 
   return (
     <GridItem colSpan={{ base: 3, md: large ? 2 : 1 }}>
@@ -94,12 +140,11 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           {post.introduction}
         </Text>
         <HStack spacing={4}>
-          {/* <Avatar
+          <CustomAvatar
             src={post.creatorPhotoURL}
             name={post.creatorDisplayName}
-            pointerEvents="none"
-            loading="lazy"
-          /> */}
+            size="8"
+          />
           <Text layerStyle="Medium-emphasis">
             {fromNow(new Date(post.createdAt.seconds * 1000))}
           </Text>
@@ -108,28 +153,36 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         <Flex wrap="wrap" gap="4" mt="4">
           <Button
             variant="custom_solid"
+            isLoading={loading}
             leftIcon={<Icon as={BsFillHeartFill} boxSize={6} />}
-          ></Button>
+            onClick={handleVote}
+            color={liked ? "red.400" : "var(--chakra-colors-onPrimary)"}
+          >
+            {likeCount}
+          </Button>
           <Button
             variant="custom_solid"
+            isLoading={loading}
             leftIcon={<Icon as={BsFillEyeFill} boxSize={6} />}
           >
             {post.views}
           </Button>
-          <Button
+          <IconButton
             variant="custom_solid"
-            leftIcon={<Icon as={BsShareFill} boxSize={6} />}
+            isLoading={loading}
+            aria-label="share link"
+            icon={<Icon as={MdShare} boxSize={6} />}
             onClick={handleCopyURL}
-          >
-            Share
-          </Button>
-
-          <Button
-            variant="custom_solid"
-            leftIcon={<Icon as={MdDeleteForever} boxSize={6} />}
-          >
-            Delete
-          </Button>
+          />
+          {isCreator && (
+            <IconButton
+              variant="custom_solid"
+              isLoading={loading}
+              aria-label="delete post"
+              icon={<Icon as={MdDeleteForever} boxSize={6} />}
+              onClick={handleDeletePost}
+            />
+          )}
         </Flex>
       </Flex>
     </GridItem>

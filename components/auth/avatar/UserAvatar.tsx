@@ -1,7 +1,8 @@
 "use client";
 
+import CustomAvatar from "@/components/image/CustomAvatar";
 import { firestore } from "@/firebase/firebaseApp";
-import { Avatar, SkeletonCircle } from "@chakra-ui/react";
+import { SkeletonCircle } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
@@ -35,13 +36,17 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
   if (isLoading) return <SkeletonCircle size="8" />;
 
   return (
-    <Avatar
-      size="sm"
-      name={data?.displayName || ""}
-      src={data?.photoURL || ""}
-      pointerEvents="none"
-      loading="lazy"
-    />
+    <CustomAvatar src={data?.photoURL} name={data?.displayName} size="8" />
   );
 };
 export default UserAvatar;
+
+{
+  /* <Avatar
+  size="sm"
+  name={data?.displayName || ""}
+  src={data?.photoURL || ""}
+  pointerEvents="none"
+  loading="lazy"
+/> */
+}
