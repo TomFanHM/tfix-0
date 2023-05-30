@@ -112,19 +112,21 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
 
   return (
     <GridItem colSpan={{ base: 3, md: large ? 2 : 1 }}>
-      <OptimizedImage
-        url={post.coverURL}
-        alt={post.headline}
-        border_radius="20px"
-        position="relative"
-        w="full"
-        maxW="full" //important
-        h={{ md: banner ? "500px" : "unset" }}
-        sx={{ aspectRatio: "16/9" }}
-        color="transparent"
-        objectFit="cover"
-        loading="lazy"
-      />
+      <Link as={NextLink} href={`/blogs/${post.id}`}>
+        <OptimizedImage
+          url={post.coverURL}
+          alt={post.headline}
+          border_radius="20px"
+          position="relative"
+          w="full"
+          maxW="full" //important
+          h={{ md: banner ? "500px" : "unset" }}
+          sx={{ aspectRatio: "16/9" }}
+          color="transparent"
+          objectFit="cover"
+          loading="lazy"
+        />
+      </Link>
       <Flex flexDirection="column" mt="4" gap="4">
         <Flex wrap="wrap" gap="4" mt="4">
           {post.tags.map((tag, i) => (
