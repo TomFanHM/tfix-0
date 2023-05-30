@@ -27,7 +27,6 @@ type BlogPostCardProps = {
   banner: boolean;
   user: User | null | undefined;
   post: PostData;
-  isCreator: boolean;
 };
 
 const BlogPostCard: React.FC<BlogPostCardProps> = ({
@@ -35,7 +34,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   banner,
   user,
   post,
-  isCreator,
 }) => {
   const toast = useToast();
 
@@ -125,14 +123,13 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           >
             Share
           </Button>
-          {isCreator && (
-            <Button
-              variant="custom_solid"
-              leftIcon={<Icon as={MdDeleteForever} boxSize={6} />}
-            >
-              Delete
-            </Button>
-          )}
+
+          <Button
+            variant="custom_solid"
+            leftIcon={<Icon as={MdDeleteForever} boxSize={6} />}
+          >
+            Delete
+          </Button>
         </Flex>
       </Flex>
     </GridItem>

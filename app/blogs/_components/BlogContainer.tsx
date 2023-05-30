@@ -15,6 +15,7 @@ type BlogContainerProps = {
 
 const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
   const [user] = useAuthState(auth);
+
   return (
     <MotionContainer maxW="container.xl">
       <Grid
@@ -44,7 +45,6 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
               banner={i % 5 === 0 || i % 5 === 1}
               user={user}
               post={post}
-              isCreator={post.creatorId === user?.uid}
             />
           ))}
         </>
