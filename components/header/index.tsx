@@ -29,7 +29,6 @@ import MobileDrawer from "./MobileDrawer";
 import { mediaConfig } from "@/config/media";
 import Link from "next/link";
 
-const UserAvatar = dynamic(() => import("../auth/avatar/UserAvatar"));
 const SignoutButton = dynamic(() => import("../auth/modal/SignoutButton"));
 
 const Header: React.FC = () => {
@@ -135,7 +134,7 @@ const Header: React.FC = () => {
                   Sign up
                 </Button>
               )}
-              {user && <UserAvatar user={user} />}
+              {/* user && <UserAvatar user={user} /> */}
               {user && <SignoutButton variant="solid" />}
             </Grid>
           </Box>
