@@ -135,7 +135,9 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
                   <Tab key={i}>
                     <HStack>
                       <Icon as={tab.icon} />
-                      <Text>{tab.label}</Text>
+                      <Text display={{ base: "none", md: "block" }}>
+                        {tab.label}
+                      </Text>
                     </HStack>
                   </Tab>
                 ))}

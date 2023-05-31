@@ -3,6 +3,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import { FormControl, FormLabel, Input, Flex } from "@chakra-ui/react";
+import "react-quill/dist/quill.snow.css";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const modules = {

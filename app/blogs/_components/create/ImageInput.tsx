@@ -7,9 +7,9 @@ import {
   FormControl,
   FormLabel,
   IconButton,
-  Input,
   Image,
   Icon,
+  VisuallyHiddenInput,
 } from "@chakra-ui/react";
 import React, { useRef } from "react";
 import { BsFillCloudUploadFill } from "react-icons/bs";
@@ -28,12 +28,11 @@ const ImageInput: React.FC<ImageInputProps> = ({
     <Flex flexDirection="column" gap="4">
       <FormControl isRequired>
         <FormLabel htmlFor="selectedFile">Cover image</FormLabel>
-        <Input
+        <VisuallyHiddenInput
           id="selectedFile"
           name="selectedFile"
           type="file"
           accept=".jpg, .png"
-          opacity={0}
           ref={selectFileRef}
           onChange={(e) => {
             if (!e.target.files) return;
