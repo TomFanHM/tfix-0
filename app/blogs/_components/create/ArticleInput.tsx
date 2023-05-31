@@ -9,17 +9,18 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const modules = {
   toolbar: [
     ["bold", "italic", "underline", "strike"],
+    ["blockquote", "code-block"],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     [{ list: "ordered" }, { list: "bullet" }],
     [{ script: "sub" }, { script: "super" }],
     [{ indent: "+1" }, { indent: "-1" }],
+    [{ direction: "rtl" }],
     [{ align: [] }],
     [{ size: ["small", "large", "huge", false] }],
-    ["image", "link", "video", "formula"],
-    ["link", "video", "formula"],
-    [{ color: "1" }, { background: [] }],
+    ["image", "link", "video"],
+    [{ color: [] }, { background: [] }],
     [{ font: [] }],
-    ["code-block"],
+    ["clean"],
   ],
 };
 

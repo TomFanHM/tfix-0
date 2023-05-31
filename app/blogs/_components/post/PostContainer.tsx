@@ -7,15 +7,24 @@ import { cleanHtml } from "@/functions/functions";
 import { Box, Flex, HStack, Heading, Text } from "@chakra-ui/react";
 import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
+import { getFunctions, httpsCallable } from "firebase/functions";
 
 type PostContainerProps = {
   post: PostData;
 };
 
+const functions = getFunctions();
+const callableIncrementPostViewCount = httpsCallable(
+  functions,
+  "callableIncrementPostViewCount"
+);
+
 const PostContainer: React.FC<PostContainerProps> = ({ post }) => {
   const processedHtml = cleanHtml(post.content);
 
-  useEffect(() => {}, [post]);
+  useEffect(() => {
+    callableIncrementPostViewCount({ postId: post.id });
+  }, [post]);
 
   return (
     <MotionContainer>
