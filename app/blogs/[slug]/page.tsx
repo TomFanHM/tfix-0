@@ -1,12 +1,12 @@
 import { firestore } from "@/firebase/firebaseApp";
-import { collection, query, orderBy, limit } from "firebase/firestore";
+import { collection, query, orderBy, limit, where } from "firebase/firestore";
 import React from "react";
-import { getPostById, getPosts } from "../_components/getPosts";
+import { getComments, getPostById, getPosts } from "../_components/getPosts";
 import PostContainer from "../_components/post/PostContainer";
 
-export const revalidate = 86400; //3600 * 24;
+export const revalidate = 0;
 
-export async function generateStaticParams(): Promise<
+/* export async function generateStaticParams(): Promise<
   {
     slug: string;
   }[]
@@ -17,15 +17,28 @@ export async function generateStaticParams(): Promise<
 
   return data.map((post) => ({ slug: post.id }));
 }
+ */
 
 const PostDetail = async ({
   params,
 }: {
   params: { slug: string };
 }): Promise<JSX.Element> => {
-  const post = await getPostById(params.slug);
+  const docRef = collection(firestore, "comments");
+  const q = query(
+    docRef,
+    where("receiverId", "==", params.slug),
+    orderBy("createdAt", "desc"),
+    limit(20)
+  );
+
+  const [post, comments] = await Promise.all([
+    getPostById(params.slug),
+    getComments(q),
+  ]);
+
   if (!post) return <div>Post not found</div>;
 
-  return <PostContainer post={post} />;
+  return <PostContainer post={post} comments={comments} />;
 };
 export default PostDetail;

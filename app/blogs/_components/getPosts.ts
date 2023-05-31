@@ -46,6 +46,10 @@ export type PostData = {
   id: string;
 } & PostSchema;
 
+export type CommentData = {
+  id: string;
+} & CommentSchema;
+
 export async function getPosts(q: Query<DocumentData>): Promise<PostData[]> {
   const querySnapshot = await getDocs(q);
   const posts = querySnapshot.docs.map((doc) => {
@@ -70,4 +74,19 @@ export async function getPostById(slug: string) {
   } catch (error) {
     return null;
   }
+}
+
+export async function getComments(
+  q: Query<DocumentData>
+): Promise<CommentData[]> {
+  const querySnapshot = await getDocs(q);
+  const comments = querySnapshot.docs.map((doc) => {
+    const rawDocData = doc.data();
+    const safeData = JSON.parse(safeJsonStringify(rawDocData));
+    const docData = CommentSchema.safeParse(safeData);
+    if (docData.success) {
+      return { id: doc.id, ...docData.data };
+    }
+  });
+  return comments.flatMap((f) => (f ? [f] : []));
 }

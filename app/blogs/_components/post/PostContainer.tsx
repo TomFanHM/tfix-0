@@ -1,16 +1,18 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { PostData } from "../getPosts";
+import { CommentData, PostData } from "../getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import { cleanHtml } from "@/functions/functions";
 import { Box, Flex, HStack, Heading, Text } from "@chakra-ui/react";
 import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { getFunctions, httpsCallable } from "firebase/functions";
+import CommentsContainer from "./CommentsContainer";
 
 type PostContainerProps = {
   post: PostData;
+  comments: CommentData[];
 };
 
 const functions = getFunctions();
@@ -19,7 +21,7 @@ const callableIncrementPostViewCount = httpsCallable(
   "callableIncrementPostViewCount"
 );
 
-const PostContainer: React.FC<PostContainerProps> = ({ post }) => {
+const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
   const processedHtml = cleanHtml(post.content);
 
   useEffect(() => {
@@ -62,6 +64,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post }) => {
           dangerouslySetInnerHTML={{ __html: processedHtml }}
         />
       </Flex>
+      <CommentsContainer comments={comments} />
     </MotionContainer>
   );
 };
