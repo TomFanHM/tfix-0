@@ -33,8 +33,8 @@ const ImageInput: React.FC<ImageInputProps> = ({
           name="selectedFile"
           type="file"
           accept=".jpg, .png"
+          opacity={0}
           ref={selectFileRef}
-          display="none"
           onChange={(e) => {
             if (!e.target.files) return;
             setFieldValue("selectedFile", e.target.files[0]);
