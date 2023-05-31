@@ -40,7 +40,7 @@ const BannerText: React.FC<BannerTextProps> = ({ line1, line2, line3 }) => {
       className="container"
       variants={container}
       initial="hidden"
-      whileInView="visible"
+      animate="visible"
     >
       <Text as={motion.b} className="item" variants={item}>
         {line1}

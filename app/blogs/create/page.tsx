@@ -1,8 +1,13 @@
+import MotionContainer from "@/components/container/MotionContainer";
 import React from "react";
+import CreatePostContainer from "../_components/create/CreatePostContainer";
+import "react-quill/dist/quill.snow.css";
 
-type CreatePostProps = {};
-
-const CreatePost: React.FC<CreatePostProps> = () => {
-  return <div>Have a good coding</div>;
+const CreatePost: React.FC = () => {
+  return (
+    <MotionContainer>
+      <CreatePostContainer />
+    </MotionContainer>
+  );
 };
 export default CreatePost;

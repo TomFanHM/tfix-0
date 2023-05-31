@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { PostData } from "../getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import { cleanHtml } from "@/functions/functions";
@@ -14,6 +14,8 @@ type PostContainerProps = {
 
 const PostContainer: React.FC<PostContainerProps> = ({ post }) => {
   const processedHtml = cleanHtml(post.content);
+
+  useEffect(() => {}, [post]);
 
   return (
     <MotionContainer>
