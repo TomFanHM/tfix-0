@@ -4,11 +4,12 @@ import React, { useEffect } from "react";
 import { CommentData, PostData } from "../getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import { cleanHtml } from "@/functions/functions";
-import { Box, Flex, HStack, Heading, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, HStack, Heading, Text } from "@chakra-ui/react";
 import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import CommentsContainer from "./CommentsContainer";
+import CommentInput from "./CommentInput";
 
 type PostContainerProps = {
   post: PostData;
@@ -31,6 +32,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
   return (
     <MotionContainer>
       <Flex
+        w="full"
         flexDirection="column"
         py={{ base: "6", md: "8" }}
         my={{ base: "6", md: "8" }}
@@ -63,6 +65,9 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           wordBreak="break-word"
           dangerouslySetInnerHTML={{ __html: processedHtml }}
         />
+        <Divider mt="8" mb="4" />
+        <Heading mb="4">Comments {`(${comments.length})`}</Heading>
+        <CommentInput receiverId={post.id} />
       </Flex>
       <CommentsContainer comments={comments} />
     </MotionContainer>
