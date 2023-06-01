@@ -30,7 +30,6 @@ export const CommentSchema = z.object({
   creatorId: z.string(),
   createdAt: Timestamp,
   editedAt: Timestamp.optional(),
-  headline: z.string(),
   content: z.string(),
   likes: z.array(z.string()),
   comments: z.number(),

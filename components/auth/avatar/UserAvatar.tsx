@@ -1,11 +1,7 @@
 "use client";
 
-import CustomAvatar from "@/components/image/CustomAvatar";
-import { firestore } from "@/firebase/firebaseApp";
-import { SkeletonCircle } from "@chakra-ui/react";
-import { useQuery } from "@tanstack/react-query";
+import { Avatar } from "@chakra-ui/react";
 import { User } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
 import React from "react";
 
 type UserAvatarProps = {
@@ -13,7 +9,7 @@ type UserAvatarProps = {
 };
 
 const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
-  const { isLoading, data } = useQuery({
+  /* const { isLoading, data } = useQuery({
     queryKey: ["user", user],
     queryFn: async () => {
       try {
@@ -33,20 +29,16 @@ const UserAvatar: React.FC<UserAvatarProps> = ({ user }) => {
     },
   });
 
-  if (isLoading) return <SkeletonCircle size="8" />;
+  if (isLoading) return <SkeletonCircle size="8" />; */
 
   return (
-    <CustomAvatar src={data?.photoURL} name={data?.displayName} size="8" />
+    <Avatar
+      size="sm"
+      name={user.displayName || ""}
+      src={user.photoURL || ""}
+      pointerEvents="none"
+      loading="lazy"
+    />
   );
 };
 export default UserAvatar;
-
-{
-  /* <Avatar
-  size="sm"
-  name={data?.displayName || ""}
-  src={data?.photoURL || ""}
-  pointerEvents="none"
-  loading="lazy"
-/> */
-}

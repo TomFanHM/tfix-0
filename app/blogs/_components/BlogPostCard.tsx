@@ -14,6 +14,7 @@ import {
   Button,
   Icon,
   IconButton,
+  Avatar,
 } from "@chakra-ui/react";
 import { siteConfig } from "@/config/site";
 import { useCallback, useEffect, useState } from "react";
@@ -22,7 +23,6 @@ import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
 import { BsFillEyeFill, BsFillHeartFill } from "react-icons/bs";
 import { MdDeleteForever, MdShare } from "react-icons/md";
-import CustomAvatar from "@/components/image/CustomAvatar";
 import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import { useSetRecoilState } from "recoil";
 import { usePost } from "@/hooks/usePost";
@@ -146,10 +146,10 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           {post.introduction}
         </Text>
         <HStack spacing={4}>
-          <CustomAvatar
+          <Avatar
             src={post.creatorPhotoURL}
             name={post.creatorDisplayName}
-            size="8"
+            size="sm"
           />
           <Text layerStyle="Medium-emphasis">
             {fromNow(new Date(post.createdAt.seconds * 1000))}
