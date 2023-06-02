@@ -8,7 +8,6 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import "react-quill/dist/quill.snow.css";
 import { useSetRecoilState } from "recoil";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 

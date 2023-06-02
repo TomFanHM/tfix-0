@@ -1,6 +1,3 @@
-import "@fontsource/roboto/400.css";
-import "@fontsource/open-sans/400.css";
-
 import { ThemeConfig, extendTheme } from "@chakra-ui/react";
 import { elevation, shadows } from "./elevation";
 import { skeletonTheme } from "./skeleton";
@@ -9,6 +6,7 @@ import { breakpoints } from "./breakpoints";
 import { styles } from "./styles";
 import { dark, light } from "./colors";
 import { menuTheme } from "./menu";
+import { withProse } from '@nikolovlazar/chakra-ui-prose';
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -45,6 +43,6 @@ const theme = extendTheme({
     Button: Button,
     Menu: menuTheme,
   },
-});
+}, withProse());
 
 export { theme };

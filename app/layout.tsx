@@ -1,7 +1,9 @@
 import MainContainer from "@/components/container/MainContainer";
 import { siteConfig } from "@/config/site";
 import AppLayout from "./AppLayout";
-//import "react-quill/dist/quill.snow.css";
+import "@fontsource/roboto/400.css";
+import "@fontsource/open-sans/400.css";
+import "react-quill/dist/quill.snow.css";
 
 export const metadata = {
   title: {

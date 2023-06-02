@@ -11,6 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
+import { Prose } from '@nikolovlazar/chakra-ui-prose';
 
 type CreateForm = {
   headline: string;
@@ -72,10 +73,9 @@ const DraftView: React.FC<DraftViewProps> = ({ data }) => {
           </AspectRatio>
         </Box>
       )}
-      <Box
-        dangerouslySetInnerHTML={{ __html: processedHtml }}
-        wordBreak="break-word"
-      />
+      <Prose>
+        <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
+      </Prose>
     </Flex>
   );
 };

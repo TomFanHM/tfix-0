@@ -10,6 +10,7 @@ import OptimizedImage from "@/components/image/OptimizedImage";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import CommentsContainer from "./CommentsContainer";
 import CommentInput from "./CommentInput";
+import { Prose } from "@nikolovlazar/chakra-ui-prose";
 
 type PostContainerProps = {
   post: PostData;
@@ -49,6 +50,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
         </HStack>
         <OptimizedImage
           mt="4"
+          mb='6'
           url={post.coverURL}
           alt={post.headline}
           border_radius="20px"
@@ -60,11 +62,9 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           objectFit="cover"
           loading="lazy"
         />
-        <Box
-          mt="6"
-          wordBreak="break-word"
-          dangerouslySetInnerHTML={{ __html: processedHtml }}
-        />
+        <Prose >
+          <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
+        </Prose>
         <Divider mt="8" mb="4" />
         <Heading mb="4">Comments {`(${comments.length})`}</Heading>
         <CommentInput receiverId={post.id} />
