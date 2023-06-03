@@ -13,7 +13,7 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp(); //prevent initializeApp() from being called multiple times
 const firestore = getFirestore(app);
 const auth = getAuth(app);
 const storage = getStorage(app);

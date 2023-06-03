@@ -7,6 +7,8 @@ type GridLineProps = {
   children: React.ReactNode;
 };
 
+//this is a grid line component, which is used to create a grid line background
+
 const GridLine: React.FC<GridLineProps> = ({ children }) => {
   return (
     <Box

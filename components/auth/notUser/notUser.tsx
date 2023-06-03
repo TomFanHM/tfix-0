@@ -4,6 +4,7 @@ import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import { Button, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 import { useSetRecoilState } from "recoil";
+import Image from "next/image";
 
 const NotUser: React.FC = () => {
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
@@ -17,6 +18,14 @@ const NotUser: React.FC = () => {
       maxW="20rem"
       mx="auto"
     >
+      <Image
+        src="/images/cute_chicken.png"
+        alt="banner"
+        width={250}
+        height={250}
+        quality={85}
+        title="error image"
+      />
       <Heading pointerEvents="none" color="var(--chakra-colors-secondary)">
         TFIX.
       </Heading>

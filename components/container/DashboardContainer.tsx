@@ -7,6 +7,8 @@ type DashboardContainerProps = {
   children: React.ReactNode;
 };
 
+//this is a dashboard container, which is used to create a dashboard layout, including sidebar and main content
+
 const DashboardContainer: React.FC<DashboardContainerProps> = ({
   children,
 }) => {

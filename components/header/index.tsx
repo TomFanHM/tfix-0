@@ -1,5 +1,7 @@
 "use client";
 
+//this is a navbar component, including a drawer for mobile, and menus for pc
+
 import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import { blogsConfig } from "@/config/blogs";
 import { chatbotConfig } from "@/config/chatbot";
@@ -48,7 +50,7 @@ const Header: React.FC = () => {
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
   return (
-    <Box as="header">
+    <Box as="nav">
       <Flex
         w="full"
         h="4rem"

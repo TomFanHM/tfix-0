@@ -19,34 +19,27 @@ const CreatePostContainer: React.FC = () => {
     );
 
   return (
-    <Grid
-      templateColumns="repeat(3, 1fr)"
-      alignContent="center"
-      w="full"
-      mx="auto"
-      gridGap="64px 16px"
-      py={{ base: "6", md: "8" }}
-      my={{ base: "6", md: "8" }}
-    >
+    <>
+      {!user && <NotUser />}
       {user && (
-        <>
+        <Grid
+          templateColumns="repeat(3, 1fr)"
+          alignContent="center"
+          w="full"
+          mx="auto"
+          gridGap="64px 16px"
+          py={{ base: "6", md: "8" }}
+          my={{ base: "6", md: "8" }}
+        >
           <GridItem colSpan={{ base: 3, md: 2 }}>
             <CreatePostForm user={user} />
           </GridItem>
           <GridItem colSpan={{ base: 3, md: 1 }}>
             <Guidelines />
           </GridItem>
-        </>
+        </Grid>
       )}
-
-      {!user && (
-        <>
-          <GridItem colSpan={3}>
-            <NotUser />
-          </GridItem>
-        </>
-      )}
-    </Grid>
+    </>
   );
 };
 export default CreatePostContainer;

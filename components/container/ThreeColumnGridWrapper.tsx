@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid, GridProps, ResponsiveValue } from "@chakra-ui/react";
+import { Grid, GridProps } from "@chakra-ui/react";
 import React from "react";
 
 type ThreeColumnGridWrapperProps = {

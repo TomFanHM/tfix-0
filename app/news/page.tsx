@@ -14,7 +14,7 @@ async function getData() {
   const data = await getNews(q);
 
   if (!data.length) {
-    throw new Error("Failed to fetch data");
+    throw new Error("Failed to fetch data"); //if no data, throw error
   }
 
   return data;

@@ -5,6 +5,10 @@ import { doc, getDoc, writeBatch } from "firebase/firestore";
 import { ref, listAll, deleteObject } from "firebase/storage";
 import { useState } from "react";
 
+//custom hook for post features, including vote and delete
+//onVote function update post likes and user likes array, onDeletePost function delete post and update user posts array
+//use firebase cloud functions to delete related comments
+
 export const usePost = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);

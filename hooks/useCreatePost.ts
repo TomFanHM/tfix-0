@@ -1,3 +1,5 @@
+//custom hook for create new post
+
 import { firestore, storage } from "@/firebase/firebaseApp";
 import {
   splitString,

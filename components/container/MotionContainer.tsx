@@ -8,6 +8,8 @@ type MotionContainerProps = {
   children: React.ReactNode;
 } & ContainerProps;
 
+//this is a framer motion container, which is used to animate the page transition
+
 const MotionContainer: React.FC<MotionContainerProps> = ({
   children,
   ...props

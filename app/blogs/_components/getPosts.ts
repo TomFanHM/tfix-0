@@ -64,7 +64,7 @@ export async function getPosts(q: Query<DocumentData>): Promise<PostData[]> {
 }
 
 //only fetch one post by id
-export async function getPostById(slug: string) {
+export async function getPostById(slug: string): Promise<PostData | null> {
   try {
     const postDocRef = doc(firestore, "posts", slug);
     const rawPostDoc = await getDoc(postDocRef);

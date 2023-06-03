@@ -1,5 +1,7 @@
 "use client";
 
+//provider includes recoil, react-query, framer-motion 
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AnimatePresence } from "framer-motion";
 import React from "react";

@@ -37,6 +37,7 @@ export function getDaysOfSpecifiedMonth(year: number, month: number): number {
   return new Date(year, month, 0).getDate();
 }
 
+//1D array to 2D array
 export function arrayRestructure<T>(arr: T[], col: number): T[][] {
   const stack = [];
   for (let i = 0; i < arr.length; i += col) {
@@ -45,6 +46,7 @@ export function arrayRestructure<T>(arr: T[], col: number): T[][] {
   return stack;
 }
 
+//string "a, b, c, d " to array ["a", "b", "c", "d"]
 export function splitString(string: string): string[] {
   return string.split(",").map((word) => word.trim());
 }
@@ -59,6 +61,7 @@ export function getRandomColor(): string {
   return color;
 }
 
+//get today's date in dd/mm/yy format
 export function getDate(d: Date): string {
   const year = d.getFullYear();
   const month = d.getMonth() + 1;
@@ -66,6 +69,7 @@ export function getDate(d: Date): string {
   return `${day}/${month}/${year}`;
 }
 
+//limit the number of words in a string
 export function shortenString(s: string, l: number): string {
   const words = s.split(" ");
   if (words.length > l) {
@@ -82,6 +86,7 @@ export const scrollToTop = (): void => {
   });
 };
 
+//whatever input is embed link or video id, return embed link
 export function getYoutubeEmbedLink(input: string): string {
   if (input.startsWith("https://www.youtube-nocookie.com/embed/")) {
     return input;
@@ -90,6 +95,7 @@ export function getYoutubeEmbedLink(input: string): string {
   return `https://www.youtube-nocookie.com/embed/${input}`;
 }
 
+//prevent xss attack, clean html input
 export function cleanHtml(dirty: string): string {
   const clean = DOMPurify.sanitize(dirty, {
     USE_PROFILES: { html: true },

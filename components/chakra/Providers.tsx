@@ -1,5 +1,7 @@
 "use client";
 
+//chakra ui's theme provider, including color mode
+
 import { theme } from "@/styles/chakra/theme";
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";

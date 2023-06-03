@@ -80,16 +80,24 @@ const Footer: React.FC = () => {
             </Text>
             <HStack spacing="4">
               <Link
+                as={NextLink}
                 href="https://www.instagram.com/"
-                isExternal
                 target="_blank"
               >
                 <Icon as={BsInstagram} boxSize="6" />
               </Link>
-              <Link href="https://www.facebook.com/" isExternal target="_blank">
+              <Link
+                as={NextLink}
+                href="https://www.facebook.com/"
+                target="_blank"
+              >
                 <Icon as={BsFacebook} boxSize="6" />
               </Link>
-              <Link href="https://www.youtube.com/" isExternal target="_blank">
+              <Link
+                as={NextLink}
+                href="https://www.youtube.com/"
+                target="_blank"
+              >
                 <Icon as={BsYoutube} boxSize="6" />
               </Link>
             </HStack>

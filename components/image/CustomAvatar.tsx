@@ -1,6 +1,8 @@
 "use client";
 
 //here's error of chakra ui's avatar, I created this component to solve this problem
+//chakra ui avatar updated now, this component is not needed anymore
+//just use chakra ui's avatar
 
 import { Box, Image, Text } from "@chakra-ui/react";
 import React, { useState } from "react";

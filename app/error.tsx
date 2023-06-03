@@ -3,6 +3,7 @@
 import MotionContainer from "@/components/container/MotionContainer";
 import { Flex, Heading, Button, Text } from "@chakra-ui/react";
 import { useEffect } from "react";
+import Image from "next/image";
 
 export default function Error({
   error,
@@ -27,9 +28,16 @@ export default function Error({
         maxW="20rem"
         mx="auto"
       >
+        <Image
+          src="/images/error.png"
+          alt="error image"
+          width={250}
+          height={250}
+          quality={85}
+          title="error image"
+        />
         <Heading color="var(--chakra-colors-secondary)">Error</Heading>
         <Text>Something went wrong!</Text>
-
         <Button variant="form" onClick={() => reset()}>
           Try again
         </Button>

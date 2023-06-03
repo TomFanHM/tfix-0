@@ -8,6 +8,8 @@ type FormContainerProps = {
   handleSubmit: (e: React.FormEvent<HTMLDivElement>) => Promise<void>;
 };
 
+//this is a form container, which is used to wrap the form, make all form having same style
+
 const FormContainer: React.FC<FormContainerProps> = ({
   children,
   handleSubmit,

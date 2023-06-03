@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+//bigger scaleRate -> slower scale change
+
 export const useScrollScale = (
   initialScale = 1,
   scaleRate = 1000,

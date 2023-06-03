@@ -24,25 +24,31 @@ export async function generateStaticParams() {
   }));
 }
 
+async function getData(category: string) {
+  if (!categories.includes(category)) throw new Error("Invalid category");
+  const docRef = collection(firestore, "news");
+  const q = query(
+    docRef,
+    where("category", "==", capitalizeFirstLetter(category)),
+    orderBy("publishedAt", "desc"),
+    limit(10)
+  );
+  const data = await getNews(q);
+  if (!data.length) {
+    throw new Error("Failed to fetch data"); //if no data, throw error
+  }
+  return data;
+}
+
 //https://beta.nextjs.org/docs/api-reference/file-conventions/page
 const SelectedCategory = async ({
   params,
 }: {
   params: { slug: string };
 }): Promise<JSX.Element> => {
-  if (!categories.includes(params.slug)) {
-    notFound();
-  }
+  const articles = await getData(params.slug);
 
   const filter = capitalizeFirstLetter(params.slug);
-  const docRef = collection(firestore, "news");
-  const q = query(
-    docRef,
-    where("category", "==", filter),
-    orderBy("publishedAt", "desc"),
-    limit(10)
-  );
-  const articles = await getNews(q);
 
   return (
     <NewsContainer title={filter} getArticles={articles} filter={filter} />

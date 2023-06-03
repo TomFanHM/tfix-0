@@ -55,7 +55,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
         "--chakra-colors-semiPrimaryContainer": color.semiPrimaryContainer,
       }}
     >
-      <GridItem area="header" position="sticky" top="0" zIndex={99}>
+      <GridItem area="header" position="sticky" top="0" zIndex={99} as="header">
         <Header />
       </GridItem>
       <GridItem

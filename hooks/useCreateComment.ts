@@ -1,3 +1,5 @@
+//custom hook for create new comment, similar to useCreatePost.ts, create comment and update post comments count
+
 import { firestore } from "@/firebase/firebaseApp";
 import { User } from "firebase/auth";
 import {

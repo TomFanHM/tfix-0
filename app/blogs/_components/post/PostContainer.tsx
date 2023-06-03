@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { CommentData, PostData } from "../getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import { cleanHtml } from "@/functions/functions";
-import { Box, Divider, Flex, HStack, Heading, Text } from "@chakra-ui/react";
+import { Divider, Flex, HStack, Heading, Text } from "@chakra-ui/react";
 import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { getFunctions, httpsCallable } from "firebase/functions";
@@ -50,7 +50,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
         </HStack>
         <OptimizedImage
           mt="4"
-          mb='6'
+          mb="6"
           url={post.coverURL}
           alt={post.headline}
           border_radius="20px"
@@ -62,11 +62,13 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           objectFit="cover"
           loading="lazy"
         />
-        <Prose >
+        <Prose>
           <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
         </Prose>
         <Divider mt="8" mb="4" />
-        <Heading mb="4">Comments {`(${comments.length})`}</Heading>
+        <Text mb="4" layerStyle="Medium-emphasis" fontSize="sm">
+          Comments {`(${comments.length})`}
+        </Text>
         <CommentInput receiverId={post.id} />
       </Flex>
       <CommentsContainer comments={comments} />

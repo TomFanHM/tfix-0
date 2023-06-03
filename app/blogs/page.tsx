@@ -20,4 +20,5 @@ const Blogs = async (): Promise<JSX.Element> => {
 
   return <BlogContainer posts={posts} />;
 };
+
 export default Blogs;

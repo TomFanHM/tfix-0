@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+//firebase where options schema
+
 export const OptionSchema = z.object({
   fieldPath: z.string(),
   opStr: z.enum([
