@@ -4,8 +4,10 @@ import AppLayout from "./AppLayout";
 import "@fontsource/roboto/400.css";
 import "@fontsource/open-sans/400.css";
 import "react-quill/dist/quill.snow.css";
+import { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
     template: siteConfig.name,
@@ -60,22 +62,7 @@ export const metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
   manifest: `${siteConfig.url}/site.webmanifest`,
-  robots: {
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: false,
-      noimageindex: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
 };
 
 export default function RootLayout({

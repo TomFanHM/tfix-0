@@ -17,6 +17,7 @@ import ResetPassword from "./ResetPassword";
 import Signup from "./Signup";
 import Terms from "./Terms";
 
+//use authModalState to control modal, trigger modal from anywhere
 const AuthModal: React.FC = () => {
   const [modalState, setModalState] = useRecoilState(authModalState);
 
@@ -34,6 +35,7 @@ const AuthModal: React.FC = () => {
     });
   };
 
+  //this component is not inside MainContainer, so we need to manually set color
   const color = useColorModeValue(light, dark);
   return (
     <ModalWrapper isOpen={modalState.open} onClose={handleClose}>

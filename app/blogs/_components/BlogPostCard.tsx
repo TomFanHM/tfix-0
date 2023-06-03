@@ -22,7 +22,7 @@ import OptimizedImage from "@/components/image/OptimizedImage";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
 import { BsFillEyeFill, BsFillHeartFill } from "react-icons/bs";
-import { MdDeleteForever, MdShare } from "react-icons/md";
+import { MdDeleteForever, MdEdit, MdShare } from "react-icons/md";
 import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import { useSetRecoilState } from "recoil";
 import { usePost } from "@/hooks/usePost";
@@ -33,7 +33,7 @@ type BlogPostCardProps = {
   user: User | null | undefined;
   post: PostData;
   isCreator: boolean;
-  handleRemovePost: (postId: string) => void;
+  handleDeletePostModal: (postId: string) => void;
 };
 
 const BlogPostCard: React.FC<BlogPostCardProps> = ({
@@ -42,11 +42,11 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   user,
   post,
   isCreator,
-  handleRemovePost,
+  handleDeletePostModal,
 }) => {
   const toast = useToast();
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
-  const { loading, error, onVote, onDeletePost } = usePost();
+  const { loading, error, onVote } = usePost();
   const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
   const liked: boolean = user ? likes.includes(user.uid) : false;
   const likeCount = likes.length;
@@ -78,20 +78,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
       });
     }
   }, [post, toast]);
-
-  //delete
-  const handleDeletePost = useCallback(async (): Promise<void> => {
-    const success = await onDeletePost(post);
-    if (success) {
-      toast({
-        title: "Deleted.",
-        variant: "solid",
-        status: "success",
-        isClosable: true,
-      });
-      handleRemovePost(post.id);
-    }
-  }, [onDeletePost, handleRemovePost, post, toast]);
 
   //vote
   const handleVote = async () => {
@@ -181,12 +167,22 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
             onClick={handleCopyURL}
           />
           {isCreator && (
+            <Link href={`/blogs/edit/${post.id}`}>
+              <IconButton
+                variant="custom_solid"
+                isLoading={loading}
+                aria-label="edit post"
+                icon={<Icon as={MdEdit} boxSize={6} />}
+              />
+            </Link>
+          )}
+          {isCreator && (
             <IconButton
               variant="custom_solid"
               isLoading={loading}
               aria-label="delete post"
               icon={<Icon as={MdDeleteForever} boxSize={6} />}
-              onClick={handleDeletePost}
+              onClick={() => handleDeletePostModal(post.id)}
             />
           )}
         </Flex>

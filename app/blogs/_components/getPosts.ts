@@ -49,6 +49,7 @@ export type CommentData = {
   id: string;
 } & CommentSchema;
 
+//fetch posts by query
 export async function getPosts(q: Query<DocumentData>): Promise<PostData[]> {
   const querySnapshot = await getDocs(q);
   const posts = querySnapshot.docs.map((doc) => {
@@ -62,6 +63,7 @@ export async function getPosts(q: Query<DocumentData>): Promise<PostData[]> {
   return posts.flatMap((f) => (f ? [f] : []));
 }
 
+//only fetch one post by id
 export async function getPostById(slug: string) {
   try {
     const postDocRef = doc(firestore, "posts", slug);
@@ -75,6 +77,7 @@ export async function getPostById(slug: string) {
   }
 }
 
+//fetch comments by query
 export async function getComments(
   q: Query<DocumentData>
 ): Promise<CommentData[]> {

@@ -6,43 +6,46 @@ import { breakpoints } from "./breakpoints";
 import { styles } from "./styles";
 import { dark, light } from "./colors";
 import { menuTheme } from "./menu";
-import { withProse } from '@nikolovlazar/chakra-ui-prose';
+import { withProse } from "@nikolovlazar/chakra-ui-prose";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
   useSystemColorMode: false,
 };
 
-const theme = extendTheme({
-  config,
-  breakpoints,
-  styles,
-  shadows,
-  colors: {
-    light,
-    dark,
-    elevation,
-  },
-  fonts: {
-    heading: `'Roboto', sans-serif`,
-    body: `'Open Sans', sans-serif`,
-  },
-  layerStyles: {
-    "High-emphasis": {
-      opacity: 0.87,
+const theme = extendTheme(
+  {
+    config,
+    breakpoints,
+    styles,
+    shadows,
+    colors: {
+      light,
+      dark,
+      elevation,
     },
-    "Medium-emphasis": {
-      opacity: 0.6,
+    fonts: {
+      heading: `'Roboto', sans-serif`,
+      body: `'Open Sans', sans-serif`,
     },
-    Disabled: {
-      opacity: 0.38,
+    layerStyles: {
+      "High-emphasis": {
+        opacity: 0.87,
+      },
+      "Medium-emphasis": {
+        opacity: 0.6,
+      },
+      Disabled: {
+        opacity: 0.38,
+      },
+    },
+    components: {
+      Skeleton: skeletonTheme,
+      Button: Button,
+      Menu: menuTheme,
     },
   },
-  components: {
-    Skeleton: skeletonTheme,
-    Button: Button,
-    Menu: menuTheme,
-  },
-}, withProse());
+  withProse()
+);
 
 export { theme };
