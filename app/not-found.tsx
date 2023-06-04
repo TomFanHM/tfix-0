@@ -3,6 +3,7 @@
 import MotionContainer from "@/components/container/MotionContainer";
 import { Flex, Heading, Button, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
+import Image from "next/image";
 
 export default function PageNotFound() {
   return (
@@ -16,6 +17,15 @@ export default function PageNotFound() {
         maxW="20rem"
         mx="auto"
       >
+        <Image
+          src="/images/not_found.png"
+          alt="404 image"
+          width={250}
+          height={250}
+          quality={85}
+          title="404 image"
+          style={{ margin: "0 auto" }}
+        />
         <Heading color="var(--chakra-colors-secondary)">
           404 - Not Found
         </Heading>

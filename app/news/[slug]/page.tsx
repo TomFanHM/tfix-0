@@ -25,7 +25,7 @@ export async function generateStaticParams() {
 }
 
 async function getData(category: string) {
-  if (!categories.includes(category)) throw new Error("Invalid category");
+  if (!categories.includes(category)) return null; //Invalid category
   const docRef = collection(firestore, "news");
   const q = query(
     docRef,
@@ -34,9 +34,7 @@ async function getData(category: string) {
     limit(10)
   );
   const data = await getNews(q);
-  if (!data.length) {
-    throw new Error("Failed to fetch data"); //if no data, throw error
-  }
+  if (!data.length) return null; //no data
   return data;
 }
 
@@ -47,6 +45,8 @@ const SelectedCategory = async ({
   params: { slug: string };
 }): Promise<JSX.Element> => {
   const articles = await getData(params.slug);
+
+  if (!articles) return notFound();
 
   const filter = capitalizeFirstLetter(params.slug);
 

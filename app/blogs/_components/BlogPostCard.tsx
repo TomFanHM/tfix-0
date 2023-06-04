@@ -26,6 +26,7 @@ import { MdDeleteForever, MdEdit, MdShare } from "react-icons/md";
 import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import { useSetRecoilState } from "recoil";
 import { usePost } from "@/hooks/usePost";
+import { useRouter } from "next/navigation";
 
 type BlogPostCardProps = {
   large: boolean;
@@ -45,7 +46,9 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   handleDeletePostModal,
 }) => {
   const toast = useToast();
+
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
+
   const { loading, error, onVote } = usePost();
   const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
   const liked: boolean = user ? likes.includes(user.uid) : false;
@@ -94,6 +97,13 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         : [...likes, user.uid];
       setLikes(newArr);
     }
+  };
+
+  //redirect to edit page
+  const router = useRouter();
+
+  const handleEditPost = () => {
+    router.push(`/blogs/${post.id}/edit`);
   };
 
   return (
@@ -167,14 +177,13 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
             onClick={handleCopyURL}
           />
           {isCreator && (
-            <Link href={`/blogs/edit/${post.id}`}>
-              <IconButton
-                variant="custom_solid"
-                isLoading={loading}
-                aria-label="edit post"
-                icon={<Icon as={MdEdit} boxSize={6} />}
-              />
-            </Link>
+            <IconButton
+              variant="custom_solid"
+              isLoading={loading}
+              aria-label="edit post"
+              icon={<Icon as={MdEdit} boxSize={6} />}
+              onClick={handleEditPost}
+            />
           )}
           {isCreator && (
             <IconButton

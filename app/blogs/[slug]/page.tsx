@@ -1,18 +1,13 @@
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, query, orderBy, limit, where } from "firebase/firestore";
 import React from "react";
-import {
-  CommentData,
-  PostData,
-  getComments,
-  getPostById,
-} from "../_components/getPosts";
+import { getComments, getPostById, getPosts } from "../_components/getPosts";
 import PostContainer from "../_components/post/PostContainer";
+import { notFound } from "next/navigation";
 
 export const revalidate = 0; //server side rendering
 
-//we are using server side rendering here, generateStaticParams is not needed
-/* export async function generateStaticParams(): Promise<
+export async function generateStaticParams(): Promise<
   {
     slug: string;
   }[]
@@ -23,7 +18,6 @@ export const revalidate = 0; //server side rendering
 
   return data.map((post) => ({ slug: post.id }));
 }
- */
 
 async function getData(postId: string) {
   const docRef = collection(firestore, "comments");
@@ -37,7 +31,7 @@ async function getData(postId: string) {
     getPostById(postId),
     getComments(q),
   ]);
-  if (!post) throw new Error("Post not found");
+  if (!post) return null;
   return { post, comments };
 }
 
@@ -46,7 +40,10 @@ const PostDetail = async ({
 }: {
   params: { slug: string };
 }): Promise<JSX.Element> => {
-  const { post, comments } = await getData(params.slug);
+  const results = await getData(params.slug);
+  if (!results) return notFound();
+
+  const { post, comments } = results;
 
   return <PostContainer post={post} comments={comments} />;
 };

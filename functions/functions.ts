@@ -105,3 +105,14 @@ export function cleanHtml(dirty: string): string {
   });
   return clean;
 }
+
+//revalidatePath
+export async function revalidatePathByNextApi(path: string) {
+  const basePath = process.env.NEXT_PUBLIC_APP_URL;
+  const secret = process.env.NEXT_PUBLIC_APP_REVALIDATION_SECRET;
+  if (!basePath) return false;
+  const res = await fetch(
+    `${basePath}/api/revalidate?path=${path}&secret=${secret}`
+  );
+  return res;
+}

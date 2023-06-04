@@ -26,6 +26,7 @@ import ImageInput from "./ImageInput";
 import IframeInput from "./IframeInput";
 import TagsInput from "./TagsInput";
 import { useRouter } from "next/navigation";
+import { revalidatePathByNextApi } from "@/functions/functions";
 
 type TabType = {
   label: string;
@@ -95,7 +96,10 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
       iframeURL,
       selectedTag
     );
+
     if (success) {
+      const res = await revalidatePathByNextApi("/blogs");
+      console.log(res);
       router.push("/blogs");
     }
   };
@@ -143,7 +147,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
                 ))}
               </TabList>
               <TabPanels>
-                <TabPanel>
+                <TabPanel px="0">
                   <ArticleInput
                     headline={formik.values.headline}
                     introduction={formik.values.introduction}
@@ -152,19 +156,19 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
                     setFieldValue={formik.setFieldValue}
                   />
                 </TabPanel>
-                <TabPanel>
+                <TabPanel px="0">
                   <ImageInput
                     selectedFile={formik.values.selectedFile}
                     setFieldValue={formik.setFieldValue}
                   />
                 </TabPanel>
-                <TabPanel>
+                <TabPanel px="0">
                   <IframeInput
                     iframeURL={formik.values.iframeURL}
                     handleChange={formik.handleChange}
                   />
                 </TabPanel>
-                <TabPanel>
+                <TabPanel px="0">
                   <TagsInput
                     selectedTag={formik.values.selectedTag}
                     handleChange={formik.handleChange}

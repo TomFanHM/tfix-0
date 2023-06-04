@@ -35,9 +35,10 @@ export default function Error({
           height={250}
           quality={85}
           title="error image"
+          style={{ margin: "0 auto" }}
         />
         <Heading color="var(--chakra-colors-secondary)">Error</Heading>
-        <Text>Something went wrong!</Text>
+        <Text>Something went wrong! Please try again later.</Text>
         <Button variant="form" onClick={() => reset()}>
           Try again
         </Button>
