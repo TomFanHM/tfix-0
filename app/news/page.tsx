@@ -23,7 +23,7 @@ const News = async (): Promise<JSX.Element> => {
   const articles = await getData();
 
   if (!articles) return notFound();
-  
+
   return <NewsContainer title="Breaking" getArticles={articles} />;
 };
 

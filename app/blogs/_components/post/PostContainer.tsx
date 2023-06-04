@@ -42,6 +42,12 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
         <HStack wrap="wrap" layerStyle="Medium-emphasis" fontSize="sm" mt="4">
           <Text>{fromNow(new Date(post.createdAt.seconds * 1000))}</Text>
           <Text>&#8226;</Text>
+          {post.editedAt && (
+            <>
+              <Text>updated {fromNow(new Date(post.editedAt.seconds * 1000))}</Text>
+              <Text>&#8226;</Text>
+            </>
+          )}
           <Text>{post.likes.length} likes</Text>
           <Text>&#8226;</Text>
           <Text>{post.comments} comments</Text>

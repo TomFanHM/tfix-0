@@ -128,12 +128,13 @@ const useCreatePost = () => {
       });
       //complete
       setLoading(false);
-      return true;
+
+      return { success: true, postId: postId };
     } catch (error) {
       if (error instanceof Error) setError(error);
     }
     setLoading(false);
-    return false;
+    return { success: false, postId: "" };
   };
   return { loading, createPost, error };
 };

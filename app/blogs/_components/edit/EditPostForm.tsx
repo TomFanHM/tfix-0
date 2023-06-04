@@ -1,6 +1,10 @@
 "use client";
 
-import useCreatePost from "@/hooks/useCreatePost";
+import { User } from "firebase/auth";
+import React, { useState } from "react";
+import { PostData } from "../getPosts";
+import { FormikProps, useFormik } from "formik";
+import { useRouter } from "next/navigation";
 import {
   Button,
   Divider,
@@ -13,95 +17,101 @@ import {
   TabPanels,
   Tabs,
   Text,
+  useToast,
 } from "@chakra-ui/react";
-import { User } from "firebase/auth";
-import { FormikProps, useFormik } from "formik";
-import React, { useState } from "react";
+import DraftView from "./DraftView";
 import { IconType } from "react-icons";
 import { BsCardText, BsTagsFill } from "react-icons/bs";
 import { MdImage, MdVideocam } from "react-icons/md";
-import DraftView from "./DraftView";
-import ArticleInput from "./ArticleInput";
-import ImageInput from "./ImageInput";
-import IframeInput from "./IframeInput";
-import TagsInput from "./TagsInput";
-import { useRouter } from "next/navigation";
+import ArticleInput from "../create/ArticleInput";
+import IframeInput from "../create/IframeInput";
+import TagsInput from "../create/TagsInput";
+import { useEditPost } from "@/hooks/useEditPost";
+import { revalidatePathByNextApi } from "@/functions/functions";
 
 type TabType = {
   label: string;
   icon: IconType;
+  isDisabled: boolean;
 };
 
 const tabItems: TabType[] = [
-  { label: "Post", icon: BsCardText },
-  { label: "Image", icon: MdImage },
-  { label: "Video", icon: MdVideocam },
-  { label: "Tags", icon: BsTagsFill },
+  { label: "Post", icon: BsCardText, isDisabled: false },
+  { label: "Image", icon: MdImage, isDisabled: true },
+  { label: "Video", icon: MdVideocam, isDisabled: false },
+  { label: "Tags", icon: BsTagsFill, isDisabled: false },
 ];
 
-type CreateForm = {
+type EditForm = {
   headline: string;
   introduction: string;
   content: string;
-  selectedFile: File | null;
   iframeURL: string;
   selectedTag: string;
 };
 
-type CreatePostFormProps = { user: User };
+type EditPostFormProps = {
+  user: User;
+  post: PostData;
+};
 
-const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
-  const { loading, createPost, error } = useCreatePost();
-  //chakra ui tab
+const EditPostForm: React.FC<EditPostFormProps> = ({ user, post }) => {
   const [tabIndex, setTabIndex] = useState<number>(0);
   //data
-  const formik: FormikProps<CreateForm> = useFormik<CreateForm>({
+  const formik: FormikProps<EditForm> = useFormik<EditForm>({
     initialValues: {
-      headline: "",
-      introduction: "",
-      content: "",
-      selectedFile: null,
-      iframeURL: "",
-      selectedTag: "",
+      headline: post.headline,
+      introduction: post.introduction,
+      content: post.content,
+      iframeURL: post.iframeURL || "",
+      selectedTag: post.tags.join(", "),
     },
     onSubmit: async (values) => {
       //do nothing
     },
   });
 
-  //view draft
   const [draftView, setDraftView] = useState<boolean>(false);
 
   const router = useRouter();
 
+  const { loading, updatePost, error } = useEditPost();
+
+  const toast = useToast();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //prevent double click
     if (loading) return;
-    const {
+    const { headline, introduction, content, iframeURL, selectedTag } =
+      formik.values;
+
+    const result = await updatePost(
+      post.id,
+      user,
       headline,
       introduction,
       content,
-      selectedFile,
-      iframeURL,
       selectedTag,
-    } = formik.values;
-    const article = {
-      headline: headline,
-      introduction: introduction,
-      content: content,
-    };
-
-    const result = await createPost(
-      user,
-      article,
-      selectedFile,
-      iframeURL,
-      selectedTag
+      iframeURL
     );
 
     if (result.success) {
-      router.push(`/blogs/${result.postId}`);
+      //revalidate path
+      const res = await revalidatePathByNextApi(`/blogs/${post.id}`);
+      //if not success, show error message
+      if (!res || !res.revalidated) {
+        toast({
+          title:
+            "Update successful, but content may not appear immediately due to server loading. Thank you for your patience.",
+          variant: "solid",
+          status: "loading",
+          isClosable: true,
+        });
+        router.push(`/blogs/${post.id}`);
+      } else {
+        //if success, redirect to post
+        router.push(`/blogs/${post.id}`);
+      }
     }
   };
 
@@ -118,7 +128,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
         boxShadow="dp02"
       >
         <Flex justify="space-between" gap="4" align="center">
-          <Text as="b">New post</Text>
+          <Text as="b">Edit post</Text>
           <Button
             variant="custom_solid"
             onClick={() => setDraftView((prev) => !prev)}
@@ -127,7 +137,9 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
           </Button>
         </Flex>
         <Divider />
-        {draftView && <DraftView data={formik.values} />}
+        {draftView && (
+          <DraftView data={formik.values} coverURL={post.coverURL} />
+        )}
         {!draftView && (
           <>
             <Tabs
@@ -137,7 +149,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
             >
               <TabList>
                 {tabItems.map((tab: TabType, i) => (
-                  <Tab key={i}>
+                  <Tab key={i} isDisabled={tab.isDisabled}>
                     <HStack>
                       <Icon as={tab.icon} />
                       <Text display={{ base: "none", md: "block" }}>
@@ -157,12 +169,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
                     setFieldValue={formik.setFieldValue}
                   />
                 </TabPanel>
-                <TabPanel px="0">
-                  <ImageInput
-                    selectedFile={formik.values.selectedFile}
-                    setFieldValue={formik.setFieldValue}
-                  />
-                </TabPanel>
+                <TabPanel px="0">disable panel</TabPanel>
                 <TabPanel px="0">
                   <IframeInput
                     iframeURL={formik.values.iframeURL}
@@ -180,6 +187,14 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
             <Button variant="form" type="submit" mx="auto" isLoading={loading}>
               Publish
             </Button>
+            <Button
+              variant="form"
+              mx="auto"
+              isLoading={loading}
+              onClick={() => router.push("/blogs")}
+            >
+              Back
+            </Button>
             <Text color="var(--chakra-colors-error)" textAlign="center">
               {error?.message}
             </Text>
@@ -189,5 +204,4 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
     </form>
   );
 };
-
-export default CreatePostForm;
+export default EditPostForm;

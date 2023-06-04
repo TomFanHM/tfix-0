@@ -1,4 +1,5 @@
 import DOMPurify from "isomorphic-dompurify";
+import axios from "axios";
 
 export function capitalizeFirstLetter(str: string): string {
   if (typeof str !== "string") return "";
@@ -110,9 +111,23 @@ export function cleanHtml(dirty: string): string {
 export async function revalidatePathByNextApi(path: string) {
   const basePath = process.env.NEXT_PUBLIC_APP_URL;
   const secret = process.env.NEXT_PUBLIC_APP_REVALIDATION_SECRET;
-  if (!basePath) return false;
-  const res = await fetch(
-    `${basePath}/api/revalidate?path=${path}&secret=${secret}`
-  );
-  return res;
+  if (!basePath) return null;
+
+  try {
+    const res = await axios.get<{
+      revalidated: boolean;
+      now: number;
+      error: string;
+    }>(`${basePath}/api/revalidate`, {
+      params: {
+        path: path,
+        secret: secret,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+  return null;
 }
