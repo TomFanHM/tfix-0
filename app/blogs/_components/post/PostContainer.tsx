@@ -11,6 +11,7 @@ import { getFunctions, httpsCallable } from "firebase/functions";
 import CommentsContainer from "./CommentsContainer";
 import CommentInput from "./CommentInput";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
+import CommentCard from "../comment/CommentCard";
 
 type PostContainerProps = {
   post: PostData;
@@ -44,7 +45,9 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           <Text>&#8226;</Text>
           {post.editedAt && (
             <>
-              <Text>updated {fromNow(new Date(post.editedAt.seconds * 1000))}</Text>
+              <Text>
+                updated {fromNow(new Date(post.editedAt.seconds * 1000))}
+              </Text>
               <Text>&#8226;</Text>
             </>
           )}
@@ -76,6 +79,9 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           Comments {`(${comments.length})`}
         </Text>
         <CommentInput receiverId={post.id} />
+        {comments.map((comment, i) => (
+          <CommentCard key={i} comment={comment} />
+        ))}
       </Flex>
       <CommentsContainer comments={comments} />
     </MotionContainer>
