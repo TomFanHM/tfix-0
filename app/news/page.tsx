@@ -11,7 +11,7 @@ export const revalidate = 3600;
 
 async function getData() {
   const docRef = collection(firestore, "news");
-  const q = query(docRef, orderBy("publishedAt", "desc"), limit(10));
+  const q = query(docRef, orderBy("publishedAt", "desc"), limit(20));
   const data = await getNews(q);
 
   if (!data.length) return null; //no data

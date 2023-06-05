@@ -31,7 +31,7 @@ async function getData(category: string) {
     docRef,
     where("category", "==", capitalizeFirstLetter(category)),
     orderBy("publishedAt", "desc"),
-    limit(10)
+    limit(20)
   );
   const data = await getNews(q);
   if (!data.length) return null; //no data

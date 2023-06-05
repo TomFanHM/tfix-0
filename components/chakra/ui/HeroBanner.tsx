@@ -86,7 +86,6 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
             objectFit="cover"
             alt="banner"
             color="transparent"
-            loading="lazy"
           />
         </Box>
       </Box>
