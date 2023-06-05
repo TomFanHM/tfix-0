@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import { Flex, Icon, IconButton, Input } from "@chakra-ui/react";
 import React from "react";
@@ -31,3 +31,4 @@ const MessageInput: React.FC<MessageInputProps> = ({
 };
 
 export default MessageInput;
+ */

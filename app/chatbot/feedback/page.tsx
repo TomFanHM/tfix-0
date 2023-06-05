@@ -1,8 +1,13 @@
+import Maintenance from "@/components/others/Maintenance";
 import React from "react";
 
 type FeedbackProps = {};
 
 const Feedback: React.FC<FeedbackProps> = () => {
-  return <div>feedback</div>;
+  return (
+    <>
+      <Maintenance />
+    </>
+  );
 };
 export default Feedback;

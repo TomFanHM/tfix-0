@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import { light, dark } from "@/styles/chakra/colors";
 import {
@@ -74,3 +74,4 @@ const Chatroom: React.FC<ChatroomProps> = ({ getMessages }) => {
 };
 
 export default Chatroom;
+ */

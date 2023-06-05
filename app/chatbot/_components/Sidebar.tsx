@@ -1,4 +1,4 @@
-"use client";
+/* "use client";
 
 import { AuthModalState, authModalState } from "@/atoms/authModalAom";
 import UserAvatar from "@/components/auth/avatar/UserAvatar";
@@ -98,3 +98,4 @@ const Sidebar: React.FC = () => {
 };
 
 export default Sidebar;
+ */
