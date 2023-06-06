@@ -1,7 +1,6 @@
 import GridLine from "@/components/container/GridLine";
 import GridWrapper from "@/components/container/GridWrapper";
 import MotionContainer from "@/components/container/MotionContainer";
-
 import { Heading, Text } from "@/components/chakra/TypographyComponents";
 import { GridItem } from "@/components/chakra/LayoutComponents";
 import NormalCard from "@/components/chakra/ui/NormalCard";
@@ -150,7 +149,7 @@ export default function Home() {
             <NormalCard
               prompt="Read more"
               image="/images/blog.png"
-              url="/blog"
+              url="/blogs"
               color="#282828"
             >
               <Heading wordBreak="break-word">Featured Posts</Heading>
@@ -164,7 +163,7 @@ export default function Home() {
             <NormalCard
               prompt="Start writing"
               image="/images/create.png"
-              url="/blog/create"
+              url="/blogs/create"
               color="#282828"
             >
               <Heading wordBreak="break-word">Write a Post</Heading>

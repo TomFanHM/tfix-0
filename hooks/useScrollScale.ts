@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-//bigger scaleRate -> slower scale change
+const getScrollPosition = (): number => window.scrollY;
 
 export const useScrollScale = (
   initialScale = 1,
@@ -11,7 +11,7 @@ export const useScrollScale = (
   const [scrollTop, setScrollTop] = useState<number>(0);
 
   const handleScroll = () => {
-    const scrollPosition = window.scrollY;
+    const scrollPosition = getScrollPosition();
     setScrollTop(scrollPosition);
   };
 
@@ -23,7 +23,7 @@ export const useScrollScale = (
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [initialScale, scaleRate, scrollTop, maxScale]);
+  }, [scrollTop]);
 
   return scale;
 };
