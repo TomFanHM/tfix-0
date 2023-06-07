@@ -33,13 +33,13 @@ export const usePost = () => {
       //2 cases, toggle like/normal
       if (liked) {
         batch.update(postDocRef, {
-          likes: post.likes.filter((e) => e !== user.uid),
+          [`likes.${user.uid}`]: false,
         });
         batch.update(userDocRef, {
           likes: userLikes.filter((e) => e !== post.id),
         });
       } else {
-        batch.update(postDocRef, { likes: [...post.likes, user.uid] });
+        batch.update(postDocRef, { [`likes.${user.uid}`]: true, });
         batch.update(userDocRef, { likes: [...userLikes, post.id] });
       }
 

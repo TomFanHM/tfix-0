@@ -44,7 +44,7 @@ export const SubmitPostSchema = z.object({
   content: z.string(),
   tags: z.array(z.string()),
   views: z.number(),
-  likes: z.array(z.string()),
+  likes: z.record(z.boolean()),
   comments: z.number(),
   creatorDisplayName: z.string(),
   creatorPhotoURL: z.string(),
@@ -107,7 +107,7 @@ const useCreatePost = () => {
         iframeURL: iframe,
         tags: tags,
         views: 0,
-        likes: [],
+        likes: {},
         comments: 0,
         creatorDisplayName: user.displayName || "",
         creatorPhotoURL: user.photoURL || "",
@@ -116,11 +116,11 @@ const useCreatePost = () => {
       await runTransaction(firestore, async (transaction: Transaction) => {
         //Firestore transactions require all reads to be executed before all writes
         const userDoc = await transaction.get(userDocRef);
-        transaction.set(postDocRef, postData);
+        transaction.set(postDocRef, postData); //create new post
         let userPosts = [];
         if (userDoc.exists()) {
           const userDocData = userDoc.data();
-          userPosts = userDocData.posts || [];
+          userPosts = userDocData.posts || []; //if not posts, init a new empty array
         }
         userPosts.push(postId);
         //update
@@ -129,7 +129,7 @@ const useCreatePost = () => {
       //complete
       setLoading(false);
 
-      return { success: true, postId: postId };
+      return { success: true, postId: postId }; 
     } catch (error) {
       if (error instanceof Error) setError(error);
     }

@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "firebase/auth";
-import { PostData, PostSchema } from "./getPosts";
+import { PostData, PostSchema, getVoteCount } from "./getPosts";
 import {
   Flex,
   GridItem,
@@ -37,6 +37,12 @@ type BlogPostCardProps = {
   handleDeletePostModal: (postId: string) => void;
 };
 
+function getLiked(user: User | null | undefined, likes: PostSchema["likes"]) {
+  if (!user) return false
+  if (likes[user.uid]) return true
+  return false
+}
+
 const BlogPostCard: React.FC<BlogPostCardProps> = ({
   large,
   banner,
@@ -50,13 +56,14 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
   const { loading, error, onVote } = usePost();
-  const [likes, setLikes] = useState<PostSchema["likes"]>([...post.likes]);
-  const liked: boolean = user ? likes.includes(user.uid) : false;
-  const likeCount = likes.length;
+  const [likes, setLikes] = useState<PostSchema["likes"]>({ ...post.likes });
+  //check the keys value
+  const liked = getLiked(user, likes)
+  const count = getVoteCount(likes)
 
   useEffect(() => {
     //reset
-    setLikes([...post.likes]);
+    setLikes({ ...post.likes });
   }, [post]);
 
   //share
@@ -92,10 +99,9 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
     //if logged in
     const success = await onVote(post, user, liked);
     if (success) {
-      const newArr = liked
-        ? likes.filter((e) => e !== user.uid)
-        : [...likes, user.uid];
-      setLikes(newArr);
+      const hash = { ...likes }
+      hash[user.uid] = liked ? false : true //toggle
+      setLikes({ ...hash })
     }
   };
 
@@ -160,7 +166,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
             onClick={handleVote}
             color={liked ? "red.400" : "var(--chakra-colors-onPrimary)"}
           >
-            {likeCount}
+            {count}
           </Button>
           <Button
             variant="custom_solid"

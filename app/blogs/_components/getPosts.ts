@@ -3,6 +3,14 @@ import { DocumentData, Query, doc, getDoc, getDocs } from "firebase/firestore";
 import safeJsonStringify from "safe-json-stringify";
 import { z } from "zod";
 
+type VoteCount = {
+  [key: string]: boolean
+}
+
+export const getVoteCount = (likes: VoteCount) => {
+  return Object.values(likes).reduce((sum, value) => sum + Number(value), 0)
+}
+
 export const Timestamp = z.object({
   seconds: z.number(),
   nanoseconds: z.number(),
@@ -19,7 +27,7 @@ export const PostSchema = z.object({
   content: z.string(),
   tags: z.array(z.string()),
   views: z.number(),
-  likes: z.array(z.string()),
+  likes: z.record(z.boolean()),
   comments: z.number(),
   creatorDisplayName: z.string(),
   creatorPhotoURL: z.string(),
@@ -31,7 +39,7 @@ export const CommentSchema = z.object({
   createdAt: Timestamp,
   editedAt: Timestamp.optional(),
   content: z.string(),
-  likes: z.array(z.string()),
+  likes: z.record(z.boolean()),
   comments: z.number(),
   creatorDisplayName: z.string(),
   creatorPhotoURL: z.string(),

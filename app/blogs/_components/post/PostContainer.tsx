@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { CommentData, PostData } from "../getPosts";
+import { CommentData, PostData, getVoteCount } from "../getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import { cleanHtml } from "@/functions/functions";
 import { Divider, Flex, HStack, Heading, Text } from "@chakra-ui/react";
@@ -51,7 +51,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
               <Text>&#8226;</Text>
             </>
           )}
-          <Text>{post.likes.length} likes</Text>
+          <Text>{getVoteCount(post.likes)} likes</Text>
           <Text>&#8226;</Text>
           <Text>{post.comments} comments</Text>
           <Text>&#8226;</Text>

@@ -51,6 +51,7 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
     setBlogPosts([...posts]);
     setLastVisible(posts.length > 0 ? posts[posts.length - 1] : null);
   }, [posts]);
+  
   //fetch more posts
   const fetchMorePosts = useCallback(async () => {
     if (loading || !lastVisible) return; //prevent multiple fetch, also prevent fetch when no more posts
@@ -93,6 +94,7 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
   }, []);
 
   const handleDeletePost = async (): Promise<void> => {
+    //we are using state to store deletePostId
     const deleteTarget = blogPosts.find((post) => post.id === deletePostId); //find the first match post
     if (!deleteTarget) {
       toast({
