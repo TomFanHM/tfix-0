@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useState } from "react";
+import React from "react";
 import { MovieData, getMovies } from "./getMovie";
 import {
   Button,
@@ -21,41 +21,30 @@ import {
   startAfter,
 } from "firebase/firestore";
 import { scrollToTop } from "@/functions/functions";
+import { useInfiniteData } from "@/hooks/useInfiniteData";
+
+const fetchMoreMovies = async (el: MovieData[]) => {
+  const docRef = collection(firestore, "movies");
+  //generate query
+  let q = query(
+    docRef,
+    orderBy("release_date", "desc"),
+    startAfter(el[el.length - 1].release_date),
+    limit(9)
+  );
+  //get more news
+  const moreMovies = await getMovies(q);
+
+  return moreMovies;
+};
 
 type MovieContainerProps = {
   moviesData: MovieData[];
 };
 
 const MovieContainer: React.FC<MovieContainerProps> = ({ moviesData }) => {
-  const [movies, setMovies] = useState<MovieData[]>(moviesData);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [lastVisible, setLastVisible] = useState<MovieData | null>(
-    moviesData.length > 0 ? moviesData[moviesData.length - 1] : null
-  );
-
-  const fetchMoreMovies = useCallback(async (): Promise<void> => {
-    if (loading || !lastVisible) return;
-    setLoading(true);
-    const moviesRef = collection(firestore, "movies");
-    const q = query(
-      moviesRef,
-      orderBy("release_date", "desc"),
-      startAfter(lastVisible.release_date),
-      limit(9) //3 col span
-    );
-    try {
-      const moreMovies = await getMovies(q);
-      if (moreMovies.length > 0) {
-        setMovies((prev) => [...prev, ...moreMovies]);
-        setLastVisible(moreMovies[moreMovies.length - 1]);
-      } else {
-        setLastVisible(null);
-      }
-    } catch (error) {
-      console.log("fetchMoreMovies", error);
-    }
-    setLoading(false);
-  }, [lastVisible, loading]);
+  const { data, fetchData, hasNext, loading, error } =
+    useInfiniteData<MovieData>([...moviesData]);
 
   return (
     <MotionContainer maxW="container.xl">
@@ -74,7 +63,7 @@ const MovieContainer: React.FC<MovieContainerProps> = ({ moviesData }) => {
           </Heading>
         </GridItem>
         <>
-          {movies.map((movie, i) => (
+          {data.map((movie, i) => (
             <GridItem key={i} colSpan={{ base: 3, md: 1 }}>
               <MovieCard movie={movie} />
             </GridItem>
@@ -92,19 +81,19 @@ const MovieContainer: React.FC<MovieContainerProps> = ({ moviesData }) => {
           )}
         </>
         <>
-          {lastVisible && (
+          {hasNext && (
             <GridItem colSpan={3}>
               <Button
                 w="full"
                 variant="solid"
-                onClick={fetchMoreMovies}
+                onClick={() => fetchData(fetchMoreMovies)}
                 isLoading={loading}
               >
                 More
               </Button>
             </GridItem>
           )}
-          {!lastVisible && (
+          {!hasNext && (
             <GridItem colSpan={3}>
               <Button w="full" variant="solid" onClick={scrollToTop}>
                 Scroll to Top

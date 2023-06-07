@@ -38,4 +38,4 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     </Box>
   );
 };
-export default MovieCard;
+export default React.memo(MovieCard);

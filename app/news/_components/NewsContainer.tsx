@@ -19,10 +19,11 @@ import {
   limit,
   where,
 } from "firebase/firestore";
-import React, { useCallback, useState } from "react";
+import React from "react";
 import Guide from "./Guide";
 import NewsCard from "./NewsCard";
 import { ArticleSchema, getNews } from "./getNews";
+import { useInfiniteData } from "@/hooks/useInfiniteData";
 
 type NewsContainerProps = {
   title: string;
@@ -35,46 +36,25 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
   getArticles,
   filter = undefined,
 }) => {
-  const [articles, setArticles] = useState<ArticleSchema[]>(getArticles);
-  const [lastVisible, setLastVisible] = useState<ArticleSchema | null>(
-    getArticles.length > 0 ? getArticles[getArticles.length - 1] : null
-  );
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const fetchMoreNews = useCallback(async (): Promise<void> => {
-    if (loading || !lastVisible) return;
-    setLoading(true);
+  const fetchMoreNews = async (el: ArticleSchema[]) => {
     const docRef = collection(firestore, "news");
+    //generate query
+    let q = query(
+      docRef,
+      orderBy("publishedAt", "desc"),
+      startAfter(el[el.length - 1].publishedAt),
+      limit(10)
+    );
 
-    const q = filter
-      ? query(
-          docRef,
-          where("category", "==", filter),
-          orderBy("publishedAt", "desc"),
-          startAfter(lastVisible.publishedAt),
-          limit(10)
-        )
-      : query(
-          docRef,
-          orderBy("publishedAt", "desc"),
-          startAfter(lastVisible.publishedAt),
-          limit(10)
-        );
+    if (filter) q = query(q, where("category", "==", filter));
+    //get more news
+    const moreNews = await getNews(q);
 
-    try {
-      const moreNews = await getNews(q);
+    return moreNews;
+  };
 
-      if (moreNews.length > 0) {
-        setArticles((prevArticles) => [...prevArticles, ...moreNews]);
-        setLastVisible(moreNews[moreNews.length - 1]);
-      } else {
-        setLastVisible(null);
-      }
-    } catch (error) {
-      console.log("fetchMoreNews error: ", error);
-    }
-    setLoading(false);
-  }, [loading, lastVisible, filter]);
+  const { data, fetchData, hasNext, loading, error } =
+    useInfiniteData<ArticleSchema>([...getArticles]);
 
   return (
     <MotionContainer maxW="container.xl">
@@ -95,7 +75,7 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
           </GridItem>
         </>
         <>
-          {articles.map((article, i) => (
+          {data.map((article, i) => (
             <NewsCard key={i} id={i} article={article} />
           ))}
         </>
@@ -111,19 +91,19 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
           )}
         </>
         <>
-          {lastVisible && (
+          {hasNext && (
             <GridItem colSpan={3}>
               <Button
                 w="full"
                 variant="solid"
-                onClick={fetchMoreNews}
+                onClick={() => fetchData(fetchMoreNews)}
                 isLoading={loading}
               >
                 More
               </Button>
             </GridItem>
           )}
-          {!lastVisible && (
+          {!hasNext && (
             <GridItem colSpan={3}>
               <Button w="full" variant="solid" onClick={scrollToTop}>
                 Scroll to Top

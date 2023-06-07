@@ -60,4 +60,4 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
   );
 };
 
-export default NewsCard;
+export default React.memo(NewsCard);
