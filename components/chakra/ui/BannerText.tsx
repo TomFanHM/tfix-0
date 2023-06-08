@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Heading, Text } from "@chakra-ui/react";
+import { Flex, FlexProps, Heading, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
 
@@ -8,9 +8,14 @@ type BannerTextProps = {
   line1: React.ReactNode;
   line2: React.ReactNode;
   line3: React.ReactNode;
-};
+} & FlexProps;
 
-const BannerText: React.FC<BannerTextProps> = ({ line1, line2, line3 }) => {
+const BannerText: React.FC<BannerTextProps> = ({
+  line1,
+  line2,
+  line3,
+  ...rest
+}) => {
   const container = {
     hidden: { opacity: 1 },
     visible: {
@@ -41,6 +46,7 @@ const BannerText: React.FC<BannerTextProps> = ({ line1, line2, line3 }) => {
       variants={container}
       initial="hidden"
       whileInView="visible"
+      {...rest}
     >
       <Text as={motion.b} className="item" variants={item}>
         {line1}

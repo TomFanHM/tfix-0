@@ -13,10 +13,10 @@ const Service: React.FC = () => {
   return (
     <>
       <HeroBanner
-        image="/images/about.png"
-        mobileImage="/images/about_mobile.png"
-        title=""
-        message=""
+        image="/images/service.png"
+        mobileImage="/images/service_mobile.png"
+        title="Our services"
+        message="Experience entertainment like never before with our range of services."
       />
       <MotionContainer>
         <GridWrapper>
