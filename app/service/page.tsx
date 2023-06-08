@@ -1,6 +1,5 @@
 import { GridItem } from "@/components/chakra/LayoutComponents";
 import HeroBanner from "@/components/chakra/ui/HeroBanner";
-import SectionCard from "@/components/chakra/ui/SectionCard";
 import GridWrapper from "@/components/container/GridWrapper";
 import MotionContainer from "@/components/container/MotionContainer";
 import React from "react";
@@ -20,9 +19,7 @@ const Service: React.FC = () => {
       />
       <MotionContainer>
         <GridWrapper>
-          <GridItem colSpan={2} mx="10">
-            <SectionCard />
-          </GridItem>
+          <GridItem colSpan={2} mx="10"></GridItem>
         </GridWrapper>
       </MotionContainer>
     </>
