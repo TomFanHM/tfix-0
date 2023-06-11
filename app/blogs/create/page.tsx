@@ -1,12 +1,7 @@
-import MotionContainer from "@/components/container/MotionContainer";
 import React from "react";
-import CreatePostContainer from "../_components/create/CreatePostContainer";
+import Maintenance from "@/components/others/Maintenance";
 
 const CreatePost: React.FC = () => {
-  return (
-    <MotionContainer>
-      <CreatePostContainer />
-    </MotionContainer>
-  );
+  return <Maintenance />;
 };
 export default CreatePost;

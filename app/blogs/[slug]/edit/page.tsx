@@ -1,8 +1,7 @@
-import MotionContainer from "@/components/container/MotionContainer";
 import React from "react";
-import EditPostContainer from "../../_components/edit/EditPostContainer";
 import { getPostById } from "../../_components/getPosts";
 import { notFound } from "next/navigation";
+import Maintenance from "@/components/others/Maintenance";
 export const revalidate = 0;
 
 async function getData(postId: string) {
@@ -20,10 +19,6 @@ const EditPost = async ({
 
   if (!post) return notFound();
 
-  return (
-    <MotionContainer>
-      <EditPostContainer post={post} />
-    </MotionContainer>
-  );
+  return <Maintenance />;
 };
 export default EditPost;

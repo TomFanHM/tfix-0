@@ -73,22 +73,24 @@ const Service: React.FC = () => {
             >
               <Text as="b">Express your creativity</Text>
               <Heading mt="6" size={{ base: "2xl", md: "4xl" }}>
-                <Text as="span">Share your </Text>
-                <Text
-                  as="span"
-                  bgGradient="linear(to-l, var(--chakra-colors-secondary), var(--chakra-colors-tertiary))"
-                  bgClip="text"
-                >
-                  stories
-                </Text>
-                <Text as="span"> and </Text>
-                <Text
-                  as="span"
-                  bgGradient="linear(to-l, var(--chakra-colors-secondary), var(--chakra-colors-tertiary))"
-                  bgClip="text"
-                >
-                  thoughts
-                </Text>
+                <>
+                  <Text as="span">Share your </Text>
+                  <Text
+                    as="span"
+                    bgGradient="linear(to-l, var(--chakra-colors-secondary), var(--chakra-colors-tertiary))"
+                    bgClip="text"
+                  >
+                    stories
+                  </Text>
+                  <Text as="span"> and </Text>
+                  <Text
+                    as="span"
+                    bgGradient="linear(to-l, var(--chakra-colors-secondary), var(--chakra-colors-tertiary))"
+                    bgClip="text"
+                  >
+                    thoughts
+                  </Text>
+                </>
               </Heading>
               <Link href="/blogs">
                 <Button variant="custom_solid" my="4" py="2" px="4">

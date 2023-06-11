@@ -2,8 +2,8 @@ import { firestore } from "@/firebase/firebaseApp";
 import { collection, query, orderBy, limit, where } from "firebase/firestore";
 import React from "react";
 import { getComments, getPostById, getPosts } from "../_components/getPosts";
-import PostContainer from "../_components/post/PostContainer";
 import { notFound } from "next/navigation";
+import Maintenance from "@/components/others/Maintenance";
 
 export const revalidate = 0; //server side rendering
 
@@ -45,6 +45,6 @@ const PostDetail = async ({
 
   const { post, comments } = results;
 
-  return <PostContainer post={post} comments={comments} />;
+  return <Maintenance />;
 };
 export default PostDetail;

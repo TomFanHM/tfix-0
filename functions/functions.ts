@@ -1,4 +1,4 @@
-import DOMPurify from "isomorphic-dompurify";
+//import DOMPurify from "isomorphic-dompurify";
 import axios from "axios";
 
 export function capitalizeFirstLetter(str: string): string {
@@ -97,7 +97,7 @@ export function getYoutubeEmbedLink(input: string): string {
 }
 
 //prevent xss attack, clean html input
-export function cleanHtml(dirty: string): string {
+/* export function cleanHtml(dirty: string): string {
   const clean = DOMPurify.sanitize(dirty, {
     USE_PROFILES: { html: true },
     ADD_TAGS: ["iframe", "pre"],
@@ -105,7 +105,7 @@ export function cleanHtml(dirty: string): string {
     FORBID_TAGS: ["style"],
   });
   return clean;
-}
+} */
 
 //revalidatePath
 export async function revalidatePathByNextApi(path: string) {
