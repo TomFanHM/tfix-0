@@ -7,7 +7,7 @@ import SectionCard from "@/components/chakra/ui/SectionCard";
 import GridWrapper from "@/components/container/GridWrapper";
 import MotionContainer from "@/components/container/MotionContainer";
 import React from "react";
-import { scripts } from "./_components/scripts";
+import { banner } from "./_components/banner";
 import { Button } from "@/components/chakra/FormComponents";
 
 const Service: React.FC = () => {
@@ -24,9 +24,9 @@ const Service: React.FC = () => {
           <GridItem colSpan={2}>
             <SectionCard image="/images/service/clock.png" reverse>
               <Heading mt="4" pb="4">
-                {scripts.news.title}
+                {banner.news.title}
               </Heading>
-              {scripts.news.description.map((item, index) => (
+              {banner.news.description.map((item, index) => (
                 <Text key={index} whiteSpace="pre-wrap" pb="4">
                   {item}
                 </Text>
@@ -36,9 +36,9 @@ const Service: React.FC = () => {
           <GridItem colSpan={2}>
             <SectionCard image="/images/service/write.png">
               <Heading mt="4" pb="4">
-                {scripts.blogs.title}
+                {banner.blogs.title}
               </Heading>
-              {scripts.blogs.description.map((item, index) => (
+              {banner.blogs.description.map((item, index) => (
                 <Text key={index} whiteSpace="pre-wrap" pb="4">
                   {item}
                 </Text>

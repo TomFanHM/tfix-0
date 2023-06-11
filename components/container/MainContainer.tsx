@@ -9,7 +9,6 @@ import { light, dark } from "@/styles/chakra/colors";
 import { Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import Footer from "../footer";
 import Header from "../header";
-import { AnimatePresence } from "framer-motion";
 
 type MainContainerProps = {
   children: React.ReactNode;
@@ -70,7 +69,7 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
         minH="calc(100vh - 4rem)"
         overflow="hidden"
       >
-        <AnimatePresence>{children}</AnimatePresence>
+        {children}
       </GridItem>
       <GridItem area="footer">
         <Footer />

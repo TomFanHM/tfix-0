@@ -43,12 +43,6 @@ const theme = extendTheme(
       Skeleton: skeletonTheme,
       Button: Button,
       Menu: menuTheme,
-      Heading: {
-        baseStyle: {},
-      },
-      Text: {
-        baseStyle: {},
-      },
     },
   },
   withProse()

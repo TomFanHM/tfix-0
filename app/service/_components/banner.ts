@@ -1,4 +1,4 @@
-export const scripts = {
+export const banner = {
   news: {
     title: "Real-Time Service",
     description: [

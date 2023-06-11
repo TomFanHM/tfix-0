@@ -11,8 +11,8 @@ type SectionCardProps = {
 
 const SectionCard: React.FC<SectionCardProps> = ({
   image,
-  children,
   reverse = false,
+  children,
 }) => {
   return (
     <Grid

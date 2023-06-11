@@ -1,8 +1,9 @@
 "use client";
 
-//provider includes recoil, react-query
+//provider includes recoil, react-query, framer-motion
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { AnimatePresence } from "framer-motion";
 import React from "react";
 import { RecoilRoot } from "recoil";
 import AuthModal from "@/components/auth/modal";
@@ -20,7 +21,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <QueryClientProvider client={queryClient}>
         <Providers>
           <AuthModal />
-          {children}
+          <AnimatePresence>{children}</AnimatePresence>
         </Providers>
       </QueryClientProvider>
     </RecoilRoot>

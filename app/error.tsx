@@ -29,7 +29,7 @@ export default function Error({
         mx="auto"
       >
         <Image
-          src="/images/other/error.png"
+          src="/error.png"
           alt="error image"
           width={250}
           height={250}

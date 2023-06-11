@@ -20,7 +20,7 @@ const Maintenance: React.FC = () => {
         mx="auto"
       >
         <Image
-          src="/images/other/maintenance.png"
+          src="/maintenance.png"
           alt="404 image"
           width={250}
           height={250}

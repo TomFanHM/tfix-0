@@ -18,13 +18,14 @@ export default function PageNotFound() {
         mx="auto"
       >
         <Image
-          src="/images/other/not_found.png"
+          src="/not_found.png"
           alt="404 image"
           width={250}
           height={250}
           quality={85}
           title="404 image"
           style={{ margin: "0 auto" }}
+          priority
         />
         <Heading color="var(--chakra-colors-secondary)">
           404 - Not Found

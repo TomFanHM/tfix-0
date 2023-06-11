@@ -17,7 +17,7 @@ const UnauthorizedUser: React.FC = () => {
       mx="auto"
     >
       <Image
-        src="/images/other/lock.png"
+        src="/lock.png"
         alt="banner"
         width={250}
         height={250}
