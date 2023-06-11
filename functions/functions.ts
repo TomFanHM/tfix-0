@@ -132,3 +132,32 @@ export async function revalidatePathByNextApi(path: string) {
   return null;
 }
 
+export function sortWithOption<TItem, TKey extends keyof TItem>(
+  arr: TItem[],
+  option: TKey,
+  order: "asc" | "desc"
+): TItem[] {
+  if (!option) return arr;
+  if (arr.length === 0) return arr;
+  return [...arr].sort((a, b) => {
+    const left = a[option];
+    const right = b[option];
+    if (order === "asc") {
+      return left < right ? -1 : left > right ? 1 : 0;
+    } else {
+      return right < left ? -1 : right > left ? 1 : 0;
+    }
+  });
+}
+
+export function sortWithYearAndMonth<
+  TItem extends { year: number; season: string }
+>(arr: TItem[], order: "asc" | "desc"): TItem[] {
+  if (arr.length === 0) return arr;
+  return [...arr].sort((a, b) => {
+    if (a.year !== b.year) return a.year - b.year;
+    return order === "asc"
+      ? a.season.localeCompare(b.season)
+      : b.season.localeCompare(a.season);
+  });
+}

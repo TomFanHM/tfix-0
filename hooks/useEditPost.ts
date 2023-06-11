@@ -9,6 +9,9 @@ import { doc, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore";
 import { useState } from "react";
 import { z } from "zod";
 
+//this hook is used to handle edit post
+//it takes 1 parameter, postId: the id of the post that will be edited
+
 const TimestampSchema = z.object({
   seconds: z.number(),
   nanoseconds: z.number(),
@@ -54,10 +57,10 @@ export const useEditPost = () => {
       const tags = selectedTag
         ? splitString(selectedTag).map((tag: string) =>
             capitalizeFirstLetter(tag)
-          )
+          ) //selectedTag is a string, we need to split it into array and capitalize each word
         : ["General"]; //if empty string, set general as default
 
-      const iframe = iframeURL ? getYoutubeEmbedLink(iframeURL) : null;
+      const iframe = iframeURL ? getYoutubeEmbedLink(iframeURL) : null; //convert it to youtube link
 
       const postData = {
         headline: headline,

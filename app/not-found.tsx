@@ -18,7 +18,7 @@ export default function PageNotFound() {
         mx="auto"
       >
         <Image
-          src="/images/not_found.png"
+          src="/images/other/not_found.png"
           alt="404 image"
           width={250}
           height={250}

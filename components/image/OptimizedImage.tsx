@@ -1,5 +1,11 @@
 "use client";
 
+//this component is used to optimize the image loading
+//it will show a skeleton while the image is loading
+//it will show a fallback image if the image fails to load
+//it only use to load the non-local image
+//we use blurhash to load the local image
+
 import React, { useEffect, useState } from "react";
 import { Skeleton, Image as ChakraImage, ImageProps } from "@chakra-ui/react";
 import { fallbackImage } from "@/config/site";
@@ -32,7 +38,8 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
     }
 
     setImageUrl(url);
-
+    //check if the image is already loaded
+    //to prevent bug when hard refresh the page
     const img = new Image();
     img.src = url;
     if (img.complete) {

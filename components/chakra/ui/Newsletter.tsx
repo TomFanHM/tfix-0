@@ -78,7 +78,7 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description }) => {
       <Text mt="4" fontWeight="semibold">
         {title}
       </Text>
-      <Text mt="6" lineHeight="8" layerStyle="High-emphasis">
+      <Text mt="6" layerStyle="High-emphasis">
         {description}
       </Text>
     </Flex>

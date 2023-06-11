@@ -19,8 +19,8 @@ export default function Home() {
     <GridLine>
       {/* */}
       <HeroBanner
-        image="/images/banner.png"
-        mobileImage="/images/banner_mobile.png"
+        image="/images/home/banner.png"
+        mobileImage="/images/home/banner_mobile.png"
         title={
           <>
             <Text as="span">Your Gateway to </Text>
@@ -58,8 +58,8 @@ export default function Home() {
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Catch up now"
-              image="/images/news.png"
-              mobileImage="/images/news_mobile.png"
+              image="/images/home/news.png"
+              mobileImage="/images/home/news_mobile.png"
               url="/news"
               color="#282828"
             >
@@ -85,8 +85,8 @@ export default function Home() {
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Watch now"
-              image="/images/anime.png"
-              mobileImage="/images/anime_mobile.png"
+              image="/images/home/anime.png"
+              mobileImage="/images/home/anime_mobile.png"
               url="/anime"
               color="#282828"
             >
@@ -101,7 +101,7 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Discover new"
-              image="/images/search.png"
+              image="/images/home/search.png"
               url="/anime/search"
               color="#282828"
             >
@@ -115,7 +115,7 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="See popular"
-              image="/images/movie.png"
+              image="/images/home/movie.png"
               url="/movie"
               color="#282828"
             >
@@ -148,7 +148,7 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Read more"
-              image="/images/blog.png"
+              image="/images/home/blog.png"
               url="/blogs"
               color="#282828"
             >
@@ -162,7 +162,7 @@ export default function Home() {
           <GridItem colSpan={{ base: 2, md: 1 }}>
             <NormalCard
               prompt="Start writing"
-              image="/images/create.png"
+              image="/images/home/create.png"
               url="/blogs/create"
               color="#282828"
             >
@@ -187,8 +187,8 @@ export default function Home() {
           <GridItem colSpan={2}>
             <LargeCard
               prompt="Chat with AI"
-              image="/images/chatbot.png"
-              mobileImage="/images/chatbot_mobile.png"
+              image="/images/home/chatbot.png"
+              mobileImage="/images/home/chatbot_mobile.png"
               url="/chatbot"
               color="#f4f4f4"
             >
@@ -208,10 +208,13 @@ export default function Home() {
               background="var(--chakra-colors-secondaryContainer)"
               color="var(--chakra-colors-onSecondaryContainer)"
               images={[
-                { url: "/images/one_side_front.png", aspectRatio: "2/3" },
-                { url: "/images/one_side.png", aspectRatio: "1/1" },
-                { url: "/images/one_side_front_other.png", aspectRatio: "2/3" },
-                { url: "/images/one_side_male.png", aspectRatio: "3/4" },
+                { url: "/images/home/one_side_front.png", aspectRatio: "2/3" },
+                { url: "/images/home/one_side.png", aspectRatio: "1/1" },
+                {
+                  url: "/images/home/one_side_front_other.png",
+                  aspectRatio: "2/3",
+                },
+                { url: "/images/home/one_side_male.png", aspectRatio: "3/4" },
               ]}
             >
               <Text as="b">Ready for a personalized experience?</Text>

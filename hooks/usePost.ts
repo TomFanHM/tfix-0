@@ -25,21 +25,21 @@ export const usePost = () => {
       const userDocRef = doc(firestore, "users", user.uid);
       //fetch user doc
       const userDoc = await getDoc(userDocRef);
-      if (!userDoc.exists()) throw new Error("Oops. Please try again later.");
-      //handle undefined error
+      if (!userDoc.exists()) throw new Error("Oops. Please try again later."); //handle undefined error
       const userLikes: string[] = userDoc.data().likes;
-      //use batch update
-      const batch = writeBatch(firestore);
+      const batch = writeBatch(firestore); //use batch update
       //2 cases, toggle like/normal
       if (liked) {
+        //to prevent data race, we use object instead of array
         batch.update(postDocRef, {
           [`likes.${user.uid}`]: false,
         });
+        //only user can update their own likes array, no data race here
         batch.update(userDocRef, {
           likes: userLikes.filter((e) => e !== post.id),
         });
       } else {
-        batch.update(postDocRef, { [`likes.${user.uid}`]: true, });
+        batch.update(postDocRef, { [`likes.${user.uid}`]: true });
         batch.update(userDocRef, { likes: [...userLikes, post.id] });
       }
 

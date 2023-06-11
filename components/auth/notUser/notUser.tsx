@@ -19,7 +19,7 @@ const NotUser: React.FC = () => {
       mx="auto"
     >
       <Image
-        src="/images/cute_chicken.png"
+        src="/images/other/cute_chicken.png"
         alt="banner"
         width={250}
         height={250}

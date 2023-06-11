@@ -27,6 +27,7 @@ const Photograph: React.FC<PhotographProps> = ({ image, aspectRatio }) => {
         objectFit="cover"
         src={image}
         alt="banner"
+        borderRadius="20px"
         transition="500ms ease-in-out"
         loading="lazy"
         _groupHover={{ transform: "scale(1.1)" }}

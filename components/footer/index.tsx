@@ -34,7 +34,7 @@ const Footer: React.FC = () => {
               Team
             </Text>
             <Link as={NextLink} href="/service">
-              Service status
+              Service
             </Link>
             <Link as={NextLink} href="/about">
               About us

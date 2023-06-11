@@ -145,7 +145,7 @@ const MobileDrawer: React.FC<MobileDrawerProps> = ({
           </DrawerBody>
 
           <DrawerFooter>
-            <Flex flexDirection="column" gap="4" w="full">
+            <Flex flexDirection="column" gap="4" w="full" pb="12">
               {!user && (
                 <Button
                   variant="custom_outline"

@@ -1,5 +1,8 @@
 import { useCallback, useState } from "react";
 
+//this hook is used to handle infinite fetch data
+//it takes 1 parameter, initialData: the initial data that will be displayed
+
 export const useInfiniteData = <TData>(initialData: TData[]) => {
   const [data, setData] = useState<TData[]>(initialData);
   const [loading, setLoading] = useState<boolean>(false);

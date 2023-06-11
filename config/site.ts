@@ -13,7 +13,7 @@ export const siteConfig: SiteConfig = {
   },
 };
 
-export const fallbackImage = "/fallback.png";
+export const fallbackImage = "/images/other/fallback.png";
 
 export const headerDisabledRoute = ["chatbot"];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { Grid, GridItem, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Image } from "@chakra-ui/react";
 import React from "react";
 
 type SectionCardProps = {
@@ -25,8 +25,11 @@ const SectionCard: React.FC<SectionCardProps> = ({
       <GridItem
         colSpan={{ base: 2, md: 1 }}
         order={{ base: 2, md: reverse ? 2 : 1 }}
+        display="flex"
+        alignItems="center"
+        justifyContent="start"
       >
-        {children}
+        <Box>{children}</Box>
       </GridItem>
       <GridItem
         colSpan={{ base: 2, md: 1 }}

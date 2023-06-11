@@ -1,5 +1,7 @@
 "use client";
 
+//a lazy component for 50 50 grid
+
 import { Grid, GridProps } from "@chakra-ui/react";
 import React from "react";
 

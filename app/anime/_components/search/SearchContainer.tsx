@@ -26,7 +26,13 @@ type SearchResults = {
   Product: ProductSchema[] | null;
 };
 
+type SortOptions = {
+  Anime: null | "Latest" | "Popular" | "Broadcast";
+  Product: null | "Price" | "Release Date";
+};
+
 const SearchContainer: React.FC = () => {
+  const toast = useToast();
   const [category, setCategory] = useState<"Anime" | "Product">("Anime");
   const [results, setResults] = useState<SearchResults>({
     Anime: null,
@@ -34,6 +40,21 @@ const SearchContainer: React.FC = () => {
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [lastSearchTime, setLastSearchTime] = useState<number>(0);
+  const [sortOptions, setSortOptions] = useState<SortOptions>({
+    Anime: null,
+    Product: null,
+  });
+
+  function searchErrorToast() {
+    toast({
+      title: "No results found",
+      description: "Try searching for something else or change the filters.",
+      variant: "solid",
+      duration: 3000,
+      status: "error",
+      isClosable: true,
+    });
+  }
 
   const formik: FormikProps<SearchQuery> = useFormik<SearchQuery>({
     initialValues: {
@@ -71,16 +92,7 @@ const SearchContainer: React.FC = () => {
           const query = generateAnimeSearchQuery(values.query, values.anime);
           const data = await getAnimes(query);
           if (data) setResults((prev) => ({ ...prev, Anime: data }));
-          if (!data.length)
-            toast({
-              title: "No results found",
-              description:
-                "Try searching for something else or change the filters.",
-              variant: "solid",
-              duration: 3000,
-              status: "error",
-              isClosable: true,
-            });
+          if (!data.length) searchErrorToast();
         }
         if (category === "Product") {
           const query = generateProductSearchQuery(
@@ -89,16 +101,7 @@ const SearchContainer: React.FC = () => {
           );
           const data = await getProductsByFilter(query);
           if (data) setResults((prev) => ({ ...prev, Product: data }));
-          if (!data || !data.length)
-            toast({
-              title: "No results found",
-              description:
-                "Try searching for something else or change the filters.",
-              variant: "solid",
-              duration: 3000,
-              status: "error",
-              isClosable: true,
-            });
+          if (!data || !data.length) searchErrorToast();
         }
       } catch (error) {
         console.log("Search error: ", error);
@@ -111,8 +114,6 @@ const SearchContainer: React.FC = () => {
   const handleCategorySelect = (category: "Anime" | "Product") => {
     setCategory(category);
   };
-
-  const toast = useToast();
 
   return (
     <MotionContainer maxW="container.xl">

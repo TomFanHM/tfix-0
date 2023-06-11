@@ -1,4 +1,5 @@
 "use client";
+//this component is used to display a maintenance page when a page is under maintenance
 
 import { Flex, Heading, Button, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
@@ -19,7 +20,7 @@ const Maintenance: React.FC = () => {
         mx="auto"
       >
         <Image
-          src="/images/maintenance.png"
+          src="/images/other/maintenance.png"
           alt="404 image"
           width={250}
           height={250}
