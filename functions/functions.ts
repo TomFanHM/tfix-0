@@ -1,4 +1,4 @@
-//import DOMPurify from "isomorphic-dompurify";
+import DOMPurify from "isomorphic-dompurify";
 import axios from "axios";
 
 export function capitalizeFirstLetter(str: string): string {
@@ -98,13 +98,13 @@ export function getYoutubeEmbedLink(input: string): string {
 
 //prevent xss attack, clean html input
 export function cleanHtml(dirty: string): string {
-  /* const clean = DOMPurify.sanitize(dirty, {
+  const clean = DOMPurify.sanitize(dirty, {
     USE_PROFILES: { html: true },
     ADD_TAGS: ["iframe", "pre"],
     ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
     FORBID_TAGS: ["style"],
-  }); */
-  return dirty;
+  });
+  return clean;
 }
 
 //revalidatePath
