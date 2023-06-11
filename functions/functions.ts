@@ -97,15 +97,16 @@ export function getYoutubeEmbedLink(input: string): string {
 }
 
 //prevent xss attack, clean html input
-/* export function cleanHtml(dirty: string): string {
-  const clean = DOMPurify.sanitize(dirty, {
+export function cleanHtml(dirty: string): string {
+  return dirty;
+  /* const clean = DOMPurify.sanitize(dirty, {
     USE_PROFILES: { html: true },
     ADD_TAGS: ["iframe", "pre"],
     ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
     FORBID_TAGS: ["style"],
   });
-  return clean;
-} */
+  return clean; */
+}
 
 //revalidatePath
 export async function revalidatePathByNextApi(path: string) {
