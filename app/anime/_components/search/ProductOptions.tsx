@@ -17,20 +17,27 @@ import {
 import { MdFilterListAlt, MdOutlineSort } from "react-icons/md";
 import { Filters } from "./getQuery";
 import { SmallCloseIcon } from "@chakra-ui/icons";
+import { SortOptions } from "./sort";
 
 type ProductOptionsProps = {
   filters: Filters["product"];
   handleChange: (e: React.ChangeEvent) => void;
   setFieldValue: (field: string, value: any) => void;
+  sortOptions: SortOptions;
+  handleSortOptions: (
+    value: SortOptions["anime"] | SortOptions["product"],
+    sortCategory: "anime" | "product"
+  ) => void;
 };
 
 const ProductOptions: React.FC<ProductOptionsProps> = ({
   filters,
   handleChange,
   setFieldValue,
+  sortOptions,
+  handleSortOptions,
 }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
-  const [sort, setSort] = useState<string | null>(null);
 
   const resetFilters = () => {
     setFieldValue("product.category", "");
@@ -76,13 +83,21 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
                 as={Button}
                 leftIcon={<Icon as={MdOutlineSort} />}
               >
-                {sort || "Sort"}
+                {sortOptions.product || "Sort"}
               </MenuButton>
               <MenuList>
                 <MenuGroup title="Sort by">
-                  <MenuItem onClick={() => setSort(null)}>Default</MenuItem>
-                  <MenuItem onClick={() => setSort("Price")}>Price</MenuItem>
-                  <MenuItem onClick={() => setSort("Release Date")}>
+                  <MenuItem onClick={() => handleSortOptions(null, "product")}>
+                    Default
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleSortOptions("Price", "product")}
+                  >
+                    Price
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleSortOptions("Release Date", "product")}
+                  >
                     Release Date
                   </MenuItem>
                 </MenuGroup>

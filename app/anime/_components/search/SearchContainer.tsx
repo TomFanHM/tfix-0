@@ -1,7 +1,7 @@
 "use client";
 
 import MotionContainer from "@/components/container/MotionContainer";
-import { Button, Flex, Grid, GridItem, useToast } from "@chakra-ui/react";
+import { Button, Flex, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
   Filters,
@@ -14,36 +14,40 @@ import SearchBar from "./SearchBar";
 import AnimeOptions from "./AnimeOptions";
 import ProductOptions from "./ProductOptions";
 import { AnimeData, getAnimes } from "../getAnimes";
-import SearchCard from "./SearchCard";
 import { ProductSchema, getProductsByFilter } from "../getProducts";
+import { SortOptions } from "./sort";
+import AnimeSearchResults from "./AnimeSearchResults";
+import ProductSearchResults from "./ProductSearchResults";
 
 type SearchQuery = {
   query: string;
 } & Filters;
 
 type SearchResults = {
-  Anime: AnimeData[] | null;
-  Product: ProductSchema[] | null;
-};
-
-type SortOptions = {
-  Anime: null | "Latest" | "Popular" | "Broadcast";
-  Product: null | "Price" | "Release Date";
+  anime: AnimeData[] | null;
+  product: ProductSchema[] | null;
 };
 
 const SearchContainer: React.FC = () => {
   const toast = useToast();
-  const [category, setCategory] = useState<"Anime" | "Product">("Anime");
+  const [category, setCategory] = useState<"anime" | "product">("anime");
   const [results, setResults] = useState<SearchResults>({
-    Anime: null,
-    Product: null,
+    anime: null,
+    product: null,
   });
   const [loading, setLoading] = useState<boolean>(false);
   const [lastSearchTime, setLastSearchTime] = useState<number>(0);
   const [sortOptions, setSortOptions] = useState<SortOptions>({
-    Anime: null,
-    Product: null,
+    anime: null,
+    product: null,
   });
+
+  const handleSortOptions = (
+    value: SortOptions["anime"] | SortOptions["product"],
+    sortCategory: "anime" | "product"
+  ) => {
+    setSortOptions((prev) => ({ ...prev, [sortCategory]: value }));
+  };
 
   function searchErrorToast() {
     toast({
@@ -88,19 +92,19 @@ const SearchContainer: React.FC = () => {
       //search
       setLoading(true);
       try {
-        if (category === "Anime") {
+        if (category === "anime") {
           const query = generateAnimeSearchQuery(values.query, values.anime);
           const data = await getAnimes(query);
-          if (data) setResults((prev) => ({ ...prev, Anime: data }));
+          if (data) setResults((prev) => ({ ...prev, anime: data }));
           if (!data.length) searchErrorToast();
         }
-        if (category === "Product") {
+        if (category === "product") {
           const query = generateProductSearchQuery(
             values.query,
             values.product
           );
           const data = await getProductsByFilter(query);
-          if (data) setResults((prev) => ({ ...prev, Product: data }));
+          if (data) setResults((prev) => ({ ...prev, product: data }));
           if (!data || !data.length) searchErrorToast();
         }
       } catch (error) {
@@ -111,7 +115,7 @@ const SearchContainer: React.FC = () => {
     },
   });
 
-  const handleCategorySelect = (category: "Anime" | "Product") => {
+  const handleCategorySelect = (category: "anime" | "product") => {
     setCategory(category);
   };
 
@@ -137,18 +141,22 @@ const SearchContainer: React.FC = () => {
               handleCategorySelect={handleCategorySelect}
             />
           </Flex>
-          {category === "Anime" && (
+          {category === "anime" && (
             <AnimeOptions
               filters={formik.values.anime}
               handleChange={formik.handleChange}
               setFieldValue={formik.setFieldValue}
+              sortOptions={sortOptions}
+              handleSortOptions={handleSortOptions}
             />
           )}
-          {category === "Product" && (
+          {category === "product" && (
             <ProductOptions
               filters={formik.values.product}
               handleChange={formik.handleChange}
               setFieldValue={formik.setFieldValue}
+              sortOptions={sortOptions}
+              handleSortOptions={handleSortOptions}
             />
           )}
           <Button
@@ -162,30 +170,17 @@ const SearchContainer: React.FC = () => {
           </Button>
         </Flex>
       </form>
-      <Grid
-        templateColumns="repeat(4, 1fr)"
-        gap="4"
-        mx="auto"
-        pb={{ base: "10", md: "20" }}
-      >
-        {category === "Anime" &&
-          results[category]?.map((el, i) => (
-            <GridItem key={i} colSpan={{ base: 2, md: 1 }}>
-              <SearchCard
-                url={el.image}
-                title={el.title_english || el.title_japanese || ""}
-                href={`/anime/${el.id}`}
-              />
-            </GridItem>
-          ))}
 
-        {category === "Product" &&
-          results[category]?.map((el, i) => (
-            <GridItem key={i} colSpan={{ base: 2, md: 1 }}>
-              <SearchCard url={el.image} title={el.title} source={el.link} />
-            </GridItem>
-          ))}
-      </Grid>
+      {category === "anime" && results.anime && (
+        <AnimeSearchResults data={results.anime} sort={sortOptions.anime} />
+      )}
+
+      {category === "product" && results.product && (
+        <ProductSearchResults
+          data={results.product}
+          sort={sortOptions.product}
+        />
+      )}
     </MotionContainer>
   );
 };

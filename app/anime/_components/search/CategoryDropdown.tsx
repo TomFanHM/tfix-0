@@ -5,8 +5,8 @@ import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@chakra-ui/icons";
 
 type CategoryDropdownProps = {
-  category: "Anime" | "Product";
-  handleCategorySelect: (category: "Anime" | "Product") => void;
+  category: "anime" | "product";
+  handleCategorySelect: (category: "anime" | "product") => void;
 };
 
 const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
@@ -30,13 +30,13 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
               )
             }
           >
-            {category}
+            {category === "anime" ? "Anime" : "Product"}
           </MenuButton>
           <MenuList>
-            <MenuItem onClick={() => handleCategorySelect("Anime")}>
+            <MenuItem onClick={() => handleCategorySelect("anime")}>
               Anime
             </MenuItem>
-            <MenuItem onClick={() => handleCategorySelect("Product")}>
+            <MenuItem onClick={() => handleCategorySelect("product")}>
               Product
             </MenuItem>
           </MenuList>

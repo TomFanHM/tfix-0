@@ -9,6 +9,7 @@ import MotionContainer from "@/components/container/MotionContainer";
 import React from "react";
 import { banner } from "./_components/banner";
 import { Button } from "@/components/chakra/FormComponents";
+import Link from "next/link";
 
 const Service: React.FC = () => {
   return (
@@ -74,9 +75,11 @@ const Service: React.FC = () => {
               <Heading mt="6" size={{ base: "2xl", md: "4xl" }}>
                 Share your stories and thoughts
               </Heading>
-              <Button variant="custom_solid" my="4" py="2" px="4">
-                Try it out
-              </Button>
+              <Link href="/blogs">
+                <Button variant="custom_solid" my="4" py="2" px="4">
+                  Try it out
+                </Button>
+              </Link>
             </CallToAction>
           </GridItem>
           <GridItem colSpan={2}>

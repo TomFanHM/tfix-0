@@ -23,20 +23,28 @@ import React, { useState } from "react";
 import { MdFilterListAlt, MdOutlineSort } from "react-icons/md";
 import { Filters } from "./getQuery";
 import { Genres, Studios } from "./options";
+import { SortOptions } from "./sort";
 
 type AnimeOptionsProps = {
   filters: Filters["anime"];
   handleChange: (e: React.ChangeEvent) => void;
   setFieldValue: (field: string, value: any) => void;
+  sortOptions: SortOptions;
+  handleSortOptions: (
+    value: SortOptions["anime"] | SortOptions["product"],
+    sortCategory: "anime" | "product"
+  ) => void;
 };
 
 const AnimeOptions: React.FC<AnimeOptionsProps> = ({
   filters,
   handleChange,
   setFieldValue,
+  sortOptions,
+  handleSortOptions,
 }) => {
   const [filterOpen, setFilterOpen] = useState<boolean>(false);
-  const [sort, setSort] = useState<string | null>(null);
+
   //filter
   const resetFilters = () => {
     setFieldValue("anime.year", "");
@@ -87,16 +95,26 @@ const AnimeOptions: React.FC<AnimeOptionsProps> = ({
                 as={Button}
                 leftIcon={<Icon as={MdOutlineSort} boxSize={6} />}
               >
-                {sort || "Sort"}
+                {sortOptions.anime || "Sort"}
               </MenuButton>
               <MenuList>
                 <MenuGroup title="Sort by">
-                  <MenuItem onClick={() => setSort(null)}>Default</MenuItem>
-                  <MenuItem onClick={() => setSort("Latest")}>Latest</MenuItem>
-                  <MenuItem onClick={() => setSort("Popular")}>
+                  <MenuItem onClick={() => handleSortOptions(null, "anime")}>
+                    Default
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleSortOptions("Latest", "anime")}
+                  >
+                    Latest
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => handleSortOptions("Popular", "anime")}
+                  >
                     Popular
                   </MenuItem>
-                  <MenuItem onClick={() => setSort("Broadcast")}>
+                  <MenuItem
+                    onClick={() => handleSortOptions("Broadcast", "anime")}
+                  >
                     Broadcast
                   </MenuItem>
                 </MenuGroup>

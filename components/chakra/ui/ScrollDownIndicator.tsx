@@ -27,11 +27,6 @@ const keyframesArr = Array(count)
   `
   );
 
-const arrow1 = keyframes`  
-  from {transform: rotate(0deg);}   
-  to {transform: rotate(360deg)} 
-`;
-
 const pseudoStyle = {
   content: `""`,
   w: "24px",
@@ -61,7 +56,10 @@ const ScrollDownIndicator: React.FC = () => {
               ...pseudoStyle,
               transform: "rotate(-45deg) translateX(-25%)",
             }}
-            animation={`${keyframesArr[i]} 1s ease ${0.25 * i}s infinite`}
+            animation={`${keyframesArr[i]} 0.9s infinite`}
+            sx={{
+              animationDelay: `-${0.9 - i * 0.3}s`,
+            }}
           />
         ))}
     </Box>

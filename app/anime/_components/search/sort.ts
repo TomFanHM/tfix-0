@@ -3,6 +3,11 @@ import { ProductSchema } from "../getProducts";
 
 type Season = "winter" | "spring" | "summer" | "fall";
 
+export type SortOptions = {
+  anime: null | "Latest" | "Popular" | "Broadcast";
+  product: null | "Price" | "Release Date";
+};
+
 const weekDaySorter = {
   Mondays: 1,
   Tuesdays: 2,
@@ -43,7 +48,7 @@ export function sortAnime(
       return [...arr].sort((a, b) => {
         if (!a.popularity) return 1;
         if (!b.popularity) return -1;
-        return b.popularity - a.popularity;
+        return a.popularity - b.popularity; //small popularity value means more popular
       });
     case "Broadcast":
       return [...arr].sort((a, b) => {
@@ -79,7 +84,7 @@ export function sortProduct(
       return [...arr].sort((a, b) => {
         if (!a.releaseDate) return 1;
         if (!b.releaseDate) return -1;
-        return a.releaseDate.localeCompare(b.releaseDate);
+        return b.releaseDate.localeCompare(a.releaseDate);
       });
     default:
       return arr;
