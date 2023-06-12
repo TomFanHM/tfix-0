@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import React from "react";
+import ScrollDownIndicator from "./ScrollDownIndicator";
 
 type HeroBannerProps = {
   title: React.ReactNode;
@@ -114,6 +115,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
           <Text as={motion.b} className="item" variants={item}>
             {message}
           </Text>
+          <ScrollDownIndicator />
         </Flex>
       </Container>
     </Flex>
