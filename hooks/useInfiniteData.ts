@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 //this hook is used to handle infinite fetch data
 //it takes 1 parameter, initialData: the initial data that will be displayed
@@ -8,12 +8,6 @@ export const useInfiniteData = <TData>(initialData: TData[]) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
   const [hasNext, setHasNext] = useState<boolean>(true);
-
-  useEffect(() => {
-    setData(initialData); //reset data when initialData changes
-    setHasNext(true);
-    setError(null);
-  }, [initialData]);
 
   const fetchData = async (callback: (el: TData[]) => Promise<TData[]>) => {
     if (loading && !hasNext) return;
