@@ -29,7 +29,7 @@ export const useScrollScale = (
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [scrollTop]);
+  }, [scrollTop, initialScale, scaleRate, maxScale]);
 
   return scale;
 };

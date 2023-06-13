@@ -4,6 +4,7 @@ import {
   Query,
   collection,
   limit,
+  orderBy,
   query,
   where,
 } from "firebase/firestore";
@@ -24,6 +25,10 @@ const Filters = z.object({
 
 export type Filters = z.infer<typeof Filters>;
 
+export type SearchQuery = {
+  query: string;
+} & Filters;
+
 export function generateAnimeSearchQuery(
   searchTerms: string,
   filters: Filters["anime"]
@@ -37,7 +42,7 @@ export function generateAnimeSearchQuery(
     q = query(q, where("genres", "array-contains", filters.genre));
   if (filters.studio)
     q = query(q, where("studios", "array-contains", filters.studio));
-  q = query(q, limit(40));
+  q = query(q, orderBy("popularity", "asc"), limit(20));
 
   return q;
 }
@@ -52,7 +57,7 @@ export function generateProductSearchQuery(
   if (filters.category) q = query(q, where("category", "==", filters.category));
   if (filters.series)
     q = query(q, where("related", "array-contains", filters.series));
-  q = query(q, limit(40));
+  q = query(q, orderBy("releaseDate", "desc"), limit(20));
 
   return q;
 }

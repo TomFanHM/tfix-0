@@ -84,9 +84,9 @@ const Service: React.FC = () => {
           </GridItem>
           <GridItem colSpan={2}>
             <BannerText
-              line1="Connect with like-minded individuals"
+              line1="Join our community"
               line2="Inspire and be inspired"
-              line3="Join our community."
+              line3="Connect with like-minded individuals"
             />
           </GridItem>
         </GridWrapper>

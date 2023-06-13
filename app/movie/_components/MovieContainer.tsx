@@ -44,7 +44,7 @@ type MovieContainerProps = {
 
 const MovieContainer: React.FC<MovieContainerProps> = ({ moviesData }) => {
   const { data, fetchData, hasNext, loading, error } =
-    useInfiniteData<MovieData>([...moviesData]);
+    useInfiniteData<MovieData>(moviesData);
 
   return (
     <MotionContainer maxW="container.xl">

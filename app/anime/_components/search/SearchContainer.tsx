@@ -4,7 +4,7 @@ import MotionContainer from "@/components/container/MotionContainer";
 import { Button, Flex, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
-  Filters,
+  SearchQuery,
   generateAnimeSearchQuery,
   generateProductSearchQuery,
 } from "./getQuery";
@@ -18,10 +18,6 @@ import { ProductSchema, getProductsByFilter } from "../getProducts";
 import { SortOptions } from "./sort";
 import AnimeSearchResults from "./AnimeSearchResults";
 import ProductSearchResults from "./ProductSearchResults";
-
-type SearchQuery = {
-  query: string;
-} & Filters;
 
 type SearchResults = {
   anime: AnimeData[] | null;
@@ -171,16 +167,23 @@ const SearchContainer: React.FC = () => {
         </Flex>
       </form>
 
-      {category === "anime" && results.anime && (
-        <AnimeSearchResults data={results.anime} sort={sortOptions.anime} />
-      )}
-
-      {category === "product" && results.product && (
-        <ProductSearchResults
-          data={results.product}
-          sort={sortOptions.product}
+      {category === "anime" && results.anime && results.anime.length > 0 && (
+        <AnimeSearchResults
+          anime={results.anime}
+          sort={sortOptions.anime}
+          formik={formik.values}
         />
       )}
+
+      {category === "product" &&
+        results.product &&
+        results.product.length > 0 && (
+          <ProductSearchResults
+            products={results.product}
+            sort={sortOptions.product}
+            formik={formik.values}
+          />
+        )}
     </MotionContainer>
   );
 };

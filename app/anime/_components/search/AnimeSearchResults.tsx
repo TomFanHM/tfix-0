@@ -1,37 +1,46 @@
 import React from "react";
-import { AnimeData } from "../getAnimes";
-import { Grid, GridItem, Skeleton, Stack } from "@chakra-ui/react";
+import { AnimeData, getAnimes } from "../getAnimes";
+import { Button, Grid, GridItem, Skeleton, Stack } from "@chakra-ui/react";
 import SearchCard from "./SearchCard";
 import { sortAnime } from "./sort";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
+import { scrollToTop } from "@/functions/functions";
+import { SearchQuery, generateAnimeSearchQuery } from "./getQuery";
+import { query, startAfter } from "firebase/firestore";
 
 type AnimeSearchResultsProps = {
-  data: AnimeData[];
+  anime: AnimeData[];
   sort: null | "Latest" | "Popular" | "Broadcast";
+  formik: SearchQuery;
 };
 
 const AnimeSearchResults: React.FC<AnimeSearchResultsProps> = ({
-  data,
+  anime,
   sort,
+  formik,
 }) => {
-  const {
-    data: animeData,
-    fetchData,
-    hasNext,
-    loading,
-    error,
-  } = useInfiniteData<AnimeData>([...data]);
+  const { data, fetchData, hasNext, loading, error } =
+    useInfiniteData<AnimeData>(anime);
 
-  if (!animeData) return <></>;
+  const fetchMore = async (el: AnimeData[]) => {
+    let q = generateAnimeSearchQuery(formik.query, formik.anime);
+    q = query(q, startAfter(el[el.length - 1].popularity));
+    const data = await getAnimes(q);
+
+    return data;
+  };
+
+  if (!data) return <></>;
 
   return (
     <Grid
+      w="full"
       templateColumns="repeat(4, 1fr)"
       gap="4"
       mx="auto"
       pb={{ base: "10", md: "20" }}
     >
-      {sortAnime(animeData, sort).map((el, i) => (
+      {sortAnime(data, sort).map((el, i) => (
         <GridItem key={i} colSpan={{ base: 2, md: 1 }}>
           <SearchCard
             url={el.image}
@@ -48,6 +57,27 @@ const AnimeSearchResults: React.FC<AnimeSearchResultsProps> = ({
               <Skeleton h="4" />
               <Skeleton h="4" />
             </Stack>
+          </GridItem>
+        )}
+      </>
+      <>
+        {hasNext && (
+          <GridItem colSpan={4}>
+            <Button
+              w="full"
+              variant="solid"
+              isLoading={loading}
+              onClick={() => fetchData(fetchMore)}
+            >
+              More
+            </Button>
+          </GridItem>
+        )}
+        {!hasNext && (
+          <GridItem colSpan={4}>
+            <Button w="full" variant="solid" onClick={scrollToTop}>
+              Scroll to Top
+            </Button>
           </GridItem>
         )}
       </>

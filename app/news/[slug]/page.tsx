@@ -6,7 +6,9 @@ import { firestore } from "@/firebase/firebaseApp";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { getNews } from "../_components/getNews";
 import NewsContainer from "../_components/NewsContainer";
+
 export const revalidate = 3600;
+export const dynamicParams = false; //Dynamic segments not included in generateStaticParams will return a 404
 
 const categories = [
   "business",
@@ -25,7 +27,6 @@ export async function generateStaticParams() {
 }
 
 async function getData(category: string) {
-  if (!categories.includes(category)) return null; //Invalid category
   const docRef = collection(firestore, "news");
   const q = query(
     docRef,

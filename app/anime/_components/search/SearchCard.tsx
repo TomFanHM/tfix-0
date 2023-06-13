@@ -26,7 +26,7 @@ const SearchCard: React.FC<SearchCardProps> = ({
   };
 
   return (
-    <Box onClick={handleClick}>
+    <Box>
       <OptimizedImage
         url={url}
         alt={title}
@@ -38,6 +38,7 @@ const SearchCard: React.FC<SearchCardProps> = ({
         cursor="pointer"
         loading="lazy"
         mb="6"
+        onClick={handleClick}
       />
       <Text as="b" mt="4">
         {title}

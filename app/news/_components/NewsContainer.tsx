@@ -54,7 +54,7 @@ const NewsContainer: React.FC<NewsContainerProps> = ({
   };
 
   const { data, fetchData, hasNext, loading, error } =
-    useInfiniteData<ArticleSchema>([...getArticles]);
+    useInfiniteData<ArticleSchema>(getArticles);
 
   return (
     <MotionContainer maxW="container.xl">
