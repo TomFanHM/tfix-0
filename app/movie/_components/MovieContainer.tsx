@@ -28,8 +28,8 @@ const fetchMoreMovies = async (el: MovieData[]) => {
   //generate query
   let q = query(
     docRef,
-    orderBy("release_date", "desc"),
-    startAfter(el[el.length - 1].release_date),
+    orderBy("id", "desc"),
+    startAfter(el[el.length - 1].id),
     limit(9)
   );
   //get more news

@@ -24,7 +24,7 @@ const AnimeSearchResults: React.FC<AnimeSearchResultsProps> = ({
 
   const fetchMore = async (el: AnimeData[]) => {
     let q = generateAnimeSearchQuery(formik.query, formik.anime);
-    q = query(q, startAfter(el[el.length - 1].popularity));
+    q = query(q, startAfter(el[el.length - 1].mal_id));
     const data = await getAnimes(q);
 
     return data;

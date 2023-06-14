@@ -41,7 +41,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
       <Flex flexDirection="column" mt="4" gap="4">
         <Link
           as={NextLink}
-          href={`news/${article.category.toLowerCase()}`}
+          href={`/news/${article.category.toLowerCase()}`}
           mt="4"
           textDecoration="underline"
           w="min-content"

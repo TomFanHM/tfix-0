@@ -34,7 +34,7 @@ const SubscribeForm: React.FC = () => {
 
   return (
     <VStack mt="6" spacing="4" as="form" onSubmit={handleSubmit}>
-      <FormControl id="email-address">
+      <FormControl id="email-address" isRequired>
         <Input
           name="email"
           type="email"

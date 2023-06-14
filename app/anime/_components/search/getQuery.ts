@@ -42,7 +42,7 @@ export function generateAnimeSearchQuery(
     q = query(q, where("genres", "array-contains", filters.genre));
   if (filters.studio)
     q = query(q, where("studios", "array-contains", filters.studio));
-  q = query(q, orderBy("popularity", "asc"), limit(20));
+  q = query(q, orderBy("mal_id", "desc"), limit(20));
 
   return q;
 }
