@@ -33,7 +33,7 @@ export default function Home() {
             </Text>
           </>
         }
-        message="Unlock endless possibilities, fuel your curiosity, and let your imagination soar in this world of discovery!"
+        message="Unlock endless possibilities, fuel your curiosity, and let your imagination soar in this world of discovery"
       />
       {/* */}
       <MotionContainer>

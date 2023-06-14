@@ -18,7 +18,7 @@ const Service: React.FC = () => {
         image="/images/service/service.png"
         mobileImage="/images/service/service_mobile.png"
         title="Our services"
-        message="Experience entertainment like never before with our range of services."
+        message="Experience entertainment like never before with our range of services"
       />
       <MotionContainer>
         <GridWrapper>
@@ -57,7 +57,7 @@ const Service: React.FC = () => {
                   <Text as="span"> experience</Text>
                 </>
               }
-              line3="This space is yours to explore, connect, and inspire."
+              line3="This space is yours to explore, connect, and inspire"
             />
           </GridItem>
           <GridItem colSpan={2}>
