@@ -39,9 +39,14 @@ export function generateAnimeSearchQuery(
   if (searchTerms) q = query(q, where("title_english", "==", searchTerms));
   if (filters.year) q = query(q, where("year", "==", filters.year));
   if (filters.season) q = query(q, where("season", "==", filters.season));
-  if (filters.genre) q = query(q, where(`genres.${filters.genre}`, "==", true));
-  if (filters.studio)
-    q = query(q, where(`studios.${filters.studio}`, "==", true));
+  if (filters.genre) {
+    const genre = `genres.${filters.genre}`;
+    q = query(q, where(genre, "==", true));
+  }
+  if (filters.studio) {
+    const studio = `studios.${filters.studio}`;
+    q = query(q, where(studio, "==", true));
+  }
   q = query(q, orderBy("mal_id", "desc"), limit(20));
 
   return q;

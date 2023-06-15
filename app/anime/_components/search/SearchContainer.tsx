@@ -91,6 +91,7 @@ const SearchContainer: React.FC = () => {
         if (category === "anime") {
           const query = generateAnimeSearchQuery(values.query, values.anime);
           const data = await getAnimes(query);
+
           if (data) setResults((prev) => ({ ...prev, anime: data }));
           if (!data.length) searchErrorToast();
         }
