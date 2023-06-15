@@ -2,26 +2,32 @@ import { z } from "zod";
 import { firestore } from "@/firebase/firebaseApp";
 import { getDocs, doc, getDoc, DocumentData, Query } from "firebase/firestore";
 
-export const AnimeSchema = z.object({
-  mal_id: z.number(),
-  background: z.string().nullable(),
-  broadcast_day: z.string().nullable(),
-  episodes: z.number().nullable(),
-  genres: z.string().array(),
-  image: z.string().nullable(),
-  popularity: z.number(),
-  season: z.string(),
-  source: z.string().nullable(),
-  status: z.string(),
-  studios: z.string().array(),
-  synopsis: z.string().nullable(),
-  title_english: z.string().nullable(),
-  title_japanese: z.string().nullable(),
-  trailer_embed_url: z.string().nullable(),
-  trailer_image: z.string().nullable(),
-  type: z.string().nullable(),
-  year: z.number().nullable(),
-});
+export const AnimeSchema = z
+  .object({
+    mal_id: z.number(),
+    background: z.string().nullable(),
+    broadcast_day: z.string().nullable(),
+    episodes: z.number().nullable(),
+    image: z.string().nullable(),
+    popularity: z.number(),
+    season: z.string(),
+    source: z.string().nullable(),
+    status: z.string(),
+    synopsis: z.string().nullable(),
+    title_english: z.string().nullable(),
+    title_japanese: z.string().nullable(),
+    trailer_embed_url: z.string().nullable(),
+    trailer_image: z.string().nullable(),
+    type: z.string().nullable(),
+    year: z.number().nullable(),
+    studios: z.record(z.boolean()),
+    genres: z.record(z.boolean()),
+  })
+  .transform((data) => ({
+    ...data,
+    studios: Object.keys(data.studios).filter((key) => data.studios[key]),
+    genres: Object.keys(data.genres).filter((key) => data.genres[key]),
+  }));
 
 export type AnimeSchema = z.infer<typeof AnimeSchema>;
 

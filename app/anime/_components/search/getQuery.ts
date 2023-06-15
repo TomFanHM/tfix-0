@@ -35,13 +35,13 @@ export function generateAnimeSearchQuery(
 ): Query<DocumentData> {
   const docRef = collection(firestore, "animes");
   let q = query(docRef);
+
   if (searchTerms) q = query(q, where("title_english", "==", searchTerms));
   if (filters.year) q = query(q, where("year", "==", filters.year));
   if (filters.season) q = query(q, where("season", "==", filters.season));
-  if (filters.genre)
-    q = query(q, where("genres", "array-contains", filters.genre));
+  if (filters.genre) q = query(q, where(`genres.${filters.genre}`, "==", true));
   if (filters.studio)
-    q = query(q, where("studios", "array-contains", filters.studio));
+    q = query(q, where(`studios.${filters.studio}`, "==", true));
   q = query(q, orderBy("mal_id", "desc"), limit(20));
 
   return q;

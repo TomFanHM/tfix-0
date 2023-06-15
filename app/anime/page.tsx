@@ -37,7 +37,7 @@ async function getData() {
     getAnimes(
       query(
         animesRef,
-        where("genres", "array-contains", "Adventure"),
+        where("genres.Adventure", "==", true),
         orderBy("popularity", "asc"),
         limit(20)
       )
