@@ -21,7 +21,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
       <QueryClientProvider client={queryClient}>
         <Providers>
           <AuthModal />
-          <AnimatePresence>{children}</AnimatePresence>
+          <AnimatePresence mode="wait">{children}</AnimatePresence>
         </Providers>
       </QueryClientProvider>
     </RecoilRoot>

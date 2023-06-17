@@ -10,7 +10,7 @@ export const AnimeSchema = z
     episodes: z.number().nullable(),
     image: z.string().nullable(),
     popularity: z.number(),
-    season: z.string(),
+    season: z.string().nullable(),
     source: z.string().nullable(),
     status: z.string(),
     synopsis: z.string().nullable(),
@@ -42,6 +42,8 @@ export async function getAnimes(q: Query<DocumentData>): Promise<AnimeData[]> {
 
     if (docData.success) {
       return { ...docData.data, id: doc.id };
+    } else {
+      console.log(docData.error);
     }
   });
 

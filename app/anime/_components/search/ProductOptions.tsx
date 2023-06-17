@@ -57,7 +57,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
       {/* Buttons */}
       <Flex justify="start" align="center" gap="4">
         <Button
-          leftIcon={<Icon as={MdFilterListAlt} />}
+          leftIcon={<Icon as={MdFilterListAlt} boxSize={6} />}
           variant="custom_outline"
           onClick={() => setFilterOpen((prev) => !prev)}
         >
@@ -81,7 +81,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
                 isActive={isOpen}
                 variant="custom_outline"
                 as={Button}
-                leftIcon={<Icon as={MdOutlineSort} />}
+                leftIcon={<Icon as={MdOutlineSort} boxSize={6} />}
               >
                 {sortOptions.product || "Sort"}
               </MenuButton>

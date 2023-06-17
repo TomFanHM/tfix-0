@@ -8,6 +8,7 @@ import OptimizedImage from "@/components/image/OptimizedImage";
 import AnimeSection from "./_components/AnimeSection";
 import Guide from "./_components/Guide";
 import { getCurrentSeason, getAnimes } from "./_components/getAnimes";
+import { notFound } from "next/navigation";
 
 export const revalidate = 86400; //3600 * 24;
 
@@ -49,6 +50,8 @@ async function getData() {
 
 const Animes = async (): Promise<JSX.Element> => {
   const data = await getData();
+
+  if (!data.length) notFound(); //Promise.all error, show 404
 
   return (
     <MotionContainer maxW="container.xl">

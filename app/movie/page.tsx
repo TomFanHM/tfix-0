@@ -18,7 +18,7 @@ async function getData() {
 
 const Movies = async (): Promise<JSX.Element> => {
   const movies = await getData();
-  if (!movies) return notFound();
+  if (!movies || !movies.length) return notFound();
 
   return <MovieContainer moviesData={movies} />;
 };

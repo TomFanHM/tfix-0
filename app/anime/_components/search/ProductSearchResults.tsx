@@ -25,12 +25,13 @@ const ProductSearchResults: React.FC<ProductSearchResultsProps> = ({
   const fetchMore = async (el: ProductSchema[]) => {
     let q = generateProductSearchQuery(formik.query, formik.product);
     q = query(q, startAfter(el[el.length - 1].releaseDate));
-    const data = await getProductsByFilter(q);
-    if (!data) return [];
-    return data;
+    const result = await getProductsByFilter(q);
+    if (!result) return [];
+    return result;
   };
 
-  if (!data) return <></>;
+  if (!data.length) return <></>;
+
   return (
     <Grid
       w="full"

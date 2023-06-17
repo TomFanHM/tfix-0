@@ -29,24 +29,27 @@ export type SearchQuery = {
   query: string;
 } & Filters;
 
+function getKeyword(str1: string, str2: string) {
+  if (str1 && str2) return str1 + ", " + str2;
+  if (str1 && !str2) return str1;
+  if (!str1 && str2) return str2;
+  return "";
+}
+
 export function generateAnimeSearchQuery(
   searchTerms: string,
   filters: Filters["anime"]
 ): Query<DocumentData> {
-  const docRef = collection(firestore, "animes");
-  let q = query(docRef);
-
-  if (searchTerms) q = query(q, where("title_english", "==", searchTerms));
-  if (filters.year) q = query(q, where("year", "==", filters.year));
+  const animesRef = collection(firestore, "animes");
+  let q = query(animesRef);
+  if (searchTerms.length)
+    q = query(q, where("title_english", "==", searchTerms));
+  if (filters.year !== "") q = query(q, where("year", "==", filters.year));
   if (filters.season) q = query(q, where("season", "==", filters.season));
-  if (filters.genre) {
-    const genre = `genres.${filters.genre}`;
-    q = query(q, where(genre, "==", true));
-  }
-  if (filters.studio) {
-    const studio = `studios.${filters.studio}`;
-    q = query(q, where(studio, "==", true));
-  }
+
+  const keyword = getKeyword(filters.genre, filters.studio);
+  if (keyword) q = query(q, where("keywords", "array-contains", keyword));
+
   q = query(q, orderBy("mal_id", "desc"), limit(20));
 
   return q;
@@ -62,6 +65,7 @@ export function generateProductSearchQuery(
   if (filters.category) q = query(q, where("category", "==", filters.category));
   if (filters.series)
     q = query(q, where("related", "array-contains", filters.series));
+
   q = query(q, orderBy("releaseDate", "desc"), limit(20));
 
   return q;
