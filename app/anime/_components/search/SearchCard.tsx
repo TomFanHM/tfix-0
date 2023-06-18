@@ -26,7 +26,7 @@ const SearchCard: React.FC<SearchCardProps> = ({
   };
 
   return (
-    <Box>
+    <Box pb="4">
       <OptimizedImage
         url={url}
         alt={title}

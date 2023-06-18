@@ -62,7 +62,9 @@ const Animes = async (): Promise<JSX.Element> => {
       >
         <GridItem colSpan={2}>
           <OptimizedImage
-            url={"/images/anime.png"}
+            url={
+              "https://firebasestorage.googleapis.com/v0/b/tfix-fs.appspot.com/o/banner.png?alt=media&token=89cd313e-06cb-4dbe-b00b-d82b7e24f01f"
+            }
             alt="banner"
             position="relative"
             color="transparent"

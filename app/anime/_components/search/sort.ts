@@ -74,7 +74,7 @@ export function sortProduct(
     case "Price":
       // First, remove the non-numeric characters from each string and parse as a number
       return [...arr].sort((a, b) => {
-        const aPrice = Number(a.price.replace(/[^0-9]/g, ""));
+        const aPrice = Number(a.price.replace(/[^0-9]/g, "")); //^ = match any character that is not in the set
         const bPrice = Number(b.price.replace(/[^0-9]/g, ""));
         if (!aPrice) return 1;
         if (!bPrice) return -1;
