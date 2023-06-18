@@ -115,7 +115,7 @@ const ProductOptions: React.FC<ProductOptionsProps> = ({
             <Input
               id="product.category"
               name="product.category"
-              placeholder="Enter product category"
+              placeholder="Nendoroid, 1/7th Scale, etc."
               value={filters.category}
               onChange={handleChange}
             />

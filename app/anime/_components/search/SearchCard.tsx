@@ -46,4 +46,5 @@ const SearchCard: React.FC<SearchCardProps> = ({
     </Box>
   );
 };
-export default SearchCard;
+
+export default React.memo(SearchCard);

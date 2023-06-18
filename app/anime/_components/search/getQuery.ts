@@ -66,7 +66,7 @@ export function generateProductSearchQuery(
   if (filters.series)
     q = query(q, where("related", "array-contains", filters.series));
 
-  q = query(q, orderBy("releaseDate", "desc"), limit(20));
+  q = query(q, orderBy("uid", "desc"), limit(20));
 
   return q;
 }

@@ -24,7 +24,7 @@ const ProductSearchResults: React.FC<ProductSearchResultsProps> = ({
 
   const fetchMore = async (el: ProductSchema[]) => {
     let q = generateProductSearchQuery(formik.query, formik.product);
-    q = query(q, startAfter(el[el.length - 1].releaseDate));
+    q = query(q, startAfter(el[el.length - 1].uid));
     const result = await getProductsByFilter(q);
     if (!result) return [];
     return result;
@@ -42,7 +42,11 @@ const ProductSearchResults: React.FC<ProductSearchResultsProps> = ({
     >
       {sortProduct(data, sort).map((el, i) => (
         <GridItem key={i} colSpan={{ base: 2, md: 1 }}>
-          <SearchCard url={el.image} title={el.title} source={el.link} />
+          <SearchCard
+            url={el.images[0] ? el.images[0] : el.image} //image inside images is more high quality
+            title={el.title}
+            source={el.link}
+          />
         </GridItem>
       ))}
       <>

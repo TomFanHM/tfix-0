@@ -11,6 +11,7 @@ import {
 import { z } from "zod";
 
 const ProductSchema = z.object({
+  uid: z.string(),
   title: z.string(),
   image: z.string(),
   link: z.string(),
@@ -35,7 +36,7 @@ export async function getProducts(searchTerm: string | null) {
     let q = query(
       docRef,
       where("related", "array-contains", searchTerm),
-      limit(10)
+      limit(20)
     );
 
     const querySnapshot = await getDocs(q);
