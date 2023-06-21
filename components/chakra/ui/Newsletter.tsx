@@ -111,7 +111,7 @@ const NewsletterSection: React.FC = () => {
           <SubscribeForm />
         </Box>
         <Grid
-          gridGap={{ base: "8", md: "10" }}
+          gridGap={{ base: "4", md: "8" }}
           gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
           alignItems="start"
         >

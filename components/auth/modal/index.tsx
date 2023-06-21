@@ -44,8 +44,8 @@ const AuthModal: React.FC = () => {
         flexDirection="column"
         alignItems="start"
         justifyContent="center"
-        bg={color.secondaryContainer}
-        color={color.onSecondaryContainer}
+        bg={color.primaryContainer}
+        color={color.onPrimaryContainer}
       >
         <Heading>
           {modalState.view === "login" && "Login"}
@@ -54,7 +54,7 @@ const AuthModal: React.FC = () => {
           {modalState.view === "tos" && "Terms & Conditions"}
         </Heading>
       </ModalHeader>
-      <ModalCloseButton color={color.onSecondaryContainer} />
+      <ModalCloseButton color={color.onPrimaryContainer} />
       <ModalBody py="10" bg={color.surface} color={color.onSurface}>
         {modalState.view === "login" && (
           <Login

@@ -19,8 +19,10 @@ export const BlurHashImage: React.FC<BlurHashImageProps> = ({
   return (
     <Box position="relative" {...rest}>
       <NextImage
-        objectFit="cover"
-        layout="fill"
+        style={{
+          objectFit: "cover"
+        }}
+        fill
         src={src}
         alt={alt}
         placeholder="blur"
