@@ -1,4 +1,4 @@
-import { PostData } from "@/app/blogs/_components/getPosts";
+import { PostData } from "@/app/(top-down)/blogs/_components/getPosts";
 import { firestore, storage } from "@/firebase/firebaseApp";
 import { User } from "firebase/auth";
 import { doc, getDoc, writeBatch } from "firebase/firestore";
