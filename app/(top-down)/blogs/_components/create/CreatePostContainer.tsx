@@ -1,7 +1,7 @@
 "use client";
 
 import { auth } from "@/firebase/firebaseApp";
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Center, Grid, GridItem, Spinner } from "@chakra-ui/react";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import CreatePostForm from "./CreatePostForm";
@@ -11,7 +11,14 @@ import NotUser from "@/components/auth/notUser/notUser";
 const CreatePostContainer: React.FC = () => {
   const [user, loading, error] = useAuthState(auth);
 
-  if (loading) return <></>;
+  if (loading)
+    return (
+      <>
+        <Center minH="calc(100vh - 4rem)">
+          <Spinner color="var(--chakra-colors-primary)" />
+        </Center>
+      </>
+    );
 
   return (
     <>
@@ -22,7 +29,7 @@ const CreatePostContainer: React.FC = () => {
           alignContent="center"
           w="full"
           mx="auto"
-          gridGap="64px 16px"
+          gap="4"
           py={{ base: "6", md: "8" }}
           my={{ base: "6", md: "8" }}
         >

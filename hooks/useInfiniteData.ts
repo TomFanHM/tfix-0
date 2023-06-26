@@ -27,6 +27,14 @@ export const useInfiniteData = <TData>(initialData: TData[]) => {
     [data, loading, hasNext]
   );
 
+  const editData = useCallback(
+    (callback: (el: TData[]) => TData[]) => {
+      const editedData = callback(data);
+      setData([...editedData]);
+    },
+    [data]
+  );
+
   useEffect(() => {
     if (initialData) {
       setData(initialData);
@@ -34,5 +42,5 @@ export const useInfiniteData = <TData>(initialData: TData[]) => {
     }
   }, [initialData]);
 
-  return { data, fetchData, hasNext, loading, error };
+  return { data, fetchData, hasNext, loading, error, editData };
 };

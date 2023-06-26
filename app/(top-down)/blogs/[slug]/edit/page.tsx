@@ -1,12 +1,12 @@
 import React from "react";
 import { getPostById } from "../../_components/getPosts";
 import { notFound } from "next/navigation";
-import Maintenance from "@/components/others/Maintenance";
+import EditPostContainer from "../../_components/edit/EditPostContainer";
+
 export const revalidate = 0;
 
 async function getData(postId: string) {
   const data = await getPostById(postId);
-
   return data;
 }
 
@@ -19,6 +19,6 @@ const EditPost = async ({
 
   if (!post) return notFound();
 
-  return <Maintenance />;
+  return <EditPostContainer post={post} />;
 };
 export default EditPost;

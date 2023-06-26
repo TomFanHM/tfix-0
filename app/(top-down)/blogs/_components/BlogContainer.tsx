@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PostData, getPosts } from "./getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import {
@@ -29,64 +29,43 @@ import {
 } from "firebase/firestore";
 import { usePost } from "@/hooks/usePost";
 import DeletePostModal from "./DeletePostModal";
+import { useInfiniteData } from "@/hooks/useInfiniteData";
 
 type BlogContainerProps = {
   posts: PostData[];
 };
 
+const fetchMorePosts = async (el: PostData[]) => {
+  const postsDocRef = collection(firestore, "posts");
+  const lastItem = el[el.length - 1];
+
+  const startAfterTimestamp = new Timestamp(
+    lastItem.createdAt.seconds,
+    lastItem.createdAt.nanoseconds
+  );
+  const q = query(
+    postsDocRef,
+    orderBy("createdAt", "desc"),
+    startAfter(startAfterTimestamp),
+    limit(10)
+  );
+  const morePosts = await getPosts(q);
+  return morePosts;
+};
+
 const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
   //init user
   const [user] = useAuthState(auth);
-  //clone posts
-  const [blogPosts, setBlogPosts] = useState<PostData[]>([...posts]);
-  //loading state
-  const [loading, setLoading] = useState<boolean>(false);
-  //record last visible post, null value means no more posts after fetch more
-  const [lastVisible, setLastVisible] = useState<PostData | null>(
-    posts.length > 0 ? posts[posts.length - 1] : null
-  );
 
-  useEffect(() => {
-    //reset blog posts when posts change
-    setBlogPosts([...posts]);
-    setLastVisible(posts.length > 0 ? posts[posts.length - 1] : null);
-  }, [posts]);
-
-  //fetch more posts
-  const fetchMorePosts = useCallback(async () => {
-    if (loading || !lastVisible) return; //prevent multiple fetch, also prevent fetch when no more posts
-    setLoading(true);
-    const postsDocRef = collection(firestore, "posts");
-    const startAfterTimestamp = new Timestamp(
-      lastVisible.createdAt.seconds,
-      lastVisible.createdAt.nanoseconds
-    ); //convert to timestamp for startAfter
-    const q = query(
-      postsDocRef,
-      orderBy("createdAt", "desc"),
-      startAfter(startAfterTimestamp),
-      limit(10)
-    );
-    try {
-      const morePosts = await getPosts(q);
-      if (morePosts.length > 0) {
-        setBlogPosts((prev) => [...prev, ...morePosts]);
-        setLastVisible(morePosts[morePosts.length - 1]);
-      } else {
-        setLastVisible(null); //no more posts
-      }
-    } catch (error) {
-      console.log("fetchMorePosts error: ", error);
-    }
-    setLoading(false);
-  }, [lastVisible, loading]);
+  const { data, fetchData, hasNext, loading, error, editData } =
+    useInfiniteData<PostData>(posts);
 
   //handle delete post from parent, prevent to create multiple modal
   const toast = useToast();
 
   const [deletePostId, setDeletePostId] = useState<string | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loading: usePostLoading, error, onDeletePost } = usePost();
+  const { loading: usePostLoading, onDeletePost } = usePost();
 
   const handleDeletePostModal = (postId: string) => {
     setDeletePostId(postId);
@@ -95,7 +74,7 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
 
   const handleDeletePost = async (): Promise<void> => {
     //we are using state to store deletePostId
-    const deleteTarget = blogPosts.find((post) => post.id === deletePostId); //find the first match post
+    const deleteTarget = data.find((post) => post.id === deletePostId); //find the first match post
     if (!deleteTarget) {
       toast({
         title: "Post not found.",
@@ -114,9 +93,16 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
         status: "success",
         isClosable: true,
       });
-      setBlogPosts((prev) => prev.filter((post) => post.id !== deletePostId));
+      editData((el) => el.filter((post) => post.id !== deletePostId));
       setDeletePostId(null); //reset
       onClose();
+    } else {
+      toast({
+        title: "Error.",
+        variant: "solid",
+        status: "error",
+        isClosable: true,
+      });
     }
   };
 
@@ -134,9 +120,8 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
       {/* main body */}
       <Grid
         templateColumns="repeat(3, 1fr)"
-        alignContent="start"
+        alignContent="center"
         w="full"
-        minH="100vh"
         mx="auto"
         gridGap="64px 16px"
         py={{ base: "6", md: "8" }}
@@ -153,7 +138,7 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
           </Flex>
         </GridItem>
         <>
-          {blogPosts.map((post, i) => (
+          {data.map((post, i) => (
             <BlogPostCard
               key={i}
               large={i % 5 === 0}
@@ -177,19 +162,19 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
           )}
         </>
         <>
-          {lastVisible && (
+          {hasNext && (
             <GridItem colSpan={3}>
               <Button
                 w="full"
                 variant="solid"
                 isLoading={loading}
-                onClick={fetchMorePosts}
+                onClick={() => fetchData(fetchMorePosts)}
               >
                 More
               </Button>
             </GridItem>
           )}
-          {!lastVisible && (
+          {!hasNext && (
             <GridItem colSpan={3}>
               <Button w="full" variant="solid" onClick={scrollToTop}>
                 Scroll to Top
@@ -201,4 +186,5 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
     </MotionContainer>
   );
 };
+
 export default BlogContainer;

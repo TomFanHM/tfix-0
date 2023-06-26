@@ -17,16 +17,17 @@ const Guidelines: React.FC = () => {
       w="full"
       flexDirection="column"
       p="4"
-      gap="4"
       mx="auto"
       borderRadius="20px"
       bg="elevation.dp02"
       boxShadow="dp02"
     >
-      <Text as="b">Guidelines</Text>
+      <Text as="b" lineHeight="10">
+        Guidelines
+      </Text>
       <Divider />
       {rules.map((rule, i) => (
-        <VStack key={i} align="start">
+        <VStack key={i} align="start" mt="4" py="4">
           <Text>{`${i + 1}. ${rule}`}</Text>
           <Divider />
         </VStack>

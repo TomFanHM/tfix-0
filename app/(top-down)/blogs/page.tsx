@@ -3,10 +3,10 @@ import { collection, limit, orderBy, query } from "firebase/firestore";
 import React from "react";
 import { getPosts } from "./_components/getPosts";
 import { notFound } from "next/navigation";
-import Maintenance from "@/components/others/Maintenance";
+import BlogContainer from "./_components/BlogContainer";
 
 export const revalidate = 0;
-//export const fetchCache = "no-cache";
+//export const dynamic = "force-dynamic";
 
 async function getData() {
   const postsDocRef = collection(firestore, "posts");
@@ -20,7 +20,11 @@ const Blogs = async (): Promise<JSX.Element> => {
   const posts = await getData();
   if (!posts) return notFound();
 
-  return <Maintenance />;
+  return (
+    <>
+      <BlogContainer posts={posts} />
+    </>
+  );
 };
 
 export default Blogs;

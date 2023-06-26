@@ -11,7 +11,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import React from "react";
-import { Prose } from '@nikolovlazar/chakra-ui-prose';
+import { Prose } from "@nikolovlazar/chakra-ui-prose";
 
 type CreateForm = {
   headline: string;
@@ -74,7 +74,7 @@ const DraftView: React.FC<DraftViewProps> = ({ data }) => {
         </Box>
       )}
       <Prose>
-        <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </Prose>
     </Flex>
   );
