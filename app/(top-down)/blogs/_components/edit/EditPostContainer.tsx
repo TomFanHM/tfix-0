@@ -4,7 +4,6 @@ import React from "react";
 import { PostData } from "../getPosts";
 import { auth } from "@/firebase/firebaseApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Loading from "@/app/loading";
 import UnauthorizedUser from "@/components/auth/unauthorizedUser/unauthorizedUser";
 import { Grid, GridItem } from "@chakra-ui/react";
 import Guidelines from "../create/Guidelines";
@@ -18,7 +17,7 @@ const EditPostContainer: React.FC<EditPostContainerProps> = ({ post }) => {
   //check user is post creator
   const [user, loading, error] = useAuthState(auth);
 
-  if (loading) return <Loading />;
+  if (loading) return <></>;
 
   if (!user) return <UnauthorizedUser />;
 

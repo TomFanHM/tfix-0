@@ -7,12 +7,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import CreatePostForm from "./CreatePostForm";
 import Guidelines from "./Guidelines";
 import NotUser from "@/components/auth/notUser/notUser";
-import Loading from "@/app/loading";
 
 const CreatePostContainer: React.FC = () => {
   const [user, loading, error] = useAuthState(auth);
 
-  if (loading) return <Loading />;
+  if (loading) return <></>;
 
   return (
     <>
