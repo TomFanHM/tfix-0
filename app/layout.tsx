@@ -1,4 +1,3 @@
-import MainContainer from "@/components/container/MainContainer";
 import { siteConfig } from "@/config/site";
 import AppLayout from "./AppLayout";
 import "@fontsource/roboto/400.css";
@@ -6,6 +5,7 @@ import "@fontsource/open-sans/400.css";
 import "react-quill/dist/quill.snow.css";
 import { Metadata } from "next";
 import Analytics from "@/components/others/Analytics";
+import Indicator from "@/components/others/Indicator";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -77,7 +77,8 @@ export default function RootLayout({
       <body>
         <Analytics />
         <AppLayout>
-          <MainContainer>{children}</MainContainer>
+          <Indicator />
+          {children}
         </AppLayout>
       </body>
     </html>

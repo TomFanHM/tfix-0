@@ -103,7 +103,7 @@ const NewsletterSection: React.FC = () => {
           <Heading size={{ base: "2xl", md: "4xl" }} fontWeight="bold">
             Subscribe to our newsletter
           </Heading>
-          <Text mt="4" size="lg" layerStyle="High-emphasis">
+          <Text mt="6" size="lg" layerStyle="High-emphasis">
             Don&apos;t miss out on the latest news, updates, and exclusive
             content! Subscribe to our newsletter by entering your email address
             below:

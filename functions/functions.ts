@@ -1,5 +1,6 @@
 //import DOMPurify from "isomorphic-dompurify";
 import axios from "axios";
+import xss from "xss";
 
 export function capitalizeFirstLetter(str: string): string {
   if (typeof str !== "string") return "";
@@ -98,14 +99,15 @@ export function getYoutubeEmbedLink(input: string): string {
 
 //prevent xss attack, clean html input
 export function cleanHtml(dirty: string): string {
-  return dirty;
   /* const clean = DOMPurify.sanitize(dirty, {
     USE_PROFILES: { html: true },
     ADD_TAGS: ["iframe", "pre"],
     ADD_ATTR: ["allow", "allowfullscreen", "frameborder", "scrolling"],
     FORBID_TAGS: ["style"],
-  });
-  return clean; */
+  }); */
+
+  const clean = xss(dirty);
+  return clean;
 }
 
 //revalidatePath

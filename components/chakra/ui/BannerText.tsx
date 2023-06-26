@@ -48,7 +48,7 @@ const BannerText: React.FC<BannerTextProps> = ({
       whileInView="visible"
       {...rest}
     >
-      <Text as={motion.b} className="item" variants={item}>
+      <Text as={motion.p} className="item" variants={item}>
         {line1}
       </Text>
       <Heading
@@ -66,7 +66,7 @@ const BannerText: React.FC<BannerTextProps> = ({
         className="item"
         variants={item}
         whiteSpace="pre-wrap"
-        mt="2"
+        mt="6"
       >
         {line3}
       </Text>

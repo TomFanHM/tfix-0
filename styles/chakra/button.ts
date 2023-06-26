@@ -7,6 +7,7 @@ export const Button: ComponentStyleConfig = {
   baseStyle: {
     fontFamily: `'Roboto', sans-serif`,
     transition: "250ms ease-in-out",
+    cursor: "pointer",
   },
   variants: {
     //
