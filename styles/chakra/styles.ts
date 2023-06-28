@@ -13,11 +13,20 @@ export const styles: Styles = {
       padding: 0,
       margin: 0,
       boxSizing: "border-box",
+      borderWidth: "0",
+      borderStyle: "solid"
       //outline: "1px solid green", //dev mode
+    },
+    html: {
+      tabSize: "4",
+      lineHeight: "1.5"
     },
     a: {
       color: "inherit",
       textDecoration: "none",
     },
+    "b, strong": {
+      fontWeight: "border"
+    }
   }),
 };

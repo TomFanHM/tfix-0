@@ -15,6 +15,7 @@ const NotUser: React.FC = () => {
       align="center"
       justify="center"
       gap="4"
+      w="full"
       maxW="20rem"
       mx="auto"
     >

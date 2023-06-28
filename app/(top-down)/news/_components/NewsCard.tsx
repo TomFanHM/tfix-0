@@ -38,7 +38,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
           cursor="pointer"
         />
       </Link>
-      <Flex flexDirection="column" mt="4" gap="4">
+      <Flex flexDirection="column" mt="4">
         <Link
           as={NextLink}
           href={`/news/${article.category.toLowerCase()}`}
@@ -48,11 +48,11 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
         >
           {article.category}
         </Link>
-        <Heading size="lg">{article.title || "No title available"}</Heading>
-        <Text mt="4" noOfLines={5}>
+        <Heading size="lg" mt="4">{article.title || "No title available"}</Heading>
+        <Text mt="6" noOfLines={5}>
           {article.description || "No description available"}
         </Text>
-        <Text layerStyle="Medium-emphasis">
+        <Text layerStyle="Medium-emphasis" mt="4">
           {article.source || "Unknown"} &#8226; {fromNow(article.publishedAt)}
         </Text>
       </Flex>

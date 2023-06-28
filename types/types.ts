@@ -21,7 +21,3 @@ export const OptionSchema = z.object({
 
 export type OptionSchema = z.infer<typeof OptionSchema>;
 
-export const Timestamp = z.object({
-  seconds: z.number(),
-  nanoseconds: z.number(),
-});

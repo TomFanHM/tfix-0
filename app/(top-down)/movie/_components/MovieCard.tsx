@@ -13,9 +13,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
     <Box>
       <OptimizedImage
-        url={`https://image.tmdb.org/t/p/original${
-          movie.poster_path || movie.backdrop_path
-        }`}
+        url={`https://image.tmdb.org/t/p/original${movie.poster_path || movie.backdrop_path
+          }`}
         alt={movie.title || "poster"}
         border_radius="20px"
         position="relative"
@@ -26,12 +25,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
         objectFit="cover"
         loading="lazy"
       />
-      <Flex flexDirection="column" mt="4" gap="4">
+      <Flex flexDirection="column" mt="4">
         <Heading size="lg">{movie.title || "No title available"}</Heading>
-        <Text mt="4" noOfLines={5}>
+        <Text mt="6" noOfLines={5}>
           {movie.overview || "No overview available"}
         </Text>
-        <Text layerStyle="Medium-emphasis">
+        <Text layerStyle="Medium-emphasis" mt="4">
           Release date : {movie.release_date}
         </Text>
       </Flex>

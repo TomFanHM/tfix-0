@@ -1,8 +1,8 @@
 "use client";
 //this component is used to display a maintenance page when a page is under maintenance
 
-import { Flex, Heading, Button, Text, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Flex, Heading, Button, Text } from "@chakra-ui/react";
+import Link from "next/link";
 import React from "react";
 import MotionContainer from "../container/MotionContainer";
 import Image from "next/image";
@@ -35,7 +35,7 @@ const Maintenance: React.FC = () => {
           Please check back later for updates on when this page will be
           available again.
         </Text>
-        <Link as={NextLink} w="full" href="/">
+        <Link href="/">
           <Button variant="form">Go to Home</Button>
         </Link>
       </Flex>
