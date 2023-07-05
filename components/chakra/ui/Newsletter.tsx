@@ -89,6 +89,7 @@ const NewsletterSection: React.FC = () => {
   return (
     <Box
       w="full"
+      maxW="full"
       position="relative"
       overflow="hidden"
       py={{ base: "16", md: "24" }}

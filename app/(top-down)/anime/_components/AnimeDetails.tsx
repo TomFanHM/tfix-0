@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import ThreeColumnGridWrapper from "@/components/container/ThreeColumnGridWrapper";
 import {
   AspectRatio,
   Button,
+  Grid,
   GridItem,
   HStack,
   Heading,
@@ -25,7 +25,11 @@ type AnimeDetailsProps = {
 const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime, productsData }) => {
   const router = useRouter();
   return (
-    <ThreeColumnGridWrapper
+    <Grid
+      templateColumns="repeat(3, 1fr)"
+      alignContent="center"
+      w="full"
+      mx="auto"
       gridGap="64px 16px"
       py={{ base: "6", md: "8" }}
       my={{ base: "6", md: "8" }}
@@ -116,7 +120,7 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime, productsData }) => {
         <Heading mb="6">Related</Heading>
         <Products productsData={productsData} />
       </GridItem>
-    </ThreeColumnGridWrapper>
+    </Grid>
   );
 };
 export default AnimeDetails;

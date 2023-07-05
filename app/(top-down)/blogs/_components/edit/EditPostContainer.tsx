@@ -8,6 +8,7 @@ import UnauthorizedUser from "@/components/auth/unauthorizedUser/unauthorizedUse
 import { Grid, GridItem } from "@chakra-ui/react";
 import Guidelines from "../create/Guidelines";
 import EditPostForm from "./EditPostForm";
+import MotionContainer from "@/components/container/MotionContainer";
 
 type EditPostContainerProps = {
   post: PostData;
@@ -24,7 +25,7 @@ const EditPostContainer: React.FC<EditPostContainerProps> = ({ post }) => {
   if (user.uid !== post.creatorId) return <UnauthorizedUser />;
 
   return (
-    <>
+    <MotionContainer>
       {user.uid === post.creatorId && (
         <>
           <Grid
@@ -45,7 +46,7 @@ const EditPostContainer: React.FC<EditPostContainerProps> = ({ post }) => {
           </Grid>
         </>
       )}
-    </>
+    </MotionContainer>
   );
 };
 export default EditPostContainer;

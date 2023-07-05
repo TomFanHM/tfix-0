@@ -4,10 +4,7 @@ import { User } from "firebase/auth";
 import { doc, getDoc, writeBatch } from "firebase/firestore";
 import { ref, listAll, deleteObject } from "firebase/storage";
 import { useState } from "react";
-
-//custom hook for post features, including vote and delete
-//onVote function update post likes and user likes array, onDeletePost function delete post and update user posts array
-//use firebase cloud functions to delete related comments
+import { z } from "zod";
 
 export const usePost = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -18,29 +15,31 @@ export const usePost = () => {
     user: User,
     liked: boolean
   ): Promise<boolean> => {
-    setError(null); //reset
+    setError(null);
     setLoading(true);
     try {
       const postDocRef = doc(firestore, "posts", post.id);
       const userDocRef = doc(firestore, "users", user.uid);
-      //fetch user doc
+
       const userDoc = await getDoc(userDocRef);
-      if (!userDoc.exists()) throw new Error("Oops. Please try again later."); //handle undefined error
-      const userLikes: string[] = userDoc.data().likes;
-      const batch = writeBatch(firestore); //use batch update
-      //2 cases, toggle like/normal
+      if (!userDoc.exists()) throw new Error("Oops. Please try again later.");
+      const userLikes = z.array(z.string()).parse(userDoc.data().likes);
+
+      const batch = writeBatch(firestore);
+
       if (liked) {
-        //to prevent data race, we use object instead of array
         batch.update(postDocRef, {
           [`likes.${user.uid}`]: false,
         });
-        //only user can update their own likes array, no data race here
+
         batch.update(userDocRef, {
           likes: userLikes.filter((e) => e !== post.id),
         });
       } else {
         batch.update(postDocRef, { [`likes.${user.uid}`]: true });
-        batch.update(userDocRef, { likes: [...userLikes, post.id] });
+        batch.update(userDocRef, {
+          likes: [...new Set([...userLikes, post.id])], //check no duplicate
+        });
       }
 
       await batch.commit();
@@ -56,7 +55,7 @@ export const usePost = () => {
   };
 
   const onDeletePost = async (post: PostData): Promise<boolean> => {
-    setError(null); //reset
+    setError(null);
     setLoading(true);
     try {
       //It's not possible to execute a single operation across multiple Firebase products.
@@ -70,12 +69,12 @@ export const usePost = () => {
       const batch = writeBatch(firestore);
       batch.delete(postDocRef);
       const userPosts = userDoc.data().posts;
-      const newUserPosts = userPosts.filter((e: string) => e !== post.id); //remove post id
+      const newUserPosts = userPosts.filter((e: string) => e !== post.id);
       batch.update(userDocRef, { posts: newUserPosts });
       await batch.commit();
 
       if (post.coverURL) {
-        const imageRef = ref(storage, `posts/images/${post.id}`); //delete post file
+        const imageRef = ref(storage, `posts/images/${post.id}`);
 
         // List all files and directories located at the imageRef path
         const listResult = await listAll(imageRef);

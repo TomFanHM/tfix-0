@@ -68,7 +68,7 @@ export const useEditPost = () => {
         content: content,
         iframeURL: iframe,
         tags,
-        creatorDisplayName: user.displayName || "",
+        creatorDisplayName: user.displayName || "unknown",
         creatorPhotoURL: user.photoURL || "",
       };
 
