@@ -2,7 +2,7 @@
 
 //this is a navbar component, including a drawer for mobile, and menus for pc
 
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
 import { blogsConfig } from "@/config/blogs";
 import { chatbotConfig } from "@/config/chatbot";
 import { newsConfig } from "@/config/news";

@@ -23,7 +23,7 @@ import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
 import { BsFillEyeFill, BsFillHeartFill } from "react-icons/bs";
 import { MdDeleteForever, MdEdit, MdShare } from "react-icons/md";
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
 import { useSetRecoilState } from "recoil";
 import { usePost } from "@/hooks/usePost";
 import { useRouter } from "next/navigation";

@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
 import { Button, Flex, Heading } from "@chakra-ui/react";
 import React from "react";
 import { useSetRecoilState } from "recoil";

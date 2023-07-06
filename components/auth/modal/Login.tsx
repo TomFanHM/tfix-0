@@ -1,4 +1,4 @@
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
 import FormContainer from "@/components/container/FormContainer";
 import { auth } from "@/firebase/firebaseApp";
 import {

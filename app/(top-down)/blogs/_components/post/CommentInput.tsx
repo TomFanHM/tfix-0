@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
 import { auth } from "@/firebase/firebaseApp";
 import useCreateComment from "@/hooks/useCreateComment";
 import { Avatar, Button, Flex, FormControl, Text } from "@chakra-ui/react";

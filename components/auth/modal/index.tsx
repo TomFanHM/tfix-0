@@ -1,6 +1,6 @@
 "use client";
 
-import { authModalState } from "@/atoms/authModalAom";
+import { authModalState } from "@/atoms/authModalAtom";
 import ModalWrapper from "@/components/container/ModalWrapper";
 import { light, dark } from "@/styles/chakra/colors";
 import {

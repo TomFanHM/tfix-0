@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthModalState, authModalState } from "@/atoms/authModalAom";
+import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
 
 import { blogsConfig } from "@/config/blogs";
 import { chatbotConfig } from "@/config/chatbot";
