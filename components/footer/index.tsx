@@ -18,7 +18,7 @@ import NextLink from "next/link";
 const Footer: React.FC = () => {
   return (
     <Box
-      py={{ base: "20", sm: "30", md: "40" }}
+      py={{ base: "24", sm: "32", md: "40" }}
       bg={"var(--chakra-colors-surfaceVariant)"}
       color={"var(--chakra-colors-onSurfaceVariant)"}
     >

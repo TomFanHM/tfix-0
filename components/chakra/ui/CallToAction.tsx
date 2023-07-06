@@ -58,7 +58,6 @@ const CallToAction: React.FC<CallToActionProps> = ({
     <Box
       position="relative"
       transform="translate3d(0px, 0px, 0px)"
-      mt={{ base: "8", md: "16" }}
       boxShadow={`0 0 0 100vmax ${background}`}
       clipPath="inset(0 -100vmax)"
       bg={background}
@@ -68,7 +67,7 @@ const CallToAction: React.FC<CallToActionProps> = ({
         flexDirection="row"
         flexWrap="wrap"
         align="center"
-        py={{ base: "10", md: "20" }}
+        py={{ base: "24", sm: "32", md: "40" }}
         gap="4"
       >
         <Box flex="1 1 0%" minW="20rem" textAlign="start" px="4">

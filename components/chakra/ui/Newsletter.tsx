@@ -92,12 +92,12 @@ const NewsletterSection: React.FC = () => {
       maxW="full"
       position="relative"
       overflow="hidden"
-      py={{ base: "16", md: "24" }}
+      py={{ base: "24", sm: "32", md: "40" }}
       mx="auto"
     >
       <Flex
         flexDirection={{ base: "column", md: "row" }}
-        gridGap={{ base: "8", md: "16" }}
+        gap={{ base: "20", md: "12" }}
         align="center"
       >
         <Box>
@@ -112,7 +112,7 @@ const NewsletterSection: React.FC = () => {
           <SubscribeForm />
         </Box>
         <Grid
-          gridGap={{ base: "4", md: "8" }}
+          gridGap={{ base: "10", md: "8" }}
           gridTemplateColumns={{ base: "1fr", md: "1fr 1fr" }}
           alignItems="start"
         >

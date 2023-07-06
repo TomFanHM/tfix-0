@@ -13,6 +13,43 @@ import {
 import { motion } from "framer-motion";
 import React from "react";
 
+type BackgroundImageProps = {
+  image: string;
+  mobileImage: string;
+};
+
+const BackgroundImage: React.FC<BackgroundImageProps> = ({
+  image,
+  mobileImage,
+}) => {
+  const scale = useScrollScale(1, 5000, 1.25);
+
+  const isLargerThanMdSize = useBreakpointValue(
+    { base: false, md: true },
+    {
+      fallback: "md",
+    }
+  );
+  return (
+    <Box
+      willChange="transform, opacity"
+      position="relative"
+      w="full"
+      transform={`scale(${scale})`}
+      opacity={1 / scale}
+    >
+      <Image
+        src={isLargerThanMdSize ? image : mobileImage}
+        w="full"
+        h="full"
+        objectFit="cover"
+        alt="banner"
+        color="transparent"
+      />
+    </Box>
+  );
+};
+
 type HeroBannerProps = {
   title: React.ReactNode;
   message: React.ReactNode;
@@ -45,14 +82,6 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
     },
   };
 
-  const scale = useScrollScale(1, 5000, 1.25);
-
-  const isLargerThanMdSize = useBreakpointValue(
-    { base: false, md: true },
-    {
-      fallback: "md",
-    }
-  );
   return (
     <Flex
       w="full"
@@ -72,22 +101,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({
         overflow="hidden"
         zIndex={0}
       >
-        <Box
-          willChange="transform, opacity"
-          position="relative"
-          w="full"
-          transform={`scale(${scale})`}
-          opacity={2 - scale} //scale from 1 to 1.1
-        >
-          <Image
-            src={isLargerThanMdSize ? image : mobileImage}
-            w="full"
-            h="full"
-            objectFit="cover"
-            alt="banner"
-            color="transparent"
-          />
-        </Box>
+        <BackgroundImage image={image} mobileImage={mobileImage} />
       </Box>
       <Container maxW="container.lg" zIndex={1}>
         <Flex
