@@ -1,7 +1,7 @@
 "use client";
 
 import { User } from "firebase/auth";
-import { PostData, PostSchema, getVoteCount } from "./getPosts";
+import { PostData, PostSchema } from "./getPosts";
 import {
   Flex,
   GridItem,
@@ -17,16 +17,15 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import { siteConfig } from "@/config/site";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
-import { BsFillEyeFill, BsFillHeartFill } from "react-icons/bs";
-import { MdDeleteForever, MdEdit, MdShare } from "react-icons/md";
-import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
-import { useSetRecoilState } from "recoil";
-import { usePost } from "@/hooks/usePost";
+import { BsFillEyeFill } from "react-icons/bs";
+import { MdEdit, MdShare } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import DeletePostButton from "./DeletePostButton";
+import VotePostButton from "./VotePostButton";
 
 type BlogPostCardProps = {
   large: boolean;
@@ -34,14 +33,8 @@ type BlogPostCardProps = {
   user: User | null | undefined;
   post: PostData;
   isCreator: boolean;
-  handleDeletePostModal: (postId: string) => void;
+  handleSuccessDeletePost: (postId: string) => void;
 };
-
-function getLiked(user: User | null | undefined, likes: PostSchema["likes"]) {
-  if (!user) return false
-  if (likes[user.uid]) return true
-  return false
-}
 
 const BlogPostCard: React.FC<BlogPostCardProps> = ({
   large,
@@ -49,28 +42,15 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   user,
   post,
   isCreator,
-  handleDeletePostModal,
+  handleSuccessDeletePost,
 }) => {
   const toast = useToast();
-
-  const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
-
-  const { loading, error, onVote } = usePost();
-  const [likes, setLikes] = useState<PostSchema["likes"]>({ ...post.likes });
-  //check the keys value
-  const liked = getLiked(user, likes)
-  const count = getVoteCount(likes)
-
-  useEffect(() => {
-    //reset
-    setLikes({ ...post.likes });
-  }, [post]);
 
   //share
   const handleCopyURL = useCallback(async () => {
     try {
       await navigator.clipboard
-        .writeText(`${siteConfig.url}/posts/${post.id}`)
+        .writeText(`${siteConfig.url}/blogs/${post.id}`)
         .then(() =>
           toast({
             title: "Copied to clipboard.",
@@ -89,27 +69,15 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
     }
   }, [post, toast]);
 
-  //vote
-  const handleVote = async () => {
-    //request user login
-    if (!user) {
-      setAuthModalState({ open: true, view: "login" });
-      return;
-    }
-    //if logged in
-    const success = await onVote(post, user, liked);
-    if (success) {
-      const hash = { ...likes }
-      hash[user.uid] = liked ? false : true //toggle
-      setLikes({ ...hash })
-    }
-  };
-
   //redirect to edit page
   const router = useRouter();
 
   const handleEditPost = () => {
     router.push(`/blogs/${post.id}/edit`);
+  };
+
+  const deletePostEffect = () => {
+    handleSuccessDeletePost(post.id);
   };
 
   return (
@@ -159,25 +127,23 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         </HStack>
         <Divider />
         <Flex wrap="wrap" gap="4" mt="4">
+          <VotePostButton
+            key={post.id}
+            postId={post.id}
+            user={user}
+            likesData={post.likes}
+            effect={() => {
+              //nothing
+            }}
+          />
           <Button
             variant="custom_solid"
-            isLoading={loading}
-            leftIcon={<Icon as={BsFillHeartFill} boxSize={6} />}
-            onClick={handleVote}
-            color={liked ? "red.400" : "var(--chakra-colors-onPrimary)"}
-          >
-            {count}
-          </Button>
-          <Button
-            variant="custom_solid"
-            isLoading={loading}
             leftIcon={<Icon as={BsFillEyeFill} boxSize={6} />}
           >
             {post.views}
           </Button>
           <IconButton
             variant="custom_solid"
-            isLoading={loading}
             aria-label="share link"
             icon={<Icon as={MdShare} boxSize={6} />}
             onClick={handleCopyURL}
@@ -185,19 +151,17 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           {isCreator && (
             <IconButton
               variant="custom_solid"
-              isLoading={loading}
               aria-label="edit post"
               icon={<Icon as={MdEdit} boxSize={6} />}
               onClick={handleEditPost}
             />
           )}
           {isCreator && (
-            <IconButton
-              variant="custom_solid"
-              isLoading={loading}
-              aria-label="delete post"
-              icon={<Icon as={MdDeleteForever} boxSize={6} />}
-              onClick={() => handleDeletePostModal(post.id)}
+            <DeletePostButton
+              key={post.id}
+              postId={post.id}
+              creatorId={post.creatorId}
+              effect={deletePostEffect}
             />
           )}
         </Flex>

@@ -1,22 +1,22 @@
 "use client";
 
 import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
-import { auth } from "@/firebase/firebaseApp";
 import useCreateComment from "@/hooks/useCreateComment";
 import { Avatar, Button, Flex, FormControl, Text } from "@chakra-ui/react";
+import { User } from "firebase/auth";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { useSetRecoilState } from "recoil";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const modules = {
   toolbar: [
     ["bold", "italic", "underline", "strike"],
-    ["blockquote", "code-block"],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     [{ size: ["small", "large", "huge", false] }],
+    ["blockquote", "code-block"],
+    [{ align: [] }],
     ["image", "link", "video"],
     [{ color: [] }, { background: [] }],
     [{ font: [] }],
@@ -25,12 +25,11 @@ const modules = {
 };
 
 type CommentInputProps = {
+  user: User | null | undefined;
   receiverId: string;
 };
 
-const CommentInput: React.FC<CommentInputProps> = ({ receiverId }) => {
-  const [user] = useAuthState(auth);
-
+const CommentInput: React.FC<CommentInputProps> = ({ user, receiverId }) => {
   const [content, setContent] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);

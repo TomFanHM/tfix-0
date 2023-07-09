@@ -12,6 +12,8 @@ import CommentsContainer from "./CommentsContainer";
 import CommentInput from "./CommentInput";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import CommentCard from "../comment/CommentCard";
+import { auth } from "@/firebase/firebaseApp";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 type PostContainerProps = {
   post: PostData;
@@ -25,6 +27,8 @@ const callableIncrementPostViewCount = httpsCallable(
 );
 
 const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
+  const [user] = useAuthState(auth);
+
   const processedHtml = cleanHtml(post.content);
 
   useEffect(() => {
@@ -40,7 +44,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
         my={{ base: "6", md: "8" }}
       >
         <Heading>{post.headline}</Heading>
-        <HStack wrap="wrap" layerStyle="Medium-emphasis" fontSize="sm" mt="4">
+        <HStack wrap="wrap" layerStyle="Medium-emphasis" fontSize="sm" my="4">
           <Text>{fromNow(new Date(post.createdAt.seconds * 1000))}</Text>
           <Text>&#8226;</Text>
           {post.editedAt && (
@@ -58,7 +62,6 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           <Text>{post.views} views</Text>
         </HStack>
         <OptimizedImage
-          mt="4"
           mb="6"
           url={post.coverURL}
           alt={post.headline}
@@ -78,7 +81,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
         <Text mb="4" layerStyle="Medium-emphasis" fontSize="sm">
           Comments {`(${comments.length})`}
         </Text>
-        <CommentInput receiverId={post.id} />
+        <CommentInput user={user} receiverId={post.id} />
         {comments.map((comment, i) => (
           <CommentCard key={i} comment={comment} />
         ))}

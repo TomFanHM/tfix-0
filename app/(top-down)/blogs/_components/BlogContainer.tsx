@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { PostData, getPosts } from "./getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import {
@@ -11,8 +11,6 @@ import {
   Heading,
   Skeleton,
   Stack,
-  useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import BlogPostCard from "./BlogPostCard";
@@ -27,8 +25,6 @@ import {
   query,
   startAfter,
 } from "firebase/firestore";
-import { usePost } from "@/hooks/usePost";
-import DeletePostModal from "./DeletePostModal";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
 
 type BlogContainerProps = {
@@ -60,63 +56,12 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
   const { data, fetchData, hasNext, loading, error, editData } =
     useInfiniteData<PostData>(posts);
 
-  //handle delete post from parent, prevent to create multiple modal
-  const toast = useToast();
-
-  const [deletePostId, setDeletePostId] = useState<string | null>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const { loading: usePostLoading, onDeletePost } = usePost();
-
-  const handleDeletePostModal = (postId: string) => {
-    setDeletePostId(postId);
-    onOpen();
-  };
-
-  const handleDeletePost = async (): Promise<void> => {
-    //we are using state to store deletePostId
-    const deleteTarget = data.find((post) => post.id === deletePostId); //find the first match post
-    if (!deleteTarget) {
-      toast({
-        title: "Post not found.",
-        variant: "solid",
-        status: "error",
-        isClosable: true,
-      });
-      return;
-    }
-
-    const success = await onDeletePost(deleteTarget);
-    if (success) {
-      toast({
-        title: "Deleted.",
-        variant: "solid",
-        status: "success",
-        isClosable: true,
-      });
-      editData((el) => el.filter((post) => post.id !== deletePostId));
-      setDeletePostId(null); //reset
-      onClose();
-    } else {
-      toast({
-        title: "Error.",
-        variant: "solid",
-        status: "error",
-        isClosable: true,
-      });
-    }
+  const handleSuccessDeletePost = (postId: string) => {
+    editData((el) => el.filter((post) => post.id !== postId));
   };
 
   return (
     <MotionContainer maxW="container.xl">
-      {/* confirmation modal */}
-      <>
-        <DeletePostModal
-          isOpen={isOpen}
-          onClose={onClose}
-          loading={usePostLoading}
-          handleDeletePost={handleDeletePost}
-        />
-      </>
       {/* main body */}
       <Grid
         templateColumns="repeat(3, 1fr)"
@@ -146,7 +91,7 @@ const BlogContainer: React.FC<BlogContainerProps> = ({ posts }) => {
               user={user}
               post={post}
               isCreator={post.creatorId === user?.uid}
-              handleDeletePostModal={handleDeletePostModal}
+              handleSuccessDeletePost={handleSuccessDeletePost}
             />
           ))}
         </>

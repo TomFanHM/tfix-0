@@ -20,11 +20,7 @@ const Blogs = async (): Promise<JSX.Element> => {
   const posts = await getData();
   if (!posts) return notFound();
 
-  return (
-    <>
-      <BlogContainer posts={posts} />
-    </>
-  );
+  return <BlogContainer posts={posts} />;
 };
 
 export default Blogs;
