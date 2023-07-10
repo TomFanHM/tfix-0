@@ -34,7 +34,7 @@ const VotePostButton: React.FC<VotePostButtonProps> = ({
 
   const [likes, setLikes] = useState<Record<string, boolean>>(likesData);
   const liked = getLiked(user, likes);
-  const count = Object.values(likes).reduce((acc, _) => acc + 1, 0);
+  const count = Object.values(likes).reduce((acc, curr) => acc + Number(curr), 0);
 
   //vote
   const handleVote = async () => {

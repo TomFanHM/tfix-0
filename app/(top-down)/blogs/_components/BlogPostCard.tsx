@@ -1,13 +1,12 @@
 "use client";
 
 import { User } from "firebase/auth";
-import { PostData, PostSchema } from "./getPosts";
+import { PostData } from "./getPosts";
 import {
   Flex,
   GridItem,
   Heading,
   Link,
-  useToast,
   Text,
   HStack,
   Divider,
@@ -17,15 +16,15 @@ import {
   Avatar,
 } from "@chakra-ui/react";
 import { siteConfig } from "@/config/site";
-import { useCallback } from "react";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import NextLink from "next/link";
 import { fromNow } from "@/functions/dateUtils";
 import { BsFillEyeFill } from "react-icons/bs";
-import { MdEdit, MdShare } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import DeletePostButton from "./DeletePostButton";
 import VotePostButton from "./VotePostButton";
+import ShareButton from "./ShareButton";
 
 type BlogPostCardProps = {
   large: boolean;
@@ -44,31 +43,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   isCreator,
   handleSuccessDeletePost,
 }) => {
-  const toast = useToast();
-
-  //share
-  const handleCopyURL = useCallback(async () => {
-    try {
-      await navigator.clipboard
-        .writeText(`${siteConfig.url}/blogs/${post.id}`)
-        .then(() =>
-          toast({
-            title: "Copied to clipboard.",
-            variant: "solid",
-            status: "success",
-            isClosable: true,
-          })
-        );
-    } catch (error) {
-      toast({
-        title: "Failed to copy",
-        variant: "solid",
-        status: "error",
-        isClosable: true,
-      });
-    }
-  }, [post, toast]);
-
   //redirect to edit page
   const router = useRouter();
 
@@ -128,7 +102,6 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         <Divider />
         <Flex wrap="wrap" gap="4" mt="4">
           <VotePostButton
-            key={post.id}
             postId={post.id}
             user={user}
             likesData={post.likes}
@@ -142,12 +115,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           >
             {post.views}
           </Button>
-          <IconButton
-            variant="custom_solid"
-            aria-label="share link"
-            icon={<Icon as={MdShare} boxSize={6} />}
-            onClick={handleCopyURL}
-          />
+          <ShareButton url={`${siteConfig.url}/blogs/${post.id}`} />
           {isCreator && (
             <IconButton
               variant="custom_solid"
