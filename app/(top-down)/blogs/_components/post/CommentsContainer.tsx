@@ -11,12 +11,7 @@ type CommentsContainerProps = {
 
 const CommentsContainer: React.FC<CommentsContainerProps> = ({ comments }) => {
   return (
-    <Flex
-      w="full"
-      flexDirection="column"
-      py={{ base: "6", md: "8" }}
-      my={{ base: "6", md: "8" }}
-    >
+    <Flex w="full" flexDirection="column" mt="4" bg="red" py='4'>
       {comments.map((comment, i) => (
         <CommentCard comment={comment} key={i} />
       ))}

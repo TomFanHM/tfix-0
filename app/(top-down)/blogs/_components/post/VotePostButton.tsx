@@ -2,11 +2,12 @@
 
 import { AuthModalState, authModalState } from "@/atoms/authModalAtom";
 import { usePost } from "@/hooks/usePost";
-import { Button, Icon } from "@chakra-ui/react";
+import { Icon, IconButton } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { BsFillHeartFill } from "react-icons/bs";
 import { useSetRecoilState } from "recoil";
+import { getVoteCount } from "../getPosts";
 
 function getLiked(
   user: User | null | undefined,
@@ -21,23 +22,20 @@ type VotePostButtonProps = {
   postId: string;
   user: User | null | undefined;
   likesData: Record<string, boolean>;
-  effect: () => void;
+  handleVoteCount: (count: number) => void;
 };
 
 const VotePostButton: React.FC<VotePostButtonProps> = ({
   postId,
   user,
   likesData,
+  handleVoteCount,
 }) => {
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
   const { loading, onVote } = usePost();
 
   const [likes, setLikes] = useState<Record<string, boolean>>(likesData);
   const liked = getLiked(user, likes);
-  const count = Object.values(likes).reduce(
-    (acc, curr) => acc + Number(curr),
-    0
-  );
 
   //vote
   const handleVote = async () => {
@@ -51,6 +49,7 @@ const VotePostButton: React.FC<VotePostButtonProps> = ({
     if (success) {
       const updated = { ...likes, [user.uid]: liked ? false : true };
       setLikes(updated);
+      handleVoteCount(getVoteCount(updated));
     }
   };
 
@@ -59,15 +58,14 @@ const VotePostButton: React.FC<VotePostButtonProps> = ({
   }, [likesData]);
 
   return (
-    <Button
+    <IconButton
       variant="custom_solid"
       isLoading={loading}
-      leftIcon={<Icon as={BsFillHeartFill} boxSize={6} />}
+      aria-label="vote post"
+      icon={<Icon as={BsFillHeartFill} boxSize={6} />}
       color={liked ? "red.400" : "var(--chakra-colors-onPrimary)"}
       onClick={handleVote}
-    >
-      {count}
-    </Button>
+    />
   );
 };
 

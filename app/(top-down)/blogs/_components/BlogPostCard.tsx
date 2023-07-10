@@ -100,7 +100,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
           </Text>
         </HStack>
         <Divider />
-        <Flex wrap="wrap" gap="4" mt="4">
+        <Flex wrap="wrap" gap="4">
           <VotePostButton
             postId={post.id}
             user={user}

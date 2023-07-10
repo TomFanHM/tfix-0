@@ -1,19 +1,31 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CommentData, PostData, getVoteCount } from "../getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
 import { cleanHtml } from "@/functions/functions";
-import { Divider, Flex, HStack, Heading, Text } from "@chakra-ui/react";
+import {
+  Divider,
+  Flex,
+  HStack,
+  Heading,
+  Icon,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
 import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { getFunctions, httpsCallable } from "firebase/functions";
-import CommentsContainer from "./CommentsContainer";
 import CommentInput from "./CommentInput";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
-import CommentCard from "../comment/CommentCard";
 import { auth } from "@/firebase/firebaseApp";
 import { useAuthState } from "react-firebase-hooks/auth";
+import VotePostButton from "./VotePostButton";
+import { siteConfig } from "@/config/site";
+import ShareButton from "../ShareButton";
+import DeletePostButton from "../DeletePostButton";
+import { useRouter } from "next/navigation";
+import { MdEdit } from "react-icons/md";
 
 type PostContainerProps = {
   post: PostData;
@@ -29,11 +41,32 @@ const callableIncrementPostViewCount = httpsCallable(
 const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
   const [user] = useAuthState(auth);
 
-  const processedHtml = cleanHtml(post.content);
+  const [likes, setLikes] = useState<number>(getVoteCount(post.likes));
+
+  const processedHtml = useMemo(() => {
+    return cleanHtml(post.content);
+  }, [post.content]);
 
   useEffect(() => {
     callableIncrementPostViewCount({ postId: post.id });
   }, [post]);
+
+  const createdAt = fromNow(new Date(post.createdAt.seconds * 1000));
+  const editedAt = post.editedAt
+    ? fromNow(new Date(post.editedAt.seconds * 1000))
+    : undefined;
+
+  const isCreator = user?.uid === post.creatorId;
+
+  const router = useRouter();
+
+  const handleDeletePost = () => {
+    router.refresh();
+  };
+
+  const handleVoteCount = (count: number) => {
+    setLikes(count);
+  };
 
   return (
     <MotionContainer>
@@ -45,24 +78,21 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
       >
         <Heading>{post.headline}</Heading>
         <HStack wrap="wrap" layerStyle="Medium-emphasis" fontSize="sm" my="4">
-          <Text>{fromNow(new Date(post.createdAt.seconds * 1000))}</Text>
+          <Text>{createdAt}</Text>
           <Text>&#8226;</Text>
-          {post.editedAt && (
+          {editedAt && (
             <>
-              <Text>
-                updated {fromNow(new Date(post.editedAt.seconds * 1000))}
-              </Text>
+              <Text>updated {editedAt}</Text>
               <Text>&#8226;</Text>
             </>
           )}
-          <Text>{getVoteCount(post.likes)} likes</Text>
+          <Text>{likes} likes</Text>
           <Text>&#8226;</Text>
           <Text>{post.comments} comments</Text>
           <Text>&#8226;</Text>
           <Text>{post.views} views</Text>
         </HStack>
         <OptimizedImage
-          mb="6"
           url={post.coverURL}
           alt={post.headline}
           border_radius="20px"
@@ -74,19 +104,42 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           objectFit="cover"
           loading="lazy"
         />
-        <Prose>
+        <Prose my="6">
           <div dangerouslySetInnerHTML={{ __html: processedHtml }} />
         </Prose>
-        <Divider mt="8" mb="4" />
-        <Text mb="4" layerStyle="Medium-emphasis" fontSize="sm">
-          Comments {`(${comments.length})`}
-        </Text>
+        <Divider my="4" />
+        <Flex mb="4" align="center" justify="space-between">
+          <Text layerStyle="Medium-emphasis" fontSize="sm">
+            Comments {`(${post.comments})`}
+          </Text>
+          {/* Buttons */}
+          <HStack spacing="4">
+            <VotePostButton
+              postId={post.id}
+              user={user}
+              likesData={post.likes}
+              handleVoteCount={handleVoteCount}
+            />
+            <ShareButton url={`${siteConfig.url}/blogs/${post.id}`} />
+            {isCreator && (
+              <IconButton
+                variant="custom_solid"
+                aria-label="edit post"
+                icon={<Icon as={MdEdit} boxSize={6} />}
+                onClick={() => router.push(`/blogs/${post.id}/edit`)}
+              />
+            )}
+            {isCreator && (
+              <DeletePostButton
+                postId={post.id}
+                creatorId={post.creatorId}
+                effect={handleDeletePost}
+              />
+            )}
+          </HStack>
+        </Flex>
         <CommentInput user={user} receiverId={post.id} />
-        {comments.map((comment, i) => (
-          <CommentCard key={i} comment={comment} />
-        ))}
       </Flex>
-      <CommentsContainer comments={comments} />
     </MotionContainer>
   );
 };

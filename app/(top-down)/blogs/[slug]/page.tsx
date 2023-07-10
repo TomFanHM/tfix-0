@@ -7,7 +7,7 @@ import PostContainer from "../_components/post/PostContainer";
 
 export const revalidate = 0; //server side rendering
 
-export async function generateStaticParams(): Promise<
+/* export async function generateStaticParams(): Promise<
   {
     slug: string;
   }[]
@@ -17,7 +17,7 @@ export async function generateStaticParams(): Promise<
   const data = await getPosts(q);
 
   return data.map((post) => ({ slug: post.id }));
-}
+} */
 
 async function getData(postId: string) {
   const docRef = collection(firestore, "comments");

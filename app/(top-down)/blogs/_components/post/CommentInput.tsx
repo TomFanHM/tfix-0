@@ -54,8 +54,8 @@ const CommentInput: React.FC<CommentInputProps> = ({ user, receiverId }) => {
   };
 
   return (
-    <Flex gap="4" as="form" onSubmit={handleSubmit}>
-      <Avatar src={user?.photoURL || ""} name={user?.displayName || ""} />
+    <Flex gap="4" as="form" onSubmit={handleSubmit} mt="4">
+      <Avatar src={user?.photoURL || ""} name={user?.displayName || "Guest"} />
       <Flex flexDirection="column" gap="4" flex="1 1 auto">
         <FormControl isRequired>
           <ReactQuill
