@@ -22,7 +22,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
 
   return (
     <GridItem colSpan={{ base: 3, md: large ? 2 : 1 }}>
-      <Link href={article.url} target="_blank">
+      <Link href={article.url} target="_blank" rel="nofollow">
         <OptimizedImage
           url={article.imageUrl}
           alt={article.title || "news image"}
@@ -48,7 +48,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
         >
           {article.category}
         </Link>
-        <Heading size="lg" mt="4">{article.title || "No title available"}</Heading>
+        <Heading size="lg" mt="4">
+          {article.title || "No title available"}
+        </Heading>
         <Text mt="6" noOfLines={5}>
           {article.description || "No description available"}
         </Text>

@@ -4,7 +4,14 @@ import { collection, query, orderBy, limit } from "firebase/firestore";
 import { getMovies } from "./_components/getMovie";
 import MovieContainer from "./_components/MovieContainer";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 export const revalidate = 86400; //3600 * 24;
+
+export const metadata: Metadata = {
+  title: "Movies",
+  description:
+    "Discover the latest movies and stay up-to-date with the hottest releases in the film industry. From action-packed blockbusters to heartwarming dramas, our website offers comprehensive coverage of the newest movies hitting theaters and streaming platforms.",
+};
 
 async function getData() {
   const moviesRef = collection(firestore, "movies");

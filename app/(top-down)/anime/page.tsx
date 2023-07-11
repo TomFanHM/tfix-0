@@ -9,8 +9,15 @@ import AnimeSection from "./_components/AnimeSection";
 import Guide from "./_components/Guide";
 import { getCurrentSeason, getAnimes } from "./_components/getAnimes";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 export const revalidate = 86400; //3600 * 24;
+
+export const metadata: Metadata = {
+  title: "Anime",
+  description:
+    "Experience the magic of anime with our website. We offer the latest news and reviews on the hottest anime shows, movies, and manga.",
+};
 
 async function getData() {
   const year = new Date().getFullYear();
@@ -71,7 +78,8 @@ const Animes = async (): Promise<JSX.Element> => {
             border_radius="20px"
             w="full"
             maxW="full" //important
-            sx={{ aspectRatio: { base: "16/9", md: "21/9" } }}
+            maxH="500px"
+            sx={{ aspectRatio: { base: "4/3", md: "16/9" } }}
             objectFit="cover"
             loading="lazy"
           />

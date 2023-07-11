@@ -4,7 +4,7 @@ import "@fontsource/roboto/400.css";
 import "@fontsource/open-sans/400.css";
 import "react-quill/dist/quill.snow.css";
 import { Metadata } from "next";
-import Analytics from "@/components/others/Analytics";
+//import Analytics from "@/components/others/Analytics";
 import Indicator from "@/components/others/Indicator";
 
 export const metadata: Metadata = {
@@ -75,7 +75,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head />
       <body>
-        <Analytics />
+        {/* <Analytics /> */}
         <AppLayout>
           <Indicator />
           {children}

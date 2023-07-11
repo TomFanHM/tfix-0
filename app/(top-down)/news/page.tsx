@@ -5,9 +5,16 @@ import { collection, limit, orderBy, query } from "firebase/firestore";
 import { getNews } from "./_components/getNews";
 import NewsContainer from "./_components/NewsContainer";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
 //fetch per 1 hour
 export const revalidate = 3600;
+
+export const metadata: Metadata = {
+  title: "Breaking News",
+  description:
+    "Stay informed with our up-to-date news coverage. Find the latest breaking news, analysis, and commentary on various topics, including politics, business, entertainment, and more.",
+};
 
 async function getData() {
   const docRef = collection(firestore, "news");

@@ -13,8 +13,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
   return (
     <Box>
       <OptimizedImage
-        url={`https://image.tmdb.org/t/p/original${movie.poster_path || movie.backdrop_path
-          }`}
+        url={`https://image.tmdb.org/t/p/original${
+          movie.poster_path || movie.backdrop_path
+        }`}
         alt={movie.title || "poster"}
         border_radius="20px"
         position="relative"

@@ -117,7 +117,7 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime, productsData }) => {
       </GridItem>
       <GridItem colSpan={{ base: 3, md: 1 }}>
         {/* products */}
-        <Heading mb="6">Related</Heading>
+        <Heading mb="6">Products</Heading>
         <Products productsData={productsData} />
       </GridItem>
     </Grid>

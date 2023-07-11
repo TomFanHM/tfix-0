@@ -20,6 +20,15 @@ const categories = [
   "technology",
 ];
 
+export async function generateMetadata(params: { slug: string }) {
+  const category = capitalizeFirstLetter(params.slug);
+  return {
+    title: `${category} News`,
+    description:
+      "Stay informed with our up-to-date news coverage. Find the latest breaking news, analysis, and commentary on various topics, including politics, business, entertainment, and more.",
+  };
+}
+
 export async function generateStaticParams() {
   return categories.map((category) => ({
     slug: category,

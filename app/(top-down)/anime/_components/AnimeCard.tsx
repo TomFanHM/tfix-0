@@ -45,7 +45,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
       <Box>
         <OptimizedImage
           url={anime.image}
-          alt={anime.title_english || "anime image"}
+          alt={anime.title_english || anime.title_japanese || "anime image"}
           border_radius="20px"
           w="full"
           maxW="full" //important
@@ -63,7 +63,7 @@ const AnimeCard: React.FC<AnimeCardProps> = ({ anime }) => {
             {anime.year || "--"} &#8226; {anime.type || "--"}
           </Text>
         </Flex>
-        <Tag size="md" colorScheme={broadcastDayColor} mt="2" w="min-content">
+        <Tag size="md" colorScheme={broadcastDayColor} mt="4" w="min-content">
           {anime.broadcast_day || "Unknown"}
         </Tag>
       </Box>
