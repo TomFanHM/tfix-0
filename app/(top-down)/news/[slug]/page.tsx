@@ -20,7 +20,11 @@ const categories = [
   "technology",
 ];
 
-export async function generateMetadata(params: { slug: string }) {
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props) {
   const category = capitalizeFirstLetter(params.slug);
   return {
     title: `${category} News`,

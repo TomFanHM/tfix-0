@@ -15,7 +15,11 @@ export const getAnime = cache(async (id: string) => {
   return anime;
 });
 
-export async function generateMetadata(params: { slug: string }) {
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props) {
   const anime = await getAnime(params.slug);
 
   if (!anime) return {};
