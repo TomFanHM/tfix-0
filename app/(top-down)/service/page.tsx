@@ -10,6 +10,11 @@ import React from "react";
 import { banner } from "./_components/banner";
 import { Button } from "@/components/chakra/FormComponents";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Service",
+};
 
 const Service: React.FC = () => {
   return (

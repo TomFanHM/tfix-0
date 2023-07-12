@@ -11,17 +11,16 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: siteConfig.name,
-    template: siteConfig.name,
+    template: `%s | ${siteConfig.name}`,
   },
   verification: {
     google: "G1fdKaWiLVjT0jg00pyrdcncs1OjOocbEussHVq-4Bk",
   },
   description: siteConfig.description,
   keywords: [
-    "Next",
+    "Next.js",
     "React",
     "TFIX",
-    "Server Components",
     "Chakra UI",
     "News",
     "Anime",

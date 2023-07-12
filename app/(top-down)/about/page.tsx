@@ -4,8 +4,12 @@ import HeroBanner from "@/components/chakra/ui/HeroBanner";
 import GridWrapper from "@/components/container/GridWrapper";
 import MotionContainer from "@/components/container/MotionContainer";
 import { Text } from "@/components/chakra/TypographyComponents";
-
 import React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About us",
+};
 
 const About: React.FC = () => {
   return (

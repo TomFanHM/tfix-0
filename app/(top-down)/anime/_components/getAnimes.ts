@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { firestore } from "@/firebase/firebaseApp";
 import { getDocs, doc, getDoc, DocumentData, Query } from "firebase/firestore";
+import { cache } from "react";
 
 export const AnimeSchema = z
   .object({
@@ -59,6 +60,11 @@ export async function getAnimeById(id: string) {
     return result;
   }
 }
+
+export const getAnimeByIdCache = cache(async (id: string) => {
+  const data = await getAnimeById(id);
+  return data;
+});
 
 export function getCurrentSeason(): "winter" | "spring" | "summer" | "fall" {
   const currentDate = new Date();
