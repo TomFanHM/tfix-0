@@ -99,4 +99,3 @@ export type ThemeColor = {
   scrim: string;
   semiPrimaryContainer: string;
 };
-
