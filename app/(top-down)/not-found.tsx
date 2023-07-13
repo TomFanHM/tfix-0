@@ -27,7 +27,7 @@ export default function PageNotFound() {
           style={{ margin: "0 auto" }}
           priority
         />
-        <Heading color="var(--chakra-colors-secondary)">
+        <Heading color="var(--secondary)">
           404 - Not Found
         </Heading>
         <Text>Oops! The page you are looking for does not exist.</Text>

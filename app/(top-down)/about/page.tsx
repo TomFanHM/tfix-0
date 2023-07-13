@@ -28,7 +28,7 @@ const About: React.FC = () => {
               line2={
                 <>
                   <Text as="span">Elevate your </Text>
-                  <Text as="span" color="var(--chakra-colors-primary)">
+                  <Text as="span" color="var(--primary)">
                     experience
                   </Text>
                 </>

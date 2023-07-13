@@ -28,7 +28,7 @@ const NotUser: React.FC = () => {
         title="error image"
         style={{ margin: "0 auto" }}
       />
-      <Heading pointerEvents="none" color="var(--chakra-colors-secondary)">
+      <Heading pointerEvents="none" color="var(--secondary)">
         TFIX.
       </Heading>
       <Button

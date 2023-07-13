@@ -15,7 +15,7 @@ const CreatePostContainer: React.FC = () => {
     return (
       <>
         <Center minH="calc(100vh - 4rem)">
-          <Spinner color="var(--chakra-colors-primary)" />
+          <Spinner color="var(--primary)" />
         </Center>
       </>
     );

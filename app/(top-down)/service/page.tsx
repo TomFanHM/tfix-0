@@ -56,7 +56,7 @@ const Service: React.FC = () => {
               line1="A platform"
               line2={
                 <>
-                  <Text as="span" color="var(--chakra-colors-primary)">
+                  <Text as="span" color="var(--primary)">
                     Unparalleled
                   </Text>
                   <Text as="span"> experience</Text>
@@ -68,7 +68,7 @@ const Service: React.FC = () => {
           <GridItem colSpan={2}>
             <CallToAction
               background="transparent"
-              color="var(--chakra-colors-onBackground)"
+              color="var(--onBackground)"
               images={[
                 { url: "/images/service/maid_00.png", aspectRatio: "2/3" },
                 { url: "/images/service/maid_01.png", aspectRatio: "2/3" },

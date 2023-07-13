@@ -180,7 +180,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
             <Button variant="form" type="submit" mx="auto" isLoading={loading}>
               Publish
             </Button>
-            <Text color="var(--chakra-colors-error)" textAlign="center">
+            <Text color="var(--error)" textAlign="center">
               {error?.message}
             </Text>
           </>

@@ -1,4 +1,3 @@
-import GridLine from "@/components/container/GridLine";
 import GridWrapper from "@/components/container/GridWrapper";
 import MotionContainer from "@/components/container/MotionContainer";
 import { Heading, Text } from "@/components/chakra/TypographyComponents";
@@ -16,7 +15,7 @@ const Spacer = () => {
 
 export default function Home() {
   return (
-    <GridLine>
+    <>
       {/* */}
       <HeroBanner
         image="/images/home/banner.png"
@@ -26,7 +25,7 @@ export default function Home() {
             <Text as="span">Your Gateway to </Text>
             <Text
               as="span"
-              bgGradient="linear(to-l, var(--chakra-colors-secondary), var(--chakra-colors-tertiary))"
+              bgGradient="linear(to-l, var(--secondary), var(--tertiary))"
               bgClip="text"
             >
               Discovery
@@ -45,7 +44,7 @@ export default function Home() {
               line1="News"
               line2={
                 <>
-                  <Text as="span" color="var(--chakra-colors-primary)">
+                  <Text as="span" color="var(--primary)">
                     Stay informed
                   </Text>
                   <Text as="span">, stay connected</Text>
@@ -136,7 +135,7 @@ export default function Home() {
               line2={
                 <>
                   <Text as="span">Share your thoughts, </Text>
-                  <Text as="span" color="var(--chakra-colors-primary)">
+                  <Text as="span" color="var(--primary)">
                     create connections
                   </Text>
                 </>
@@ -205,8 +204,8 @@ export default function Home() {
           {/* */}
           <GridItem colSpan={2}>
             <CallToAction
-              background="var(--chakra-colors-secondaryContainer)"
-              color="var(--chakra-colors-onSecondaryContainer)"
+              background="var(--secondaryContainer)"
+              color="var(--onSecondaryContainer)"
               images={[
                 { url: "/images/home/one_side_front.png", aspectRatio: "2/3" },
                 { url: "/images/home/one_side.png", aspectRatio: "1/1" },
@@ -231,6 +230,6 @@ export default function Home() {
           </GridItem>
         </GridWrapper>
       </MotionContainer>
-    </GridLine>
+    </>
   );
 }

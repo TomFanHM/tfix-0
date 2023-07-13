@@ -63,7 +63,7 @@ const VotePostButton: React.FC<VotePostButtonProps> = ({
       isLoading={loading}
       aria-label="vote post"
       icon={<Icon as={BsFillHeartFill} boxSize={6} />}
-      color={liked ? "red.400" : "var(--chakra-colors-onPrimary)"}
+      color={liked ? "red.400" : "var(--onPrimary)"}
       onClick={handleVote}
     />
   );

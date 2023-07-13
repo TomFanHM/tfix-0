@@ -80,11 +80,11 @@ const ModernCard: React.FC<ModernCardProps> = ({
             fontSize="xs"
             fontWeight="bold"
             textTransform="uppercase"
-            bg="var(--chakra-colors-primary)"
-            color="var(--chakra-colors-onPrimary)"
+            bg="var(--primary)"
+            color="var(--onPrimary)"
             _hover={{
-              bg: "var(--chakra-colors-secondary)",
-              color: "var(--chakra-colors-onSecondary)",
+              bg: "var(--secondary)",
+              color: "var(--onSecondary)",
             }}
           >
             Read Blog

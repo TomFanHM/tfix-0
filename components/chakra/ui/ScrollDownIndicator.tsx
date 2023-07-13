@@ -31,7 +31,7 @@ const pseudoStyle = {
   content: `""`,
   w: "24px",
   h: "2px",
-  background: "var(--chakra-colors-primary)",
+  background: "var(--primary)",
   display: "inline-block",
   borderRadius: "2px",
 };

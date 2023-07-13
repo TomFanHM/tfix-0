@@ -28,9 +28,7 @@ const Maintenance: React.FC = () => {
           title="404 image"
           style={{ margin: "0 auto" }}
         />
-        <Heading color="var(--chakra-colors-secondary)">
-          Page Under Maintenance
-        </Heading>
+        <Heading color="var(--secondary)">Page Under Maintenance</Heading>
         <Text>
           Please check back later for updates on when this page will be
           available again.

@@ -16,7 +16,7 @@ type NormalCardProps = {
 const NormalCard: React.FC<NormalCardProps> = ({
   image = fallbackImage,
   prompt,
-  color = "var(--chakra-colors-onSurface)",
+  color = "var(--onSurface)",
   url,
   children,
 }) => {
@@ -55,7 +55,7 @@ const NormalCard: React.FC<NormalCardProps> = ({
           gap="4"
           align="start"
           justify={{ md: "space-between" }}
-          bg="var(--chakra-colors-surface)"
+          bg="var(--surface)"
         >
           <VStack spacing="4" align="start" px="4" zIndex={1} color={color}>
             {children}
@@ -66,8 +66,8 @@ const NormalCard: React.FC<NormalCardProps> = ({
             fontWeight="bold"
             color={color}
             _groupHover={{
-              bg: "var(--chakra-colors-primary)",
-              color: "var(--chakra-colors-onPrimary)",
+              bg: "var(--primary)",
+              color: "var(--onPrimary)",
             }}
             zIndex={1}
           >

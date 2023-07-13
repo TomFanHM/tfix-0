@@ -19,8 +19,8 @@ const Footer: React.FC = () => {
   return (
     <Box
       py={{ base: "24", sm: "32", md: "40" }}
-      bg={"var(--chakra-colors-surfaceVariant)"}
-      color={"var(--chakra-colors-onSurfaceVariant)"}
+      bg={"var(--surfaceVariant)"}
+      color={"var(--onSurfaceVariant)"}
     >
       <Container maxW="container.xl">
         <Flex

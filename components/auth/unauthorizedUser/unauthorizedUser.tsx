@@ -25,9 +25,7 @@ const UnauthorizedUser: React.FC = () => {
         title="error image"
         style={{ margin: "0 auto" }}
       />
-      <Heading color="var(--chakra-colors-secondary)">
-        Unauthorized Access
-      </Heading>
+      <Heading color="var(--secondary)">Unauthorized Access</Heading>
       <Text>
         Sorry, you do not have permission to access this page. Please contact
         the administrator if you believe this is a mistake.

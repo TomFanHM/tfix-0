@@ -77,7 +77,7 @@ const CommentInput: React.FC<CommentInputProps> = ({ user, receiverId }) => {
         >
           Submit
         </Button>
-        <Text color="var(--chakra-colors-error)" textAlign="center">
+        <Text color="var(--error)" textAlign="center">
           {error?.message || errorMessage}
         </Text>
       </Flex>

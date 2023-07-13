@@ -67,12 +67,7 @@ type FeatureProps = {
 const Feature: React.FC<FeatureProps> = ({ icon, title, description }) => {
   return (
     <Flex direction="column" alignItems="start">
-      <Box
-        borderRadius="md"
-        bg="var(--chakra-colors-primary)"
-        color="var(--chakra-colors-onPrimary)"
-        p="2"
-      >
+      <Box borderRadius="md" bg="var(--primary)" color="var(--onPrimary)" p="2">
         {icon}
       </Box>
       <Text mt="4" fontWeight="semibold">

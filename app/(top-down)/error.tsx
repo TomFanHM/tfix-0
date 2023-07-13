@@ -37,7 +37,7 @@ export default function Error({
           title="error image"
           style={{ margin: "0 auto" }}
         />
-        <Heading color="var(--chakra-colors-secondary)">Error</Heading>
+        <Heading color="var(--secondary)">Error</Heading>
         <Text>Something went wrong! Please try again later.</Text>
         <Button variant="form" onClick={() => reset()}>
           Try again

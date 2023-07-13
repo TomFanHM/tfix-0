@@ -24,7 +24,7 @@ const LargeCard: React.FC<LargeCardProps> = ({
   mobileImage = fallbackImage,
   image = fallbackImage,
   prompt,
-  color = "var(--chakra-colors-onSurface)",
+  color = "var(--onSurface)",
   url,
   children,
 }) => {
@@ -65,7 +65,7 @@ const LargeCard: React.FC<LargeCardProps> = ({
           align="start"
           justify={{ md: "space-between" }}
           color={color}
-          bg="var(--chakra-colors-surface)"
+          bg="var(--surface)"
         >
           <VStack
             spacing="4"
@@ -82,8 +82,8 @@ const LargeCard: React.FC<LargeCardProps> = ({
             borderRadius="20px"
             color={color}
             _groupHover={{
-              bg: "var(--chakra-colors-primary)",
-              color: "var(--chakra-colors-onPrimary)",
+              bg: "var(--primary)",
+              color: "var(--onPrimary)",
             }}
             zIndex={1}
           >

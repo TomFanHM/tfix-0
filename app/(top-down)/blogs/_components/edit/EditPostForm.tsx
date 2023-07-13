@@ -195,7 +195,7 @@ const EditPostForm: React.FC<EditPostFormProps> = ({ user, post }) => {
             >
               Back
             </Button>
-            <Text color="var(--chakra-colors-error)" textAlign="center">
+            <Text color="var(--error)" textAlign="center">
               {error?.message}
             </Text>
           </>
