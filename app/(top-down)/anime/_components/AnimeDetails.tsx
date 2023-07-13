@@ -41,7 +41,7 @@ const AnimeDetails: React.FC<AnimeDetailsProps> = ({ anime, productsData }) => {
         <AspectRatio w="full" maxW="full" ratio={16 / 9}>
           <iframe
             title={anime.title_english || anime.title_japanese || "Unknown"}
-            src={anime.trailer_embed_url || ""}
+            src={anime.trailer_embed_url || "https://www.youtube.com/embed/xxxxxxxxxxx"}
             allowFullScreen
           />
         </AspectRatio>
