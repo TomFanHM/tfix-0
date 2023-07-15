@@ -2,7 +2,7 @@ import React from "react";
 import { AnimeData, getAnimes } from "../getAnimes";
 import { Button, Grid, GridItem, Skeleton, Stack } from "@chakra-ui/react";
 import SearchCard from "./SearchCard";
-import { sortAnime } from "./sort";
+import { sortAnimeFactory } from "./sort";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
 import { scrollToTop } from "@/functions/functions";
 import { SearchQuery, generateAnimeSearchQuery } from "./getQuery";
@@ -39,7 +39,7 @@ const AnimeSearchResults: React.FC<AnimeSearchResultsProps> = ({
       mx="auto"
       pb={{ base: "10", md: "20" }}
     >
-      {sortAnime(data, sort).map((el, i) => (
+      {sortAnimeFactory(data, sort).map((el, i) => (
         <GridItem key={i} colSpan={{ base: 2, md: 1 }}>
           <SearchCard
             url={el.image}

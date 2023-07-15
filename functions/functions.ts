@@ -135,24 +135,6 @@ export async function revalidatePathByNextApi(path: string) {
   return null;
 }
 
-export function sortWithOption<TItem, TKey extends keyof TItem>(
-  arr: TItem[],
-  option: TKey,
-  order: "asc" | "desc"
-): TItem[] {
-  if (!option) return arr;
-  if (arr.length === 0) return arr;
-  return [...arr].sort((a, b) => {
-    const left = a[option];
-    const right = b[option];
-    if (order === "asc") {
-      return left < right ? -1 : left > right ? 1 : 0;
-    } else {
-      return right < left ? -1 : right > left ? 1 : 0;
-    }
-  });
-}
-
 export function sortWithYearAndMonth<
   TItem extends { year: number; season: string }
 >(arr: TItem[], order: "asc" | "desc"): TItem[] {
@@ -163,4 +145,63 @@ export function sortWithYearAndMonth<
       ? a.season.localeCompare(b.season)
       : b.season.localeCompare(a.season);
   });
+}
+
+export function sortFactory<T, K extends keyof T>(
+  arr: T[],
+  fn: (el: T) => T[K] | number | undefined | null,
+  order: "asc" | "desc" = "asc"
+) {
+  function compareFn(a: T, b: T) {
+    const aVal = fn(a);
+    const bVal = fn(b);
+
+    if (aVal === undefined || aVal === null) {
+      return order === "asc" ? -1 : 1;
+    }
+    if (bVal === undefined || bVal === null) {
+      return order === "asc" ? 1 : -1;
+    }
+
+    if (aVal < bVal) {
+      return order === "asc" ? -1 : 1;
+    } else if (aVal > bVal) {
+      return order === "asc" ? 1 : -1;
+    } else {
+      return 0;
+    }
+  }
+
+  return mergeSort(arr, compareFn);
+}
+
+function mergeSort<T>(arr: T[], compare: (a: T, b: T) => number): T[] {
+  if (arr.length <= 1) {
+    return arr;
+  }
+
+  const middleIndex = Math.floor(arr.length / 2);
+  const left = arr.slice(0, middleIndex);
+  const right = arr.slice(middleIndex);
+
+  return merge(mergeSort(left, compare), mergeSort(right, compare), compare);
+}
+
+function merge<T>(left: T[], right: T[], compare: (a: T, b: T) => number): T[] {
+  let result: T[] = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
+
+  while (leftIndex < left.length && rightIndex < right.length) {
+    const comparison = compare(left[leftIndex], right[rightIndex]);
+    if (comparison <= 0) {
+      result.push(left[leftIndex]);
+      leftIndex++;
+    } else {
+      result.push(right[rightIndex]);
+      rightIndex++;
+    }
+  }
+
+  return result.concat(left.slice(leftIndex), right.slice(rightIndex));
 }
