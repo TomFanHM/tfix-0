@@ -1,15 +1,27 @@
 import { firestore } from "@/firebase/firebaseApp";
-import { DocumentData, Query, doc, getDoc, getDocs } from "firebase/firestore";
+import {
+  DocumentData,
+  Query,
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import { cache } from "react";
 import safeJsonStringify from "safe-json-stringify";
 import { z } from "zod";
 
 type VoteCount = {
-  [key: string]: boolean
-}
+  [key: string]: boolean;
+};
 
 export const getVoteCount = (likes: VoteCount) => {
-  return Object.values(likes).reduce((sum, value) => sum + Number(value), 0)
-}
+  return Object.values(likes).reduce((sum, value) => sum + Number(value), 0);
+};
 
 export const Timestamp = z.object({
   seconds: z.number(),
@@ -100,3 +112,22 @@ export async function getComments(
   });
   return comments.flatMap((f) => (f ? [f] : []));
 }
+
+export const getPostCache = cache(async (postId: string) => {
+  const docRef = collection(firestore, "comments");
+  const q = query(
+    docRef,
+    where("receiverId", "==", postId),
+    orderBy("createdAt", "desc"),
+    limit(20)
+  );
+  try {
+    const response = await Promise.all([getPostById(postId), getComments(q)]);
+    const [post, comments] = response;
+    if (!post) return null;
+    return { post, comments };
+  } catch (error) {
+    console.log("getPostCache error: ", error);
+  }
+  return null;
+});

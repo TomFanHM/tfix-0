@@ -2,7 +2,7 @@ import React from "react";
 import { ProductSchema, getProductsByFilter } from "../getProducts";
 import { Button, Grid, GridItem, Skeleton, Stack } from "@chakra-ui/react";
 import SearchCard from "./SearchCard";
-import { sortProduct } from "./sort";
+import { sortProductFactory } from "./sort";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
 import { scrollToTop } from "@/functions/functions";
 import { SearchQuery, generateProductSearchQuery } from "./getQuery";
@@ -40,7 +40,7 @@ const ProductSearchResults: React.FC<ProductSearchResultsProps> = ({
       mx="auto"
       pb={{ base: "10", md: "20" }}
     >
-      {sortProduct(data, sort).map((el, i) => (
+      {sortProductFactory(data, sort).map((el, i) => (
         <GridItem key={i} colSpan={{ base: 2, md: 1 }}>
           <SearchCard
             url={el.images[0] ? el.images[0] : el.image} //image inside images is more high quality

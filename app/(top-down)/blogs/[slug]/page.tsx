@@ -1,7 +1,5 @@
-import { firestore } from "@/firebase/firebaseApp";
-import { collection, query, orderBy, limit, where } from "firebase/firestore";
 import React from "react";
-import { getComments, getPostById, getPosts } from "../_components/getPosts";
+import { getPostCache } from "../_components/getPosts";
 import { notFound } from "next/navigation";
 import PostContainer from "../_components/post/PostContainer";
 
@@ -19,20 +17,22 @@ export const revalidate = 0; //server side rendering
   return data.map((post) => ({ slug: post.id }));
 } */
 
-async function getData(postId: string) {
-  const docRef = collection(firestore, "comments");
-  const q = query(
-    docRef,
-    where("receiverId", "==", postId),
-    orderBy("createdAt", "desc"),
-    limit(20)
-  );
-  const [post, comments] = await Promise.all([
-    getPostById(postId),
-    getComments(q),
-  ]);
-  if (!post) return null;
-  return { post, comments };
+type Props = {
+  params: { slug: string };
+};
+
+export async function generateMetadata({ params }: Props) {
+  const results = await getPostCache(params.slug);
+  if (!results)
+    return {
+      title: "unknown post",
+      description: "unknown post description",
+    };
+  const { post } = results;
+  return {
+    title: post.headline,
+    description: post.introduction,
+  };
 }
 
 const PostDetail = async ({
@@ -40,7 +40,7 @@ const PostDetail = async ({
 }: {
   params: { slug: string };
 }): Promise<JSX.Element> => {
-  const results = await getData(params.slug);
+  const results = await getPostCache(params.slug);
   if (!results) return notFound();
 
   const { post, comments } = results;

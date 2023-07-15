@@ -2,8 +2,6 @@ import { sortFactory } from "@/functions/functions";
 import { AnimeData } from "../getAnimes";
 import { ProductSchema } from "../getProducts";
 
-type Season = "winter" | "spring" | "summer" | "fall";
-
 export type SortOptions = {
   anime: null | "Latest" | "Popular" | "Broadcast";
   product: null | "Price" | "Release Date";
@@ -60,65 +58,16 @@ export function sortAnimeFactory(
   return arr;
 }
 
-export function sortAnime(
-  arr: AnimeData[],
-  sortedBy: null | "Latest" | "Popular" | "Broadcast"
-): AnimeData[] {
-  if (!sortedBy) return arr;
-  switch (sortedBy) {
-    case "Latest":
-      return [...arr].sort((a, b) => {
-        //compare the year values
-        if (!a.year) return 1;
-        if (!b.year) return -1;
-        if (a.year !== b.year) return b.year - a.year;
-        //compare the season values
-        const aSeason = seasonMap[a.season as Season];
-        const bSeason = seasonMap[b.season as Season];
-        if (!aSeason) return 1;
-        if (!bSeason) return -1;
-        return bSeason - aSeason;
-      });
-    case "Popular":
-      return [...arr].sort((a, b) => {
-        if (!a.popularity) return 1;
-        if (!b.popularity) return -1;
-        return a.popularity - b.popularity; //small popularity value means more popular
-      });
-    case "Broadcast":
-      return [...arr].sort((a, b) => {
-        const aDay = weekdayMap[a.broadcast_day as keyof typeof weekdayMap];
-        const bDay = weekdayMap[b.broadcast_day as keyof typeof weekdayMap];
-        if (!aDay) return 1;
-        if (!bDay) return -1;
-        return bDay - aDay;
-      });
-    default:
-      return arr;
-  }
-}
-
-export function sortProduct(
+export function sortProductFactory(
   arr: ProductSchema[],
   sortedBy: null | "Price" | "Release Date"
-): ProductSchema[] {
+) {
   if (!sortedBy) return arr;
   switch (sortedBy) {
     case "Price":
-      // First, remove the non-numeric characters from each string and parse as a number
-      return [...arr].sort((a, b) => {
-        const aPrice = Number(a.price.replace(/[^0-9]/g, "")); //^ = match any character that is not in the set
-        const bPrice = Number(b.price.replace(/[^0-9]/g, ""));
-        if (!aPrice) return 1;
-        if (!bPrice) return -1;
-        return bPrice - aPrice;
-      });
+      return sortFactory(arr, (el: ProductSchema) => Number(el.price.replace(/[^0-9]/g, "")), "desc");
     case "Release Date":
-      return [...arr].sort((a, b) => {
-        if (!a.releaseDate) return 1;
-        if (!b.releaseDate) return -1;
-        return b.releaseDate.localeCompare(a.releaseDate);
-      });
+      return sortFactory(arr, (el: ProductSchema) => el.releaseDate, "desc");
     default:
       return arr;
   }
