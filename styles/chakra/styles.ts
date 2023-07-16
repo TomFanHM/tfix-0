@@ -1,5 +1,4 @@
 import type { Styles, GlobalStyleProps } from "@chakra-ui/theme-tools";
-import { dark, light } from "./colors";
 
 export const styles: Styles = {
   global: (props: GlobalStyleProps) => ({
@@ -9,7 +8,6 @@ export const styles: Styles = {
     },
     "*::placeholder": { opacity: 0.6 },
     "*, *::before, &::after": {
-      outlineColor: props.colorMode === "light" ? light.outline : dark.outline,
       padding: 0,
       margin: 0,
       boxSizing: "border-box",

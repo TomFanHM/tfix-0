@@ -2,8 +2,14 @@ import React from "react";
 import { getPostById } from "../../_components/getPosts";
 import { notFound } from "next/navigation";
 import EditPostContainer from "../../_components/edit/EditPostContainer";
+import { Metadata } from "next";
 
 export const revalidate = 0;
+
+export const metadata: Metadata = {
+  title: "Edit post",
+  description: "",
+};
 
 async function getData(postId: string) {
   const data = await getPostById(postId);

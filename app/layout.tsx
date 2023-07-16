@@ -1,11 +1,11 @@
 import { siteConfig } from "@/config/site";
 import AppLayout from "./AppLayout";
-import "@fontsource/roboto/400.css";
-import "@fontsource/open-sans/400.css";
-import "react-quill/dist/quill.snow.css";
 import { Metadata } from "next";
 //import Analytics from "@/components/others/Analytics";
 import Indicator from "@/components/others/Indicator";
+//css
+import "react-quill/dist/quill.snow.css";
+import "@/styles/global/style.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

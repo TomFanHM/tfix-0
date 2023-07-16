@@ -1,17 +1,15 @@
 "use client";
 
-import { Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import Footer from "../footer";
 import Header from "../header";
 import { AnimatePresence } from "framer-motion";
-import { light, dark } from "@/styles/chakra/colors";
 
 type MainContainerProps = {
   children: React.ReactNode;
 };
 
 const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
-  const color = useColorModeValue(light, dark);
   return (
     <>
       <Grid
@@ -22,39 +20,6 @@ const MainContainer: React.FC<MainContainerProps> = ({ children }) => {
         bg="var(--background)"
         color="var(--onBackground)"
         outlineColor="var(--outline)"
-        sx={{
-          "--primary": color.primary,
-          "--onPrimary": color.onPrimary,
-          "--primaryContainer": color.primaryContainer,
-          "--onPrimaryContainer": color.onPrimaryContainer,
-          "--secondary": color.secondary,
-          "--onSecondary": color.onSecondary,
-          "--secondaryContainer": color.secondaryContainer,
-          "--onSecondaryContainer": color.onSecondaryContainer,
-          "--tertiary": color.tertiary,
-          "--onTertiary": color.onTertiary,
-          "--tertiaryContainer": color.tertiaryContainer,
-          "--onTertiaryContainer": color.onTertiaryContainer,
-          "--error": color.error,
-          "--errorContainer": color.errorContainer,
-          "--onError": color.onError,
-          "--onErrorContainer": color.onErrorContainer,
-          "--background": color.background,
-          "--onBackground": color.onBackground,
-          "--surface": color.surface,
-          "--onSurface": color.onSurface,
-          "--surfaceVariant": color.surfaceVariant,
-          "--onSurfaceVariant": color.onSurfaceVariant,
-          "--outline": color.outline,
-          "--inverseOnSurface": color.inverseOnSurface,
-          "--inverseSurface": color.inverseSurface,
-          "--inversePrimary": color.inversePrimary,
-          "--shadow": color.shadow,
-          "--surfaceTint": color.surfaceTint,
-          "--outlineVariant": color.outlineVariant,
-          "--scrim": color.scrim,
-          "--semiPrimaryContainer": color.semiPrimaryContainer,
-        }}
       >
         <GridItem
           area="header"

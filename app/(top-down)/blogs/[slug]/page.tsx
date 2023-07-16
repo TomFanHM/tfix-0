@@ -23,11 +23,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const results = await getPostCache(params.slug);
-  if (!results)
-    return {
-      title: "unknown post",
-      description: "unknown post description",
-    };
+  if (!results) return notFound();
   const { post } = results;
   return {
     title: post.headline,

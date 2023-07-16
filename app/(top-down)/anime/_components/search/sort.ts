@@ -65,7 +65,11 @@ export function sortProductFactory(
   if (!sortedBy) return arr;
   switch (sortedBy) {
     case "Price":
-      return sortFactory(arr, (el: ProductSchema) => Number(el.price.replace(/[^0-9]/g, "")), "desc");
+      return sortFactory(
+        arr,
+        (el: ProductSchema) => Number(el.price.replace(/[^0-9]/g, "")),
+        "desc"
+      );
     case "Release Date":
       return sortFactory(arr, (el: ProductSchema) => el.releaseDate, "desc");
     default:

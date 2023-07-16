@@ -1,11 +1,10 @@
-import "@fontsource/roboto/400.css";
-
 import { ComponentStyleConfig, StyleFunctionProps } from "@chakra-ui/react";
 import { light, dark } from "./colors";
+import { roboto } from "./fonts";
 
 export const Button: ComponentStyleConfig = {
   baseStyle: {
-    fontFamily: `'Roboto', sans-serif`,
+    fontFamily: roboto.style.fontFamily,
     transition: "250ms ease-in-out",
     cursor: "pointer",
   },

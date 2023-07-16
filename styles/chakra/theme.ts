@@ -7,6 +7,7 @@ import { styles } from "./styles";
 import { dark, light } from "./colors";
 import { menuTheme } from "./menu";
 import { withProse } from "@nikolovlazar/chakra-ui-prose";
+import { fonts } from "./fonts";
 
 const config: ThemeConfig = {
   initialColorMode: "light",
@@ -24,10 +25,7 @@ const theme = extendTheme(
       dark,
       elevation,
     },
-    fonts: {
-      heading: `'Roboto', sans-serif`,
-      body: `'Open Sans', sans-serif`,
-    },
+    fonts,
     layerStyles: {
       "High-emphasis": {
         opacity: 0.87,
