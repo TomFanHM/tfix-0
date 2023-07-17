@@ -26,6 +26,7 @@ import ShareButton from "../ShareButton";
 import DeletePostButton from "../DeletePostButton";
 import { useRouter } from "next/navigation";
 import { MdEdit } from "react-icons/md";
+import CommentsContainer from "./CommentsContainer";
 
 type PostContainerProps = {
   post: PostData;
@@ -139,8 +140,10 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
           </HStack>
         </Flex>
         <CommentInput user={user} receiverId={post.id} />
+        <CommentsContainer comments={comments} user={user} />
       </Flex>
     </MotionContainer>
   );
 };
+
 export default PostContainer;

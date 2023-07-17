@@ -101,14 +101,7 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
         </HStack>
         <Divider />
         <Flex wrap="wrap" gap="4">
-          <VotePostButton
-            postId={post.id}
-            user={user}
-            likesData={post.likes}
-            effect={() => {
-              //nothing
-            }}
-          />
+          <VotePostButton postId={post.id} user={user} likesData={post.likes} />
           <Button
             variant="custom_solid"
             leftIcon={<Icon as={BsFillEyeFill} boxSize={6} />}

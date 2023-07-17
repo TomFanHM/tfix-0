@@ -21,7 +21,6 @@ type VotePostButtonProps = {
   postId: string;
   user: User | null | undefined;
   likesData: Record<string, boolean>;
-  effect: () => void;
 };
 
 const VotePostButton: React.FC<VotePostButtonProps> = ({

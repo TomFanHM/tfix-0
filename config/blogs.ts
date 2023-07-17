@@ -7,10 +7,6 @@ export const blogsConfig: BlogsConfig = {
       href: "/blogs",
     },
     {
-      title: "Notifications",
-      href: "/blogs/notifications",
-    },
-    {
       title: "Create Post",
       href: "/blogs/create",
     },

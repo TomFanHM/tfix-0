@@ -13,13 +13,13 @@ const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 const modules = {
   toolbar: [
     ["bold", "italic", "underline", "strike"],
+    [{ font: [] }],
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     [{ size: ["small", "large", "huge", false] }],
     ["blockquote", "code-block"],
     [{ align: [] }],
     ["image", "link", "video"],
     [{ color: [] }, { background: [] }],
-    [{ font: [] }],
     ["clean"],
   ],
 };

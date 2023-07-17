@@ -30,6 +30,8 @@
   --outlineVariant: #c0c9c1;
   --scrim: #000000;
   --semiPrimaryContainer: rgba(142, 247, 193, 0.8);
+
+  --c: rgba(0, 0, 0, 0.1);
 }
 
 .chakra-ui-dark {
@@ -64,4 +66,6 @@
   --outlineVariant: #404943;
   --scrim: #000000;
   --semiPrimaryContainer: rgba(0, 82, 53, 0.8);
+
+  --c: rgba(255, 255, 255, 0.1);
 }

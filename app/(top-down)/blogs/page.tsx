@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 async function getData() {
   const postsDocRef = collection(firestore, "posts");
-  const q = query(postsDocRef, orderBy("createdAt", "desc"), limit(10));
+  const q = query(postsDocRef, orderBy("createdAt", "desc"), limit(20));
   const data = await getPosts(q);
   if (!data.length) return null; //no data
   return data;
