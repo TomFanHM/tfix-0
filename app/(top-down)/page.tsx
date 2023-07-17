@@ -8,7 +8,7 @@ import HeroBanner from "@/components/chakra/ui/HeroBanner";
 import BannerText from "@/components/chakra/ui/BannerText";
 import CallToAction from "@/components/chakra/ui/CallToAction";
 import NewsletterSection from "@/components/chakra/ui/Newsletter";
-import GridLine from "@/components/container/GridLine";
+import BackgroundImage from "@/components/container/BackgroundImage";
 
 const Spacer = () => {
   return <GridItem py={{ base: "8", md: "16" }} colSpan={2}></GridItem>;
@@ -16,7 +16,7 @@ const Spacer = () => {
 
 export default function Home() {
   return (
-    <GridLine>
+    <BackgroundImage style="dot">
       {/* */}
       <HeroBanner
         image="/images/home/banner.png"
@@ -231,6 +231,6 @@ export default function Home() {
           </GridItem>
         </GridWrapper>
       </MotionContainer>
-    </GridLine>
+    </BackgroundImage>
   );
 }

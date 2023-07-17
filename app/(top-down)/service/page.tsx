@@ -11,6 +11,7 @@ import { banner } from "./_components/banner";
 import { Button } from "@/components/chakra/FormComponents";
 import Link from "next/link";
 import { Metadata } from "next";
+import BackgroundImage from "@/components/container/BackgroundImage";
 
 export const metadata: Metadata = {
   title: "Service",
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
 
 const Service: React.FC = () => {
   return (
-    <>
+    <BackgroundImage style="grid">
       <HeroBanner
         image="/images/service/service.png"
         mobileImage="/images/service/service_mobile.png"
@@ -96,7 +97,7 @@ const Service: React.FC = () => {
           </GridItem>
         </GridWrapper>
       </MotionContainer>
-    </>
+    </BackgroundImage>
   );
 };
 export default Service;
