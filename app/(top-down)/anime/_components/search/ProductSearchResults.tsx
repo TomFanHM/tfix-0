@@ -4,9 +4,9 @@ import { Button, Grid, GridItem, Skeleton, Stack } from "@chakra-ui/react";
 import SearchCard from "./SearchCard";
 import { sortProductFactory } from "./sort";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
-import { scrollToTop } from "@/functions/functions";
 import { SearchQuery, generateProductSearchQuery } from "./getQuery";
 import { query, startAfter } from "firebase/firestore";
+import { scrollToTop } from "@/functions/other";
 
 type ProductSearchResultsProps = {
   products: ProductSchema[];

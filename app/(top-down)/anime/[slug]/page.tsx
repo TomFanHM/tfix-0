@@ -5,11 +5,7 @@ import MotionContainer from "@/components/container/MotionContainer";
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, query, orderBy, limit } from "firebase/firestore";
 import AnimeDetails from "../_components/AnimeDetails";
-import {
-  getAnimes,
-  getAnimeById,
-  getAnimeByIdCache,
-} from "../_components/getAnimes";
+import { getAnimes, getAnimeByIdCache } from "../_components/getAnimes";
 import { getProducts } from "../_components/getProducts";
 
 export const revalidate = 86400; //3600 * 24;

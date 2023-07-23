@@ -1,7 +1,6 @@
 "use client";
 
 import OptimizedImage from "@/components/image/OptimizedImage";
-import { cleanHtml, splitString } from "@/functions/functions";
 import {
   AspectRatio,
   Box,
@@ -12,6 +11,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
+import { cleanHtml } from "@/functions/other";
+import { getTags } from "@/functions/string";
 
 type CreateForm = {
   headline: string;
@@ -47,7 +48,7 @@ const DraftView: React.FC<DraftViewProps> = ({ data }) => {
     >
       {selectedTag && (
         <HStack spacing="2" layerStyle="Medium-emphasis">
-          {splitString(selectedTag).map((tag, i) => (
+          {getTags(selectedTag).map((tag, i) => (
             <Text key={i}>#{tag}</Text>
           ))}
         </HStack>

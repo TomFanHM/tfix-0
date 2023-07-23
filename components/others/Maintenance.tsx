@@ -1,5 +1,4 @@
 "use client";
-//this component is used to display a maintenance page when a page is under maintenance
 
 import { Flex, Heading, Button, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";

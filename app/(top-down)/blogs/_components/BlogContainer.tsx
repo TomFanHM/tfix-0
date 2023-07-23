@@ -16,7 +16,6 @@ import Link from "next/link";
 import BlogPostCard from "./BlogPostCard";
 import { auth, firestore } from "@/firebase/firebaseApp";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { scrollToTop } from "@/functions/functions";
 import {
   Timestamp,
   collection,
@@ -26,6 +25,7 @@ import {
   startAfter,
 } from "firebase/firestore";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
+import { scrollToTop } from "@/functions/other";
 
 type BlogContainerProps = {
   posts: PostData[];

@@ -1,11 +1,11 @@
 "use client";
 
-import { fromNow } from "@/functions/dateUtils";
 import { Flex, GridItem, Heading, Text, Link } from "@chakra-ui/react";
 import NextLink from "next/link";
 import React from "react";
 import { ArticleSchema } from "./getNews";
 import OptimizedImage from "@/components/image/OptimizedImage";
+import { fromNow } from "@/functions/date";
 
 type NewsCardProps = {
   id: number;
@@ -16,13 +16,9 @@ const NewsCard: React.FC<NewsCardProps> = ({ id, article }) => {
   const large: boolean = id % 5 === 0;
   const banner: boolean = id % 5 === 0 || id % 5 === 1;
 
-  /* const handleOpenSource = () => {
-    window.open(article.url, "_blank");
-  }; */
-
   return (
     <GridItem colSpan={{ base: 3, md: large ? 2 : 1 }}>
-      <Link href={article.url} target="_blank" rel="nofollow">
+      <Link href={article.url} target="_blank">
         <OptimizedImage
           url={article.imageUrl}
           alt={article.title || "news image"}

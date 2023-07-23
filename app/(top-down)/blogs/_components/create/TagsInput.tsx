@@ -1,6 +1,6 @@
 "use client";
 
-import { splitString } from "@/functions/functions";
+import { getTags } from "@/functions/string";
 import {
   Flex,
   FormControl,
@@ -32,7 +32,7 @@ const TagsInput: React.FC<TagsInputProps> = ({ selectedTag, handleChange }) => {
       </FormControl>
       <Box w="full">
         {selectedTag &&
-          splitString(selectedTag).map((tag: string, i) => (
+          getTags(selectedTag).map((tag: string, i) => (
             <Tag key={i} mr="4" mb="4" size="md" wordBreak="break-word">
               {tag}
             </Tag>

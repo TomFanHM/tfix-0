@@ -1,4 +1,4 @@
-import { sortFactory } from "@/functions/functions";
+import { sort } from "@/functions/sort";
 import { AnimeData } from "../getAnimes";
 import { ProductSchema } from "../getProducts";
 
@@ -30,10 +30,10 @@ export function sortAnimeFactory(
 ) {
   if (!sortedBy) return arr;
   if (sortedBy === "Popular") {
-    return sortFactory(arr, (el: AnimeData) => el.popularity, "asc"); //small popularity value means more popular
+    return sort(arr, (el: AnimeData) => el.popularity, "asc"); //small popularity value means more popular
   }
   if (sortedBy === "Broadcast") {
-    return sortFactory(
+    return sort(
       arr,
       (el: AnimeData) =>
         el.broadcast_day
@@ -43,7 +43,7 @@ export function sortAnimeFactory(
     );
   }
   if (sortedBy === "Latest") {
-    return sortFactory(
+    return sort(
       arr,
       (el: AnimeData) => {
         if (!el.year) return undefined;
@@ -65,13 +65,13 @@ export function sortProductFactory(
   if (!sortedBy) return arr;
   switch (sortedBy) {
     case "Price":
-      return sortFactory(
+      return sort(
         arr,
         (el: ProductSchema) => Number(el.price.replace(/[^0-9]/g, "")),
         "desc"
       );
     case "Release Date":
-      return sortFactory(arr, (el: ProductSchema) => el.releaseDate, "desc");
+      return sort(arr, (el: ProductSchema) => el.releaseDate, "desc");
     default:
       return arr;
   }

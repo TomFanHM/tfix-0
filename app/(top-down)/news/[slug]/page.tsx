@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import React from "react";
-
-import { capitalizeFirstLetter } from "@/functions/functions";
 import { firestore } from "@/firebase/firebaseApp";
 import { collection, limit, orderBy, query, where } from "firebase/firestore";
 import { getNews } from "../_components/getNews";
 import NewsContainer from "../_components/NewsContainer";
+import { capitalizeFirstLetter } from "@/functions/string";
 
 export const revalidate = 3600;
 export const dynamicParams = false; //Dynamic segments not included in generateStaticParams will return a 404

@@ -58,10 +58,10 @@ const useCreateComment = () => {
       };
 
       await runTransaction(firestore, async (transaction: Transaction) => {
-        const postRef = doc(firestore, "posts", receiverId);
+        const targetRef = doc(firestore, "posts", receiverId);
         const commentRef = doc(collection(firestore, "comments")); //generate new comment id
         transaction.set(commentRef, commentData);
-        transaction.update(postRef, {
+        transaction.update(targetRef, {
           comments: increment(1),
         });
       });

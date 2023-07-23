@@ -23,7 +23,7 @@ const DeletePostButton: React.FC<DeletePostButtonProps> = ({
 
   const handleDeletePost = async (): Promise<void> => {
     const success = await onDeletePost(postId, creatorId);
-    if (success.post) {
+    if (success) {
       toast({
         title: "Deleted.",
         variant: "solid",

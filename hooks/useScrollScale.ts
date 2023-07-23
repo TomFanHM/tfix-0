@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
 
 //this hook is used to handle the scale for animation
-//it takes 3 parameters
-//initialScale: the initial scale of the element
-//scaleRate: the rate at which the scale will increase, the higher the number the slower the scale will increase
-//maxScale: the maximum scale that the element will reach
 
 const getScrollPosition = (): number => window.scrollY;
 

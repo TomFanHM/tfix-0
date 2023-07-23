@@ -1,7 +1,8 @@
 "use client";
 
 import OptimizedImage from "@/components/image/OptimizedImage";
-import { cleanHtml, splitString } from "@/functions/functions";
+import { cleanHtml } from "@/functions/other";
+import { getTags } from "@/functions/string";
 import {
   Flex,
   HStack,
@@ -40,7 +41,7 @@ const DraftView: React.FC<DraftViewProps> = ({ data, coverURL }) => {
     >
       {selectedTag && (
         <HStack spacing="2" layerStyle="Medium-emphasis">
-          {splitString(selectedTag).map((tag, i) => (
+          {getTags(selectedTag).map((tag, i) => (
             <Text key={i}>#{tag}</Text>
           ))}
         </HStack>

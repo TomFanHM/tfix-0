@@ -3,7 +3,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { CommentData, PostData, getVoteCount } from "../getPosts";
 import MotionContainer from "@/components/container/MotionContainer";
-import { cleanHtml } from "@/functions/functions";
 import {
   Divider,
   Flex,
@@ -13,7 +12,6 @@ import {
   IconButton,
   Text,
 } from "@chakra-ui/react";
-import { fromNow } from "@/functions/dateUtils";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import CommentInput from "./CommentInput";
@@ -27,6 +25,8 @@ import DeletePostButton from "../DeletePostButton";
 import { useRouter } from "next/navigation";
 import { MdEdit } from "react-icons/md";
 import CommentsContainer from "./CommentsContainer";
+import { fromNow } from "@/functions/date";
+import { cleanHtml } from "@/functions/other";
 
 type PostContainerProps = {
   post: PostData;

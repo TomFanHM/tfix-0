@@ -3,10 +3,10 @@
 import React, { useMemo } from "react";
 import { CommentData } from "../getPosts";
 import { Avatar, Box, Flex, HStack, Text } from "@chakra-ui/react";
-import { fromNow } from "@/functions/dateUtils";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
-import { cleanHtml } from "@/functions/functions";
 import { User } from "firebase/auth";
+import { fromNow } from "@/functions/date";
+import { cleanHtml } from "@/functions/other";
 
 type CommentCardProps = {
   user: User | null | undefined;

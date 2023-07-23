@@ -1,11 +1,8 @@
 //custom hook for create new post
 
 import { firestore, storage } from "@/firebase/firebaseApp";
-import {
-  splitString,
-  capitalizeFirstLetter,
-  getYoutubeEmbedLink,
-} from "@/functions/functions";
+import { getYoutubeEmbedLink } from "@/functions/other";
+import { getTags, capitalizeFirstLetter } from "@/functions/string";
 import { User } from "firebase/auth";
 import {
   doc,
@@ -90,9 +87,7 @@ const useCreatePost = () => {
       }
       //prepare data
       const tags = selectedTag
-        ? splitString(selectedTag).map((tag: string) =>
-            capitalizeFirstLetter(tag)
-          )
+        ? getTags(selectedTag).map((tag: string) => capitalizeFirstLetter(tag))
         : ["General"]; //if empty string, set general as default
 
       const iframe = iframeURL ? getYoutubeEmbedLink(iframeURL) : null;
@@ -129,7 +124,7 @@ const useCreatePost = () => {
       //complete
       setLoading(false);
 
-      return { success: true, postId: postId }; 
+      return { success: true, postId: postId };
     } catch (error) {
       if (error instanceof Error) setError(error);
     }

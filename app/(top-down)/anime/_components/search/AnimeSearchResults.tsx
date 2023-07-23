@@ -4,9 +4,9 @@ import { Button, Grid, GridItem, Skeleton, Stack } from "@chakra-ui/react";
 import SearchCard from "./SearchCard";
 import { sortAnimeFactory } from "./sort";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
-import { scrollToTop } from "@/functions/functions";
 import { SearchQuery, generateAnimeSearchQuery } from "./getQuery";
 import { query, startAfter } from "firebase/firestore";
+import { scrollToTop } from "@/functions/other";
 
 type AnimeSearchResultsProps = {
   anime: AnimeData[];

@@ -26,17 +26,26 @@ type SearchResults = {
 
 const SearchContainer: React.FC = () => {
   const toast = useToast();
+
   const [category, setCategory] = useState<"anime" | "product">("anime");
+
   const [results, setResults] = useState<SearchResults>({
     anime: null,
     product: null,
   });
+
   const [loading, setLoading] = useState<boolean>(false);
+
   const [lastSearchTime, setLastSearchTime] = useState<number>(0);
+
   const [sortOptions, setSortOptions] = useState<SortOptions>({
     anime: null,
     product: null,
   });
+
+  const handleCategorySelect = (category: "anime" | "product") => {
+    setCategory(category);
+  };
 
   const handleSortOptions = (
     value: SortOptions["anime"] | SortOptions["product"],
@@ -111,10 +120,6 @@ const SearchContainer: React.FC = () => {
       setLastSearchTime(currentTime);
     },
   });
-
-  const handleCategorySelect = (category: "anime" | "product") => {
-    setCategory(category);
-  };
 
   return (
     <MotionContainer maxW="container.xl">

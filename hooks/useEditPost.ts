@@ -1,9 +1,6 @@
 import { firestore } from "@/firebase/firebaseApp";
-import {
-  splitString,
-  capitalizeFirstLetter,
-  getYoutubeEmbedLink,
-} from "@/functions/functions";
+import { getYoutubeEmbedLink } from "@/functions/other";
+import { capitalizeFirstLetter, getTags } from "@/functions/string";
 import { User } from "firebase/auth";
 import { doc, serverTimestamp, Timestamp, updateDoc } from "firebase/firestore";
 import { useState } from "react";
@@ -55,9 +52,7 @@ export const useEditPost = () => {
       const postDocRef = doc(firestore, "posts", postId);
       //prepare data
       const tags = selectedTag
-        ? splitString(selectedTag).map((tag: string) =>
-            capitalizeFirstLetter(tag)
-          ) //selectedTag is a string, we need to split it into array and capitalize each word
+        ? getTags(selectedTag).map((tag: string) => capitalizeFirstLetter(tag)) //selectedTag is a string, we need to split it into array and capitalize each word
         : ["General"]; //if empty string, set general as default
 
       const iframe = iframeURL ? getYoutubeEmbedLink(iframeURL) : null; //convert it to youtube link
@@ -85,16 +80,13 @@ export const useEditPost = () => {
       });
 
       setLoading(false);
-      return { success: true, error: "" };
+      return true;
     } catch (error) {
       if (error instanceof Error) setError(error);
     }
     //if error
     setLoading(false);
-    return {
-      success: false,
-      error: error instanceof Error ? error.message : "Unknown error",
-    };
+    return false;
   };
 
   return { loading, updatePost, error };

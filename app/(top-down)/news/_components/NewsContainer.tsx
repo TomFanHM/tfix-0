@@ -2,7 +2,6 @@
 
 import MotionContainer from "@/components/container/MotionContainer";
 import { firestore } from "@/firebase/firebaseApp";
-import { scrollToTop } from "@/functions/functions";
 import {
   Grid,
   Stack,
@@ -24,6 +23,7 @@ import Guide from "./Guide";
 import NewsCard from "./NewsCard";
 import { ArticleSchema, getNews } from "./getNews";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
+import { scrollToTop } from "@/functions/other";
 
 type NewsContainerProps = {
   title: string;

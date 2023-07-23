@@ -20,8 +20,8 @@ import {
   query,
   startAfter,
 } from "firebase/firestore";
-import { scrollToTop } from "@/functions/functions";
 import { useInfiniteData } from "@/hooks/useInfiniteData";
+import { scrollToTop } from "@/functions/other";
 
 const fetchMoreMovies = async (el: MovieData[]) => {
   const docRef = collection(firestore, "movies");

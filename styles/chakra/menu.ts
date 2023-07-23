@@ -1,6 +1,5 @@
 import { menuAnatomy } from "@chakra-ui/anatomy";
 import { createMultiStyleConfigHelpers } from "@chakra-ui/react";
-import { dark, light } from "./colors";
 
 const { definePartsStyle, defineMultiStyleConfig } =
   createMultiStyleConfigHelpers(menuAnatomy.keys);
@@ -12,26 +11,17 @@ const baseStyle = definePartsStyle({
     overflow: "hidden",
     p: "4",
     boxShadow: "dp08",
-    bg: light.surface,
-    color: light.onSurface,
-    _dark: { bg: dark.surface, color: dark.onSurface },
+    bg: "var(--surface)",
+    color: "var(--onSurface)",
   },
   item: {
     // this will style the MenuItem and MenuItemOption components
     borderRadius: "8",
-    bg: light.surface,
-    color: light.onSurface,
-    _dark: {
-      bg: dark.surface,
-      color: dark.onSurface,
-      _hover: {
-        bg: dark.primary,
-        color: dark.onPrimary,
-      },
-    },
+    bg: "var(--surface)",
+    color: "var(--onSurface)",
     _hover: {
-      bg: light.primary,
-      color: light.onPrimary,
+      bg: "var(--primary)",
+      color: "var(--onPrimary)",
     },
   },
 });

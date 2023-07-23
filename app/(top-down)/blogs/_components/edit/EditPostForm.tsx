@@ -27,7 +27,7 @@ import ArticleInput from "../create/ArticleInput";
 import IframeInput from "../create/IframeInput";
 import TagsInput from "../create/TagsInput";
 import { useEditPost } from "@/hooks/useEditPost";
-import { revalidatePathByNextApi } from "@/functions/functions";
+import { revalidatePathByNextApi } from "@/functions/other";
 
 type TabType = {
   label: string;
@@ -95,7 +95,7 @@ const EditPostForm: React.FC<EditPostFormProps> = ({ user, post }) => {
       iframeURL
     );
 
-    if (result.success) {
+    if (result) {
       //revalidate path
       const res = await revalidatePathByNextApi(`/blogs/${post.id}`);
       //if not success, show error message

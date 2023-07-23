@@ -18,13 +18,13 @@ import {
 import { siteConfig } from "@/config/site";
 import OptimizedImage from "@/components/image/OptimizedImage";
 import NextLink from "next/link";
-import { fromNow } from "@/functions/dateUtils";
 import { BsFillEyeFill } from "react-icons/bs";
 import { MdEdit } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import DeletePostButton from "./DeletePostButton";
 import VotePostButton from "./VotePostButton";
 import ShareButton from "./ShareButton";
+import { fromNow } from "@/functions/date";
 
 type BlogPostCardProps = {
   large: boolean;
