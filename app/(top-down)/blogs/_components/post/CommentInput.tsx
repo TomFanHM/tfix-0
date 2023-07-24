@@ -5,7 +5,6 @@ import useCreateComment from "@/hooks/useCreateComment";
 import { Avatar, Button, Flex, FormControl, Text } from "@chakra-ui/react";
 import { User } from "firebase/auth";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useSetRecoilState } from "recoil";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
@@ -25,18 +24,21 @@ const modules = {
 };
 
 type CommentInputProps = {
+  target: "posts" | "comments";
   user: User | null | undefined;
   receiverId: string;
 };
 
-const CommentInput: React.FC<CommentInputProps> = ({ user, receiverId }) => {
+const CommentInput: React.FC<CommentInputProps> = ({
+  target,
+  user,
+  receiverId,
+}) => {
   const [content, setContent] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const setAuthModalState = useSetRecoilState<AuthModalState>(authModalState);
 
-  const { loading, error, createComment } = useCreateComment();
-
-  const router = useRouter();
+  const { loading, error, createComment } = useCreateComment(target);
 
   const handleSubmit = async (e: React.FormEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -50,7 +52,9 @@ const CommentInput: React.FC<CommentInputProps> = ({ user, receiverId }) => {
       return;
     }
     const success = await createComment(user, receiverId, content);
-    if (success) router.refresh(); // reload page to see new comment
+    if (success) {
+      // do something
+    }
   };
 
   return (

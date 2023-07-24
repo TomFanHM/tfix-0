@@ -139,7 +139,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ post, comments }) => {
             )}
           </HStack>
         </Flex>
-        <CommentInput user={user} receiverId={post.id} />
+        <CommentInput user={user} receiverId={post.id} target="posts" />
         <CommentsContainer comments={comments} user={user} />
       </Flex>
     </MotionContainer>

@@ -107,10 +107,6 @@ const EditPostForm: React.FC<EditPostFormProps> = ({ user, post }) => {
           status: "loading",
           isClosable: true,
         });
-        router.push(`/blogs/${post.id}`);
-      } else {
-        //if success, redirect to post
-        router.push(`/blogs/${post.id}`);
       }
     }
   };

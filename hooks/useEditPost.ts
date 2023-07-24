@@ -45,6 +45,7 @@ export const useEditPost = () => {
     selectedTag: string,
     iframeURL: string | null
   ) => {
+    if (loading) return;
     setError(null);
     setLoading(true);
     try {
@@ -62,7 +63,7 @@ export const useEditPost = () => {
         introduction: introduction,
         content: content,
         iframeURL: iframe,
-        tags,
+        tags: tags,
         creatorDisplayName: user.displayName || "unknown",
         creatorPhotoURL: user.photoURL || "",
       };

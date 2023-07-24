@@ -1,8 +1,9 @@
 //custom hook for create new post
 
-import { firestore, storage } from "@/firebase/firebaseApp";
+import { firestore } from "@/firebase/firebaseApp";
 import { getYoutubeEmbedLink } from "@/functions/other";
 import { getTags, capitalizeFirstLetter } from "@/functions/string";
+import { uploadImage } from "@/functions/uploadImage";
 import { User } from "firebase/auth";
 import {
   doc,
@@ -12,7 +13,6 @@ import {
   Transaction,
   runTransaction,
 } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useState } from "react";
 import { z } from "zod";
 
@@ -60,6 +60,7 @@ const useCreatePost = () => {
     iframeURL: string | null | undefined,
     selectedTag: string
   ) => {
+    if (loading) return;
     setError(null);
     setLoading(true);
 
@@ -72,19 +73,11 @@ const useCreatePost = () => {
       const postDocRef = doc(collection(firestore, "posts"));
       const postId = postDocRef.id;
       //upload image
-      const imageRef = ref(
-        storage,
-        `posts/images/${postId}/${selectedFile.name}`
+      const downloadURL = await uploadImage(
+        `posts/images/${postId}/${selectedFile.name}`,
+        selectedFile
       );
-      const uploadSuccess = await uploadBytes(imageRef, selectedFile);
-      if (!uploadSuccess)
-        throw new Error(
-          "Sorry, the image upload was unsuccessful. Please try again later."
-        );
-      const downloadURL = await getDownloadURL(imageRef);
-      if (!downloadURL) {
-        throw new Error("Oops. Please try again later.");
-      }
+
       //prepare data
       const tags = selectedTag
         ? getTags(selectedTag).map((tag: string) => capitalizeFirstLetter(tag))
@@ -92,7 +85,7 @@ const useCreatePost = () => {
 
       const iframe = iframeURL ? getYoutubeEmbedLink(iframeURL) : null;
 
-      const postData: SubmitPostSchema = {
+      const postData = SubmitPostSchema.parse({
         creatorId: userId,
         createdAt: serverTimestamp() as Timestamp,
         headline: article.headline,
@@ -106,20 +99,18 @@ const useCreatePost = () => {
         comments: 0,
         creatorDisplayName: user.displayName || "",
         creatorPhotoURL: user.photoURL || "",
-      };
+      });
 
       await runTransaction(firestore, async (transaction: Transaction) => {
         //Firestore transactions require all reads to be executed before all writes
         const userDoc = await transaction.get(userDocRef);
-        transaction.set(postDocRef, postData); //create new post
-        let userPosts = [];
         if (userDoc.exists()) {
+          transaction.set(postDocRef, postData); //create new post
           const userDocData = userDoc.data();
-          userPosts = userDocData.posts || []; //if not posts, init a new empty array
+          const userPosts = z.array(z.string()).parse(userDocData.posts) || [];
+          userPosts.push(postId);
+          transaction.update(userDocRef, { posts: userPosts });
         }
-        userPosts.push(postId);
-        //update
-        transaction.update(userDocRef, { posts: userPosts });
       });
       //complete
       setLoading(false);
@@ -131,6 +122,7 @@ const useCreatePost = () => {
     setLoading(false);
     return { success: false, postId: "" };
   };
+
   return { loading, createPost, error };
 };
 

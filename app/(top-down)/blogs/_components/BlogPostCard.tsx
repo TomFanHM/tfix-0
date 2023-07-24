@@ -25,6 +25,7 @@ import DeletePostButton from "./DeletePostButton";
 import VotePostButton from "./VotePostButton";
 import ShareButton from "./ShareButton";
 import { fromNow } from "@/functions/date";
+import React from "react";
 
 type BlogPostCardProps = {
   large: boolean;
@@ -131,4 +132,4 @@ const BlogPostCard: React.FC<BlogPostCardProps> = ({
   );
 };
 
-export default BlogPostCard;
+export default React.memo(BlogPostCard);

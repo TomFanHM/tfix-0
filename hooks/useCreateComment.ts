@@ -34,7 +34,7 @@ const SubmitCommentSchema = z.object({
 
 type SubmitCommentSchema = z.infer<typeof SubmitCommentSchema>;
 
-const useCreateComment = () => {
+const useCreateComment = (target: "posts" | "comments") => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<Error | null>(null);
 
@@ -43,6 +43,7 @@ const useCreateComment = () => {
     receiverId: string,
     content: string
   ) => {
+    if (loading) return;
     setError(null);
     setLoading(true);
     try {
@@ -58,7 +59,7 @@ const useCreateComment = () => {
       };
 
       await runTransaction(firestore, async (transaction: Transaction) => {
-        const targetRef = doc(firestore, "posts", receiverId);
+        const targetRef = doc(firestore, target, receiverId);
         const commentRef = doc(collection(firestore, "comments")); //generate new comment id
         transaction.set(commentRef, commentData);
         transaction.update(targetRef, {

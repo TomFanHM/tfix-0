@@ -1,12 +1,24 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { CommentData } from "../getPosts";
-import { Avatar, Box, Flex, HStack, Text } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Text,
+} from "@chakra-ui/react";
 import { Prose } from "@nikolovlazar/chakra-ui-prose";
 import { User } from "firebase/auth";
 import { fromNow } from "@/functions/date";
 import { cleanHtml } from "@/functions/other";
+import VoteCommentButton from "./VoteCommentButton";
+import CommentInput from "../post/CommentInput";
+import { MdComment, MdReply } from "react-icons/md";
 
 type CommentCardProps = {
   user: User | null | undefined;
@@ -14,6 +26,8 @@ type CommentCardProps = {
 };
 
 const CommentCard: React.FC<CommentCardProps> = ({ user, comment }) => {
+  const [reply, setReply] = useState<boolean>(false);
+
   const editedAtDate = comment.editedAt
     ? new Date(comment.editedAt.seconds * 1000)
     : null;
@@ -45,9 +59,27 @@ const CommentCard: React.FC<CommentCardProps> = ({ user, comment }) => {
           </Prose>
         </Box>
         <HStack gap="4">
-          {/* <VoteCommentButton /> */}
-          {/* <ReplyButton /> */}
+          <VoteCommentButton
+            commentId={comment.id}
+            user={user}
+            likesData={comment.likes}
+          />
+          <Button
+            variant="custom_solid"
+            leftIcon={<Icon as={MdComment} boxSize={6} />}
+          >
+            {comment.comments}
+          </Button>
+          <IconButton
+            variant="custom_solid"
+            aria-label="leave comment"
+            icon={<Icon as={MdReply} boxSize={6} />}
+            onClick={() => setReply((prev) => !prev)}
+          />
         </HStack>
+        {reply && (
+          <CommentInput target="comments" user={user} receiverId={comment.id} />
+        )}
       </Flex>
     </Flex>
   );

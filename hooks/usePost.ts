@@ -1,8 +1,7 @@
-import { firestore, storage } from "@/firebase/firebaseApp";
+import { firestore } from "@/firebase/firebaseApp";
 import { getUser } from "@/functions/getUser";
 import { User } from "firebase/auth";
-import { doc, getDoc, writeBatch } from "firebase/firestore";
-import { ref, listAll, deleteObject } from "firebase/storage";
+import { doc, writeBatch } from "firebase/firestore";
 import { useState } from "react";
 import { z } from "zod";
 
@@ -11,6 +10,7 @@ export const usePost = () => {
   const [error, setError] = useState<Error | null>(null);
 
   const onVote = async (postId: string, user: User, liked: boolean) => {
+    if (loading) return;
     setError(null);
     setLoading(true);
     try {
@@ -48,6 +48,7 @@ export const usePost = () => {
   };
 
   const onDeletePost = async (postId: string, creatorId: string) => {
+    if (loading) return;
     setError(null);
     setLoading(true);
     try {
@@ -64,11 +65,11 @@ export const usePost = () => {
       batch.update(userDocRef, { posts: newUserPosts });
       await batch.commit();
 
-      const imageRef = ref(storage, `posts/images/${postId}`);
+      /* const imageRef = ref(storage, `posts/images/${postId}`);
       const listResult = await listAll(imageRef);
       listResult.items.forEach(async (itemRef) => {
         await deleteObject(itemRef);
-      });
+      }); */
 
       setLoading(false);
       return true;

@@ -100,7 +100,7 @@ const CreatePostForm: React.FC<CreatePostFormProps> = ({ user }) => {
       selectedTag
     );
 
-    if (result.success) {
+    if (result && result.success) {
       router.push(`/blogs/${result.postId}`);
     }
   };
