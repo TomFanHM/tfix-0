@@ -5,8 +5,7 @@ import { PostData } from "../getPosts";
 import { auth } from "@/firebase/firebaseApp";
 import { useAuthState } from "react-firebase-hooks/auth";
 import UnauthorizedUser from "@/components/auth/unauthorizedUser/unauthorizedUser";
-import { Grid, GridItem } from "@chakra-ui/react";
-import Guidelines from "../create/Guidelines";
+import { Center, Grid, GridItem, Spinner } from "@chakra-ui/react";
 import EditPostForm from "./EditPostForm";
 import MotionContainer from "@/components/container/MotionContainer";
 
@@ -18,7 +17,14 @@ const EditPostContainer: React.FC<EditPostContainerProps> = ({ post }) => {
   //check user is post creator
   const [user, loading, error] = useAuthState(auth);
 
-  if (loading) return <></>;
+  if (loading)
+    return (
+      <>
+        <Center minH="calc(100vh - 4rem)">
+          <Spinner color="var(--primary)" />
+        </Center>
+      </>
+    );
 
   if (!user) return <UnauthorizedUser />;
 
@@ -37,11 +43,8 @@ const EditPostContainer: React.FC<EditPostContainerProps> = ({ post }) => {
             py={{ base: "6", md: "8" }}
             my={{ base: "6", md: "8" }}
           >
-            <GridItem colSpan={{ base: 3, md: 2 }}>
+            <GridItem colSpan={3}>
               <EditPostForm user={user} post={post} />
-            </GridItem>
-            <GridItem colSpan={{ base: 3, md: 1 }}>
-              <Guidelines />
             </GridItem>
           </Grid>
         </>
